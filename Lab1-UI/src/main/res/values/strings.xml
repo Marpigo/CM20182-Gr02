@@ -3,6 +3,8 @@
     <string name="mi_titulo">RESTAURANTE</string>
     <string name="stxtBienvenido">BIENVENIDOS</string>
     <string name="sbtnServicios">SERVICIOS</string>
-    <string name="Nombre">Name</string>
+    <string name="stxtNombre">Nombre</string>
+    <string name="stxtHorario">Horario</string>
+    <string name="stxtTipo">Tipo</string>
 
 </resources>

@@ -31,8 +31,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@color/colorPrimaryDark"
-        android:onClick="onclick"
+        android:textColor="#ffff"
+        android:textSize="16sp"
+        android:textStyle="bold"
         android:text="@string/sbtnServicios" />
-
 
 </RelativeLayout>

@@ -4,4 +4,7 @@
     <string name="stxtBienvenido">WELCOME</string>
     <string name="sbtnServicios">SERVICES</string>
     <string name="mi_titulo">RESTAURANT</string>
+    <string name="stxtNombre">Name</string>
+    <string name="stxtHorario">Schedule</string>
+    <string name="stxtTipo">Type</string>
 </resources>
