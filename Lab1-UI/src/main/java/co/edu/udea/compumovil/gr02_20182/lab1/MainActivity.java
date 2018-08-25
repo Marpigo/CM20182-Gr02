@@ -27,5 +27,6 @@ public class MainActivity extends AppCompatActivity {
         Intent miIntent = new Intent(MainActivity.this,ServicioActivity.class);
         startActivity(miIntent);
         finish();
+
     }
 }
