@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LabsCM20182</string>
+    <string name="stxtBienvenido">WELCOME</string>
+    <string name="sbtnServicios">SERVICES</string>
+    <string name="mi_titulo">RESTAURANT</string>
+</resources>
