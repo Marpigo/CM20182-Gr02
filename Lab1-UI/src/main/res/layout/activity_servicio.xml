@@ -6,4 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ServicioActivity">
 
+    <Button
+        android:id="@+id/btnComida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="Comida" />
+
+    <Button
+        android:id="@+id/btnBebida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClick"
+        android:text="BEBIDA" />
 </RelativeLayout>
