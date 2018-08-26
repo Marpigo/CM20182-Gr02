@@ -7,4 +7,5 @@
     <string name="stxtNombre">Name</string>
     <string name="stxtHorario">Schedule</string>
     <string name="stxtTipo">Type</string>
+    <string name="smensaje">Select the drink</string>
 </resources>

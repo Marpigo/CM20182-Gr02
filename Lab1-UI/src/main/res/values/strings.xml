@@ -1,10 +1,17 @@
 <resources>
     <string name="app_name">LabsCM20182</string>
     <string name="mi_titulo">RESTAURANTE</string>
+    <string name="mi_titulo1">RESTAURANTE > SERVICIOS</string>
+    <string name="mi_titulo2">SERVICIO DE RESTAURANTE </string>
+    <string name="mi_titulo3">SERVICIO DE BAR</string>
     <string name="stxtBienvenido">BIENVENIDOS</string>
     <string name="sbtnServicios">SERVICIOS</string>
     <string name="stxtNombre">Nombre</string>
     <string name="stxtHorario">Horario</string>
     <string name="stxtTipo">Tipo</string>
+    <string name="smensajebebida">Seleccionar la bebida</string>
+    <string name="sPrecio">Precio</string>
+    <string name="sIngredientes">Ingredientes</string>
+    <string name="sRegistrar">Registrar</string>
 
 </resources>

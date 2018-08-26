@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 cargarActivityServicios();
             }
-        },4000);
+        },3000);
 
     }
 

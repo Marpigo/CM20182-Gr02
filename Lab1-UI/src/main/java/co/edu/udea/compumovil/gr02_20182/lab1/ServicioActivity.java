@@ -10,17 +10,18 @@ public class ServicioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTitle(R.string.mi_titulo1);
         setContentView(R.layout.activity_servicio);
     }
 
     public void onClick(View view) {
 
         switch (view.getId()){
-            case R.id.btnComida:
+            case R.id.imgComidaC:
                 cargarActivityComida();
                 break;
 
-            case R.id.btnBebida:
+            case R.id.imgBebidaC:
                 cargarActivityBebida();
                 break;
         }
