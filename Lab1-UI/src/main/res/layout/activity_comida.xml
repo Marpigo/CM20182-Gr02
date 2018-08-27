@@ -1,276 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ComidaActivity"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.3"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.4">
-
-            <ImageView
-                android:layout_width="92dp"
-                android:layout_height="91dp"
-                android:layout_gravity="center"
-                android:layout_margin="150dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.7">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="3dp"
-                    android:text="@string/stxtNombre"
-                    android:textColor="#000000"
-                    android:textSize="22dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.3">
-
-                <EditText
-                    android:id="@+id/inputName1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="textCapWords"
-                    />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.7">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="3dp"
-                    android:text="@string/stxtHorario"
-                    android:textColor="#000000"
-                    android:textSize="22dp"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.3"
-                android:orientation="horizontal">
-                
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.3">
-
-                    <CheckBox
-                        android:id="@+id/checkbox1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:checked="false"
-                        android:text="Mañana"
-                        />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.3">
-
-                    <CheckBox
-                        android:id="@+id/checkbox2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:checked="false"
-                        android:text="Tarde"
-                        />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.3">
-
-                    <CheckBox
-                        android:id="@+id/checkbox3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:checked="false"
-                        android:text="Noche"
-                        />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.7">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="3dp"
-                    android:text="@string/stxtTipo"
-                    android:textColor="#000000"
-                    android:textSize="22dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.3"
-                android:orientation="horizontal">
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <RadioButton
-                        android:id="@+id/type1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:checked="false"
-                        android:text="Entrada"
-                        />
-
-                    <RadioButton
-                        android:id="@+id/type2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:checked="false"
-                        android:text="Plato Fuerte"
-                        />
-
-                </RadioGroup>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5">
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5">
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5">
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5">
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.7">
-
-    </LinearLayout>
+    tools:context=".ComidaActivity">
 
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/imgBebida2"
+        android:layout_width="128dp"
+        android:layout_height="73dp"
+        android:layout_above="@+id/ediNombre2"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-86dp"
+        android:src="@drawable/plato2" />
+
+        <EditText
+            android:id="@+id/ediNombre2"
+            android:layout_width="353dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="86dp"
+            android:ems="10"
+            android:hint="@string/stxtNombre" />
+
+        <TextView
+            android:id="@+id/txtTipo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/ediNombre2"
+            android:layout_marginTop="182dp"
+            android:text="Tipo" />
+
+        <TextView
+            android:id="@+id/txtHorario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/cheMañana"
+            android:layout_alignStart="@+id/ediNombre2"
+            android:text="Horario" />
+
+        <TextView
+            android:id="@+id/txtTiempo"
+            android:layout_width="51dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/txtTimpoMensaje"
+            android:layout_marginEnd="38dp"
+            android:text="00:00" />
+
+        <TextView
+            android:id="@+id/txtTimpoMensaje"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/ediNombre2"
+            android:layout_marginTop="214dp"
+            android:text="Tiempo de prepación" />
+
+        <RadioButton
+            android:id="@+id/rdbEntrada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/cheMañana"
+            android:layout_below="@+id/cheMañana"
+            android:text="Entrada" />
+
+        <RadioButton
+            android:id="@+id/rdbPlato"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/cheTarde"
+            android:layout_below="@+id/cheMañana"
+            android:text="Plato fuerte" />
+
+        <CheckBox
+            android:id="@+id/cheMañana"
+            android:layout_width="93dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/cheNoche"
+            android:layout_marginStart="70dp"
+            android:text="Mañana" />
+
+        <CheckBox
+            android:id="@+id/cheNoche"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/ediNombre2"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="139dp"
+            android:text="Noche" />
+
+        <CheckBox
+            android:id="@+id/cheTarde"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/imgBebida2"
+            android:layout_alignTop="@+id/cheMañana"
+            android:text="Tarde" />
+
+        <EditText
+            android:id="@+id/ediPrecio2"
+            android:layout_width="143dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/btHora"
+            android:ems="10"
+            android:hint="@string/sPrecio"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/ediIngredientes2"
+            android:layout_width="371dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/ediPrecio2"
+            android:ems="10"
+            android:hint="@string/sIngredientes" />
+
+        <Button
+            android:id="@+id/btnRegistrar2"
+            android:layout_width="122dp"
+            android:layout_height="48dp"
+
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="116dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/sRegistrar"
+            android:textColor="#ffff" />
+
+        <Button
+            android:id="@+id/btHora"
+            android:layout_width="62dp"
+            android:layout_height="37dp"
+            android:layout_alignEnd="@+id/imgBebida2"
+            android:layout_below="@+id/txtTipo"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+
+
+</RelativeLayout>
