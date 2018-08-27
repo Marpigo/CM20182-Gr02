@@ -8,11 +8,11 @@
 
 
     <ImageView
-        android:id="@+id/imgBebida2"
+        android:id="@+id/imgComida"
         android:layout_width="128dp"
         android:layout_height="73dp"
         android:layout_above="@+id/ediNombre2"
-
+        android:onClick="onClick"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="-86dp"
         android:src="@drawable/plato2" />
@@ -27,6 +27,14 @@
             android:layout_marginTop="86dp"
             android:ems="10"
             android:hint="@string/stxtNombre" />
+
+    <TextView
+        android:id="@+id/txttiemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/cheNoche"
+        android:layout_alignTop="@+id/txtTimpoMensaje"
+        android:text="00:00" />
 
     <TextView
         android:id="@+id/txtTipo"
@@ -44,15 +52,6 @@
         android:layout_alignBottom="@+id/cheMañana"
         android:layout_alignStart="@+id/ediNombre2"
         android:text="@string/stxtHorario" />
-
-        <TextView
-            android:id="@+id/txtTiempo"
-            android:layout_width="51dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/txtTimpoMensaje"
-            android:layout_marginEnd="38dp"
-            android:text="00:00" />
 
     <TextView
         android:id="@+id/txtTimpoMensaje"
@@ -111,7 +110,7 @@
         android:id="@+id/cheTarde"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/imgBebida2"
+        android:layout_alignEnd="@+id/imgComida"
         android:layout_alignTop="@+id/cheMañana"
         android:text="@string/sTarde" />
 
@@ -129,7 +128,7 @@
         android:id="@+id/ediIngredientes2"
         android:layout_width="238dp"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/txtTiempo"
+        android:layout_alignEnd="@+id/txtTiempoc"
         android:layout_alignTop="@+id/ediPrecio2"
         android:layout_marginEnd="-35dp"
         android:ems="10"
@@ -139,7 +138,8 @@
         android:id="@+id/btHora"
         android:layout_width="62dp"
         android:layout_height="37dp"
-        android:layout_alignEnd="@+id/imgBebida2"
+        android:layout_alignEnd="@+id/imgComida"
+        android:onClick="onClick"
         android:layout_below="@+id/txtTipo"
         android:text="@string/stxtHorario" />
 
@@ -223,7 +223,7 @@
             android:layout_toEndOf="@+id/txtmprecio" />
 
         <TextView
-            android:id="@+id/txtTiempo"
+            android:id="@+id/txtTiempoc"
             android:layout_width="89dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtmtipo"
