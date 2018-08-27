@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LabsCM20182</string>
+    <string name="app_name">RestWEB</string>
     <string name="mi_titulo">RESTAURANTE</string>
     <string name="mi_titulo1">RESTAURANTE > SERVICIOS</string>
     <string name="mi_titulo2">SERVICIO DE RESTAURANTE </string>
@@ -13,6 +13,11 @@
     <string name="sPrecio">Precio</string>
     <string name="sIngredientes">Ingredientes</string>
     <string name="sRegistrar">Registrar</string>
-    <string name="smensaje">xxxxxxx</string>
-
+    <string name="sMañana">Mañana</string>
+    <string name="sTarde">Tarde</string>
+    <string name="sNoche">Noche</string>
+    <string name="sTipo">Tipo</string>
+    <string name="sTiempo">Tiempo de preparación</string>
+    <string name="sEntrada">Entrada</string>
+    <string name="sPlato">Plato Fuerte</string>
 </resources>
