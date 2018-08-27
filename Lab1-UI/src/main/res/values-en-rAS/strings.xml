@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">LabsCM20182</string>
+    <string name="app_name">RestWEB</string>
     <string name="stxtBienvenido">WELCOME</string>
     <string name="sbtnServicios">SERVICES</string>
     <string name="mi_titulo">RESTAURANT</string>
@@ -8,4 +8,18 @@
     <string name="stxtHorario">Schedule</string>
     <string name="stxtTipo">Type</string>
     <string name="smensaje">Select the drink</string>
+    <string name="mi_titulo1">RESTAURANT> SERVICES</string>
+    <string name="mi_titulo2">RESTAURANT SERVICE</string>
+    <string name="mi_titulo3">BAR SERVICE</string>
+    <string name="smensajebebida">Select the drink</string>
+    <string name="sPrecio">Price</string>
+    <string name="sIngredientes">Ingredients</string>
+    <string name="sRegistrar">record</string>
+    <string name="sMañana">Morning</string>
+    <string name="sTarde">Afternoon</string>
+    <string name="sNoche">Night</string>
+    <string name="sTipo">Type</string>
+    <string name="sTiempo">Preparation time</string>
+    <string name="sEntrada">Entree</string>
+    <string name="sPlato">Main Course</string>
 </resources>
