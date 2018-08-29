@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setTitle(R.string.mi_titulo);
+        this.setTitle(R.string.my_title1);
         setContentView(R.layout.activity_main);
 
         new Handler().postDelayed(new Runnable() {

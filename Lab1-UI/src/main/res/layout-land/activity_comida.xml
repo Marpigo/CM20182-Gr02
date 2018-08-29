@@ -24,7 +24,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:ems="10"
-        android:hint="@string/stxtNombre" />
+        android:hint="@string/txt_name" />
 
     <TextView
         android:id="@+id/txtTipo"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/cheMañana"
-        android:text="@string/sTipo" />
+        android:text="@string/txt_type" />
 
     <TextView
         android:id="@+id/txtHorario"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/ediNombre2"
-        android:text="@string/stxtHorario" />
+        android:text="@string/txt_schedule" />
 
     <TextView
         android:id="@+id/txtTiempoc"
@@ -58,7 +58,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="120dp"
-        android:text="@string/sTiempo" />
+        android:text="@string/txt_time" />
 
     <RadioGroup
         android:layout_width="126dp"
@@ -73,7 +73,7 @@
             android:layout_alignStart="@+id/cheMañana"
             android:layout_below="@+id/cheMañana"
             android:layout_weight="1"
-            android:text="@string/sEntrada" />
+            android:text="@string/txt_btn_entry" />
 
         <RadioButton
             android:id="@+id/rdbPlato"
@@ -82,7 +82,7 @@
             android:layout_alignStart="@+id/cheTarde"
             android:layout_below="@+id/cheMañana"
             android:layout_weight="1"
-            android:text="@string/sPlato" />
+            android:text="@string/txt_btn_mainCourse" />
     </RadioGroup>
 
     <CheckBox
@@ -92,7 +92,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/ediNombre2"
         android:layout_marginStart="55dp"
-        android:text="@string/sMañana" />
+        android:text="@string/txt_chb_morning" />
 
     <CheckBox
         android:id="@+id/cheNoche"
@@ -101,15 +101,15 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/ediNombre2"
         android:layout_marginStart="156dp"
-        android:text="@string/sNoche" />
+        android:text="@string/txt_chb_evening" />
 
     <CheckBox
         android:id="@+id/cheTarde"
-        android:layout_width="80dp"
+        android:layout_width="112dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ediNombre2"
         android:layout_toEndOf="@+id/cheNoche"
-        android:text="@string/sTarde" />
+        android:text="@string/txt_chb_afternoon" />
 
     <EditText
         android:id="@+id/ediPrecio2"
@@ -118,7 +118,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/txtTiempoc"
         android:ems="10"
-        android:hint="@string/sPrecio"
+        android:hint="@string/txt_price"
         android:inputType="textPersonName" />
 
     <EditText
@@ -128,7 +128,7 @@
         android:layout_alignEnd="@+id/cheTarde"
         android:layout_below="@+id/txtTiempoc"
         android:ems="10"
-        android:hint="@string/sIngredientes" />
+        android:hint="@string/txt_ingredients" />
 
     <Button
         android:id="@+id/btHora"
@@ -136,7 +136,7 @@
         android:layout_height="37dp"
         android:layout_alignBaseline="@+id/txtTiempoc"
         android:layout_toEndOf="@+id/txtTimpoMensaje"
-        android:text="@string/stxtHorario" />
+        android:text="@string/txt_schedule" />
 
     <Button
         android:id="@+id/btnRegistrar2"
@@ -146,7 +146,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/ediPrecio2"
         android:background="@color/colorPrimaryDark"
-        android:text="@string/sRegistrar"
+        android:text="@string/txt_btn_register"
         android:textColor="#ffff" />
 
     <RelativeLayout
@@ -162,7 +162,7 @@
             android:layout_height="18dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/btnRegistrar2"
-            android:text="@string/stxtNombre" />
+            android:text="@string/txt_name" />
 
         <TextView
             android:id="@+id/txtmhora"
@@ -170,7 +170,7 @@
             android:layout_height="19dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/txtmnombre"
-            android:text="@string/stxtHorario" />
+            android:text="@string/txt_schedule" />
 
         <TextView
             android:id="@+id/txtmtipo"
@@ -178,7 +178,7 @@
             android:layout_height="18dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/txtmhora"
-            android:text="@string/sTipo" />
+            android:text="@string/txt_type" />
 
         <TextView
             android:id="@+id/txtmtiempo"
@@ -186,7 +186,7 @@
             android:layout_height="18dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/txtmtipo"
-            android:text="@string/sTiempo" />
+            android:text="@string/txt_time" />
 
         <TextView
             android:id="@+id/txtmprecio"
@@ -194,7 +194,7 @@
             android:layout_height="19dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/txtmtiempo"
-            android:text="@string/sPrecio" />
+            android:text="@string/txt_price" />
 
         <TextView
             android:id="@+id/txtIngredientesc"
@@ -209,7 +209,7 @@
             android:layout_height="20dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/txtmprecio"
-            android:text="@string/sIngredientes" />
+            android:text="@string/txt_ingredients" />
 
         <TextView
             android:id="@+id/txtPrecioc"

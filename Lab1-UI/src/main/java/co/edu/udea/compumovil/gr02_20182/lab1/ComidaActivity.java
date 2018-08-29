@@ -36,7 +36,7 @@ public class ComidaActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setTitle(R.string.mi_titulo2);
+        this.setTitle(R.string.my_title3);
         setContentView(R.layout.activity_comida);
 
         bhora = (Button)findViewById(R.id.btHora);

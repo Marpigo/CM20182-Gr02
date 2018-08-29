@@ -21,7 +21,7 @@ public class BebidasActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setTitle(R.string.mi_titulo3);
+        this.setTitle(R.string.my_title4);
         setContentView(R.layout.activity_bebidas);
 
         imagen = (ImageView) findViewById(R.id.imgBebida);
