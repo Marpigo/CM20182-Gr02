@@ -21,7 +21,7 @@
         android:layout_width="346dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/txt_name" />
+        android:hint="@string/s_name" />
 
     <EditText
         android:id="@+id/ediPrecio"
@@ -30,7 +30,7 @@
         android:layout_marginLeft="350dp"
         android:layout_marginTop="-50dp"
         android:ems="10"
-        android:hint="@string/txt_price"
+        android:hint="@string/s_price"
         android:inputType="textPersonName" />
 
     <EditText
@@ -38,7 +38,7 @@
         android:layout_width="349dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/txt_ingredients" />
+        android:hint="@string/s_ingredients" />
 
     <Button
         android:id="@+id/btnRegistrar"
@@ -49,7 +49,7 @@
         android:layout_marginTop="-50dp"
         android:background="@color/colorPrimaryDark"
         android:onClick="onClick"
-        android:text="@string/txt_btn_register"
+        android:text="@string/s_register"
         android:textColor="#ffff" />
 
     <RelativeLayout
@@ -63,7 +63,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginEnd="-68dp"
             android:layout_toStartOf="@+id/txtprecio"
-            android:text="@string/txt_name" />
+            android:text="@string/s_name" />
 
         <TextView
             android:id="@+id/txtnombre"
@@ -88,7 +88,7 @@
             android:layout_alignStart="@+id/labenombre"
             android:layout_alignTop="@+id/txtprecio"
             android:paddingTop="0dp"
-            android:text="@string/txt_price" />
+            android:text="@string/s_price" />
 
         <TextView
             android:id="@+id/labeingredientes"
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/txtIngredientes"
             android:layout_alignStart="@+id/labenombre"
-            android:text="@string/txt_ingredients" />
+            android:text="@string/s_ingredients" />
 
         <TextView
             android:id="@+id/txtIngredientes"

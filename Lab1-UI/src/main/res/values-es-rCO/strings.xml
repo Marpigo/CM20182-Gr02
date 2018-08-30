@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="s_app_name">RestMobile</string>
+    <string name="s_my_title1">RESTAURANTE</string>
+    <string name="s_my_title2">RESTAURANTE - SERVICIOS</string>
+    <string name="s_my_title3">SERVICIO DE RESTAURANTE</string>
+    <string name="s_my_title4">SERVICIO DE BAR</string>
+    <string name="s_name">Nombre</string>
+    <string name="s_price">Precio</string>
+    <string name="s_ingredients">Ingredientes</string>
+    <string name="s_register">Registrar</string>
+    <string name="s_type">Tipo</string>
+    <string name="s_schedule">Horario</string>
+    <string name="s_time">Tiempo</string>
+    <string name="s_mainCourse">Plato Fuerte</string>
+    <string name="s_entry">Entrada</string>
+    <string name="s_morning">Mañana</string>
+    <string name="s_evening">Noche</string>
+    <string name="s_afternoon">Tarde</string>
+    <string name="s_welcome">Bienvenidos</string>
+</resources>

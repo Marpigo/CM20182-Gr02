@@ -10,7 +10,7 @@ public class ServicioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setTitle(R.string.my_title2);
+        this.setTitle(R.string.s_my_title2);
         setContentView(R.layout.activity_servicio);
     }
 

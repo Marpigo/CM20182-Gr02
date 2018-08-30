@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="app_name">RestMobile</string>
-    <string name="my_title1">RESTAURANT</string>
-    <string name="my_title2">RESTAURANT > SERVICES</string>
-    <string name="my_title3">RESTAURANT SERVICE</string>
-    <string name="my_title4">BAR SERVICE</string>
-    <string name="txt_name">Name</string>
-    <string name="txt_price">Price</string>
-    <string name="txt_ingredients">Ingredients</string>
-    <string name="txt_btn_register">Register</string>
-    <string name="txt_type">Type</string>
-    <string name="txt_schedule">Schedule</string>
-    <string name="txt_time">Time</string>
-    <string name="txt_btn_mainCourse">Main Course</string>
-    <string name="txt_btn_entry">Entry</string>
-    <string name="txt_chb_morning">Morning</string>
-    <string name="txt_chb_evening">Evening</string>
-    <string name="txt_chb_afternoon">Afternoon</string>
-    <string name="txt_welcome">Welcome</string>
+    <string name="s_app_name">RestMobile</string>
+    <string name="s_my_title1">RESTAURANT</string>
+    <string name="s_my_title2">RESTAURANT > SERVICES</string>
+    <string name="s_my_title3">RESTAURANT SERVICE</string>
+    <string name="s_my_title4">BAR SERVICE</string>
+    <string name="s_name">Name</string>
+    <string name="s_price">Price</string>
+    <string name="s_ingredients">Ingredients</string>
+    <string name="s_register">Register</string>
+    <string name="s_type">Type</string>
+    <string name="s_schedule">Schedule</string>
+    <string name="s_time">Time</string>
+    <string name="s_mainCourse">Main Course</string>
+    <string name="s_entry">Entry</string>
+    <string name="s_morning">Morning</string>
+    <string name="s_evening">Evening</string>
+    <string name="s_afternoon">Afternoon</string>
+    <string name="s_welcome">Welcome</string>
 </resources>
