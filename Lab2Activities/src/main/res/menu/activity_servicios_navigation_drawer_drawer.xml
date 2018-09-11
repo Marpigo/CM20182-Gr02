@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_plate"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/s_plates_list" />
+        <item
+            android:id="@+id/nav_drink"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/s_drink_list" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/s_profile" />
+        <item
+            android:id="@+id/nav_configuration"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/s_configuration" />
+    </group>
+
+    <item android:title="Options">
+        <menu>
+            <item
+                android:id="@+id/nav_Sing_off"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/s_sing_off" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/s_about" />
+        </menu>
+    </item>
+
+</menu>
