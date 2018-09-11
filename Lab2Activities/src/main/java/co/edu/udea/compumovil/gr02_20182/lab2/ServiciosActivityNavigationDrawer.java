@@ -1,5 +1,8 @@
 package co.edu.udea.compumovil.gr02_20182.lab2;
 
+import android.app.FragmentManager;
+import android.content.ClipData;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -55,7 +58,8 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+       openFragmentServices();
+
         getMenuInflater().inflate(R.menu.servicios_activity_navigation_drawer, menu);
         return true;
     }
@@ -75,6 +79,9 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+      /*  android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.escenario, new ServicesBlankFragment()).commit();
+*/
 
         if (id == R.id.nav_plate) {
             // Handle the camera action
@@ -94,4 +101,26 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.imgFood:
+             //   openFragmentServices();
+                break;
+
+            case R.id.imgDrink:
+              //  openFragmentServices();
+                break;
+        }
+    }
+
+
+
+    private void openFragmentServices() {
+        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.escenario, new ServicesBlankFragment()).commit();
+
+    }
+
+
 }

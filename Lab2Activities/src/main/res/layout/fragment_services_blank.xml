@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ServicesBlankFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:id="@+id/imgFood"
+                android:layout_width="181dp"
+                android:layout_height="153dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/food"
+                android:scaleType="centerCrop"
+                android:onClick="onClick"
+                tools:layout_editor_absoluteX="41dp"
+                tools:layout_editor_absoluteY="28dp" />
+
+            <ImageView
+                android:id="@+id/imgDrink"
+                android:layout_width="181dp"
+                android:layout_height="153dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/drink"
+                android:scaleType="centerCrop"
+                tools:layout_editor_absoluteX="41dp"
+                tools:layout_editor_absoluteY="28dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/txtfood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/s_plate"
+                android:textColor="?attr/actionModeSplitBackground"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtdrink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/s_drink"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+        </TableRow>
+    </TableLayout>
+
+</FrameLayout>

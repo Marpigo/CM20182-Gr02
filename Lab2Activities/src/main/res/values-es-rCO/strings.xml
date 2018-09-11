@@ -19,4 +19,7 @@
     <string name="s_institution">udea.edu.co</string>
     <string name="s_close_drawer">Salir</string>
     <string name="s_services">Servicio Restaurante y Bebida</string>
+    <string name="s_plate">Plato</string>
+    <string name="s_drink">Bebida</string>
+    <string name="s_close_navigation">Cerrar</string>
 </resources>
