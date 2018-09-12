@@ -30,4 +30,8 @@
     <string name="s_keep_session">Mantener sesión</string>
     <string name="s_edit_profile">Perfil editar</string>
     <string name="s_notification">Notificación</string>
+    <string name="s_email_user">Correo</string>
+    <string name="s_register_user">Registrar</string>
+    <string name="s_name_user">Nombre</string>
+    <string name="s_create_Account">Crear Cuenta</string>
 </resources>

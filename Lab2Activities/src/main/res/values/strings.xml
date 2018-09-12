@@ -31,6 +31,11 @@
     <string name="s_keep_session">Keep Session</string>
     <string name="s_notification">Notification</string>
 
+    <!-- Strings Activity Usuario-->
+    <string name="s_name_user">Name</string>
+    <string name="s_email_user">Email</string>
+    <string name="s_register_user">Register</string>
+    <string name="s_create_Account">Create Account</string>
 
     <!-- Strings Fragment Services-->
     <string name="s_plate">Plate</string>

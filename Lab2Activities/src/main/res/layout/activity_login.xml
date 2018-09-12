@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -65,9 +66,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary1"
-                android:onClick="onClick"
                 android:text="@string/s_entrar_loguin"
                 android:textColor="@android:color/background_light" />
+
         </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="0dp"
+            android:gravity="center">
+
+
+            <TextView
+                android:id="@+id/txtCreateUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:onClick="onCreateClick"
+                android:text="@string/s_create_Account"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textStyle="italic" />
+        </TableRow>
+
+
     </TableLayout>
+
+
+
 </LinearLayout>
