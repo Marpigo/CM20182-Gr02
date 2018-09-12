@@ -90,7 +90,7 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         } else if (id == R.id.nav_profile) {
 
         } else if (id == R.id.nav_configuration) {
-
+            openFragmentConfiguration();
         } else if (id == R.id.nav_Sing_off) {
 
         } else if (id == R.id.nav_about) {
@@ -118,7 +118,12 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
 
     private void openFragmentServices() {
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.escenario, new ServicesBlankFragment()).commit();
+        fm.beginTransaction().replace(R.id.fragmentContainers, new ServicesBlankFragment()).commit();
+    }
+
+    private void openFragmentConfiguration() {
+        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.fragmentContainers, new ConfigurationFragment()).commit();
 
     }
 

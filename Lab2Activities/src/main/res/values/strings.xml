@@ -21,6 +21,18 @@
     <string name="s_welcome">Welcome</string>
 
 
+
+    <!-- Strings Fragment Configuration-->
+    <string name="s_name_loguin">Name</string>
+    <string name="s_pass_loguin">Pass</string>
+    <string name="s_entrar_loguin">Enter</string>
+    <string name="s_edit_profile">Edit Profile</string>
+    <string name="s_authorization_notification">Authorization Notification</string>
+    <string name="s_sound_notification">Sound Notification</string>
+    <string name="s_keep_session">Keep Session</string>
+    <string name="s_notification">Notification</string>
+
+
     <!-- Strings Fragment Services-->
     <string name="s_plate">Plate</string>
     <string name="s_drink">Drink</string>

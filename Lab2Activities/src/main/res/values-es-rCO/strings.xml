@@ -18,8 +18,16 @@
     <string name="s_drink_plate">Comidas y Bebidas</string>
     <string name="s_institution">udea.edu.co</string>
     <string name="s_close_drawer">Salir</string>
-    <string name="s_services">Servicio Restaurante y Bebida</string>
+    <string name="s_services">Servicios</string>
     <string name="s_plate">Plato</string>
     <string name="s_drink">Bebida</string>
     <string name="s_close_navigation">Cerrar</string>
+    <string name="s_entrar_loguin">Enter</string>
+    <string name="s_pass_loguin">Contraseña</string>
+    <string name="s_name_loguin">Usuario</string>
+    <string name="s_authorization_notification">Activar notificación</string>
+    <string name="s_sound_notification">Activar sonido</string>
+    <string name="s_keep_session">Mantener sesión</string>
+    <string name="s_edit_profile">Perfil editar</string>
+    <string name="s_notification">Notificación</string>
 </resources>
