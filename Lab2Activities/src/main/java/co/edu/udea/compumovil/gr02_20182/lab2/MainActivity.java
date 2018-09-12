@@ -15,15 +15,15 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                openNavigationDrawer();
+                openLoguin();
             }
         }, 3000);
 
     }
 
 
-    private void openNavigationDrawer() {
-        Intent miIntent = new Intent(MainActivity.this, ServiciosActivityNavigationDrawer.class);
+    private void openLoguin() {
+        Intent miIntent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(miIntent);
         finish();
 

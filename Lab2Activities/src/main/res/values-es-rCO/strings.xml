@@ -22,7 +22,7 @@
     <string name="s_plate">Plato</string>
     <string name="s_drink">Bebida</string>
     <string name="s_close_navigation">Cerrar</string>
-    <string name="s_entrar_loguin">Enter</string>
+    <string name="s_entrar_loguin">Entrar</string>
     <string name="s_pass_loguin">Contraseña</string>
     <string name="s_name_loguin">Usuario</string>
     <string name="s_authorization_notification">Activar notificación</string>

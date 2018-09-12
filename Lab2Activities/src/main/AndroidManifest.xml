@@ -19,7 +19,8 @@
         <activity
             android:name=".ServiciosActivityNavigationDrawer"
             android:label="@string/title_activity_servicios_navigation_drawer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".LoginActivity"></activity>
     </application>
 
 </manifest>
