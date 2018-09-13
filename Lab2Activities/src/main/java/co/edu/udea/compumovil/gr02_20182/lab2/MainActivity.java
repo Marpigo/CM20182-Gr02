@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        //ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this, "bdrestaurant", null);
+       ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this, "bdrestaurant", null,1);
 
 
         new Handler().postDelayed(new Runnable() {

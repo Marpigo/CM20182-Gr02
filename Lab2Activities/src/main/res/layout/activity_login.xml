@@ -66,6 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary1"
+                android:onClick="onClick"
                 android:text="@string/s_entrar_loguin"
                 android:textColor="@android:color/background_light" />
 

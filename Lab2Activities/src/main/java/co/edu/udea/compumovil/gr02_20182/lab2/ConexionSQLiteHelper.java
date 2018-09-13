@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import co.edu.udea.compumovil.gr02_20182.lab2.Constantes.Constantes;
+
 /*
 * Creamos una clase ConexionSQLiteHelper por que
 * extiende SQLiteOpenhelper : que nos va permitir hace la conexion con la api sqlite
@@ -11,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 * */
 public class ConexionSQLiteHelper extends SQLiteOpenHelper{
 
-    final String CREATE_USER_TABLE="CREATE TABLE usuarios (photo BLOG, name TEXT, email TEXT, password TEXT)";
+
 
     /*Este contructor recibe
      name: nombre de la base de datos
@@ -28,7 +30,7 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper{
     * */
     @Override
     public void onCreate(SQLiteDatabase bdrestaurant) {
-        bdrestaurant.execSQL(CREATE_USER_TABLE);
+        bdrestaurant.execSQL(Constantes.CREATE_USER_TABLE);
 
     }
 
