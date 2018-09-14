@@ -84,8 +84,8 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         fm.beginTransaction().replace(R.id.escenario, new ServicesBlankFragment()).commit();
         */
 
-        if (id == R.id.nav_plate) {
-            // Handle the camera action
+        if (id == R.id.nav_food) {
+            openFragmenListFood();
         } else if (id == R.id.nav_drink) {
             openFragmenListDrink();
         } else if (id == R.id.nav_profile) {
@@ -137,6 +137,11 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
     private void openFragmenListDrink() {
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.fragmentContainers, new ListDrinkFragment()).commit();
+    }
+
+    private void openFragmenListFood() {
+        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.fragmentContainers, new ListFoodFragment()).commit();
     }
 
 

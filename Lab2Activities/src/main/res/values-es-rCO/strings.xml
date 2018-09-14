@@ -36,4 +36,8 @@
     <string name="s_create_Account">Crear Cuenta</string>
     <string name="s_price_list_drink">Precio</string>
     <string name="s_name_list_drink">Nombre</string>
+    <string name="s_name_list_food">Nombre</string>
+    <string name="s_type_list_food">Tipo</string>
+    <string name="s_price_list_food">Precio</string>
+    <string name="s_time_list_food">Tiempo de preparación</string>
 </resources>
