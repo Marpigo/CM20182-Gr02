@@ -21,6 +21,10 @@
     <string name="s_welcome">Welcome</string>
 
 
+    <!-- Strings Fragment List Drink-->
+    <string name="s_price_list_drink">Price</string>
+    <string name="s_name_list_drink">Name</string>
+
     <!-- Strings Fragment Configuration-->
     <string name="s_name_loguin">Name</string>
     <string name="s_pass_loguin">Pass</string>

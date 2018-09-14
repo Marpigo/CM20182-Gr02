@@ -80,17 +80,16 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-      /*  android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+        /*android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.escenario, new ServicesBlankFragment()).commit();
-*/
+        */
 
         if (id == R.id.nav_plate) {
             // Handle the camera action
         } else if (id == R.id.nav_drink) {
-
+            openFragmenListDrink();
         } else if (id == R.id.nav_profile) {
             openFragmentPerfil();
-
         } else if (id == R.id.nav_configuration) {
             openFragmentConfiguration();
         } else if (id == R.id.nav_Sing_off) {
@@ -132,6 +131,12 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
     private void openFragmentPerfil() {
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.fragmentContainers, new PerfilFragment()).commit();
+    }
+
+
+    private void openFragmenListDrink() {
+        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.fragmentContainers, new ListDrinkFragment()).commit();
     }
 
 
