@@ -20,9 +20,9 @@
                 android:layout_width="181dp"
                 android:layout_height="153dp"
                 android:layout_margin="5dp"
-                android:background="@drawable/food"
-                android:scaleType="centerCrop"
+                android:background="@drawable/food2"
                 android:onClick="onClick"
+                android:scaleType="centerCrop"
                 tools:layout_editor_absoluteX="41dp"
                 tools:layout_editor_absoluteY="28dp" />
 

@@ -40,4 +40,19 @@
     <string name="s_type_list_food">Tipo</string>
     <string name="s_price_list_food">Precio</string>
     <string name="s_time_list_food">Tiempo de preparación</string>
+    <string name="s_name_food_frame">Nombre</string>
+    <string name="s_morning_food_frame">Mañana</string>
+    <string name="s_afternoon_food_frame">Tarde</string>
+    <string name="s_evening_food_frame">Noche</string>
+    <string name="s_schedule_food_frame">Horario</string>
+    <string name="s_type_food_frame">Tipo</string>
+    <string name="s_time_preparation_food_frame">Tiempo de preparación</string>
+    <string name="s_time_selecction_food_frame">Seleccionar</string>
+    <string name="s_price_food_frame">Precio</string>
+    <string name="s_ingredents">Ingredientes</string>
+    <string name="s_information_food_frame">Información</string>
+    <string name="s_main_course_food_frame">Plato principal</string>
+    <string name="s_entry_food_frame">Entrada</string>
+    <string name="s_register_food_frame">Registrar</string>
+    <string name="s_time_p">Tiempo de P.</string>
 </resources>

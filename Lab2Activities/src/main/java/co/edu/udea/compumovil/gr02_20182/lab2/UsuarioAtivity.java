@@ -39,7 +39,6 @@ public class UsuarioAtivity extends AppCompatActivity {
 
     ImageView campoPhoto;
     EditText campoName, campoEmail, campoPassword;
-   // ConexionSQLiteHelper conn;
 
 
     public static SQLiteHelper sqLiteHelper;

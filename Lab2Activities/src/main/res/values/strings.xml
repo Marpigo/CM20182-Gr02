@@ -27,7 +27,7 @@
 
 
     <!-- Strings Fragment List Food-->
-     <string name="s_name_list_food">Name</string>
+    <string name="s_name_list_food">Name</string>
     <string name="s_type_list_food">Type</string>
     <string name="s_price_list_food">Price</string>
     <string name="s_time_list_food">Time preparations</string>
@@ -56,6 +56,23 @@
 
     <!-- Strings Servicios_Activity_Navigation_Drawer -->
     <string name="s_close_navigation">Close</string>
+
+    <!-- Strings Fragment Comida -->
+    <string name="s_name_food_frame">Name</string>
+    <string name="s_schedule_food_frame">Schedule</string>
+    <string name="s_morning_food_frame">Morning</string>
+    <string name="s_afternoon_food_frame">Afternoon</string>
+    <string name="s_evening_food_frame">Evening</string>
+    <string name="s_type_food_frame">Type</string>
+    <string name="s_main_course_food_frame">Main course</string>
+    <string name="s_entry_food_frame">Entry</string>
+    <string name="s_time_preparation_food_frame">Time preparation</string>
+    <string name="s_time_p">Time p.</string>
+    <string name="s_time_selecction_food_frame">Time selecction</string>
+    <string name="s_price_food_frame">Price</string>
+    <string name="s_ingredents">Ingredents</string>
+    <string name="s_register_food_frame">Register</string>
+    <string name="s_information_food_frame">Information</string>
 
 
     <!-- Strings Servicios_Activity_Navigation_Drawer_drawer -->

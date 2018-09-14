@@ -106,7 +106,7 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.imgFood:
-             //   openFragmentServices();
+                openFragmenFood();
                 break;
 
             case R.id.imgDrink:
@@ -115,6 +115,12 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         }
     }
 
+
+
+    private void openFragmenFood() {
+        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.fragmentContainers, new FoodFragment()).commit();
+    }
 
 
     private void openFragmentServices() {
