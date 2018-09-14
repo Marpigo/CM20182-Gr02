@@ -14,6 +14,7 @@ public class Constantes {
     public static final String CAMPO_PASSWORD = "password";
 
 
-    public static final String CREATE_USER_TABLE="CREATE TABLE "+  TABLA_USUARIO + " ("+ CAMPO_PHOTO+" BLOG, "+CAMPO_NAME+" TEXT, "+CAMPO_EMAIL+" TEXT, "+CAMPO_PASSWORD+" TEXT)";
+    public static final String CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS "+  TABLA_USUARIO + " ("+CAMPO_NAME+" TEXT, "+CAMPO_EMAIL+" TEXT, "+CAMPO_PASSWORD+" TEXT, "+CAMPO_PHOTO+" BLOB)";
+
 
 }

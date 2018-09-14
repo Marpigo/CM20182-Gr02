@@ -7,7 +7,7 @@ public class Usuario {
     private String eamil;
     private  String password;
 
-    public Usuario(byte[] photo, String name, String eamil, String password) {
+    public Usuario(String name, String eamil, String password, byte[] photo) {
         this.photo = photo;
         this.name = name;
         this.eamil = eamil;
