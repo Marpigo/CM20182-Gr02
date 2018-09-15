@@ -3,31 +3,26 @@ package co.edu.udea.compumovil.gr02_20182.lab2.entidades;
 public class Bebida {
 
     private int id;
-    private byte photo;
     private String name;
-    private String Schedule;
-    private String type;
-    private String time;
-    private String price;
+    private double price;
     private String Ingredients;
+    private byte photo;
 
-    public Bebida(int id, byte photo, String name, String schedule, String type, String time, String price, String ingredients) {
+
+    public Bebida(int id, String name, double price, String ingredients, byte photo) {
         this.id = id;
-        this.photo = photo;
         this.name = name;
-        Schedule = schedule;
-        this.type = type;
-        this.time = time;
         this.price = price;
         Ingredients = ingredients;
-    }
-
-    public byte getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(byte photo) {
         this.photo = photo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -38,35 +33,11 @@ public class Bebida {
         this.name = name;
     }
 
-    public String getSchedule() {
-        return Schedule;
-    }
-
-    public void setSchedule(String schedule) {
-        Schedule = schedule;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -78,11 +49,11 @@ public class Bebida {
         Ingredients = ingredients;
     }
 
-    public int getId() {
-        return id;
+    public byte getPhoto() {
+        return photo;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPhoto(byte photo) {
+        this.photo = photo;
     }
 }

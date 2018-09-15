@@ -55,4 +55,6 @@
     <string name="s_entry_food_frame">Entrada</string>
     <string name="s_register_food_frame">Registrar</string>
     <string name="s_time_p">Tiempo de P.</string>
+    <string name="s_title_about">Titulo</string>
+    <string name="s_information_about">Informacion</string>
 </resources>

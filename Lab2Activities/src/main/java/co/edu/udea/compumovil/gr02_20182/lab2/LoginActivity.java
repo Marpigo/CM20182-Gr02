@@ -19,6 +19,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     EditText campoName_profil;/*Usaurio a buscar, perfil*/
+    EditText campoPassword;
     Button butenter_services;
 
 
@@ -32,14 +33,20 @@ public class LoginActivity extends AppCompatActivity {
 
         //campo a buscar
         campoName_profil = (EditText) findViewById(R.id.ediName_loguin);
+        campoPassword = (EditText) findViewById(R.id.ediPass_loguin);
 
     }
 
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.butLoguin:
+                if(validateString(campoName_profil.getText().toString()) && validateString(campoPassword.getText().toString())  )
+            {
                 PerfilFragment.user_login= campoName_profil.getText().toString();
                 openNavigationDrawer();
+            }else{
+                    Toast.makeText(getApplicationContext(), "Login ó Password ", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -53,10 +60,18 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    private void openCreateUser() {
+    public void openCreateUser() {
         Intent miIntent = new Intent(LoginActivity.this, UsuarioAtivity.class);
         startActivity(miIntent);
-        finish();
+    }
+
+
+    /*
+     * Validar campos: Vacios o nulo
+     * */
+    Boolean validateString (String text){
+        return text!=null && text.trim().length()>0; //Valido si el texto es diferente null y texto quitado los espacios es > 0 sera valido
+
     }
 
 

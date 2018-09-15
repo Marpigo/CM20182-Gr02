@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="co.edu.udea.compumovil.gr02_20182.lab2">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +23,14 @@
             android:label="@string/title_activity_servicios_navigation_drawer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".UsuarioAtivity"></activity>
+        <activity
+            android:name=".UsuarioAtivity"
+            android:parentActivityName=".ServiciosActivityNavigationDrawer" />
+        <activity
+            android:name=".FoodActivity"
+            android:parentActivityName=".LoginActivity" />
+        <activity android:name=".DrinkActivity"
+            android:parentActivityName=".ServiciosActivityNavigationDrawer" />
     </application>
 
 </manifest>

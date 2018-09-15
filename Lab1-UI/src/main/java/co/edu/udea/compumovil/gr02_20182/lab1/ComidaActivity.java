@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.app.TimePickerDialog;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,11 +22,6 @@ public class ComidaActivity extends AppCompatActivity implements View.OnClickLis
 
     ImageView imagen;
 
-    /*captura*/
-    EditText camponombre, campohorario, campotipo, campohora, campoprecio, campoingredientes;
-    /*reporte*/
-    TextView txttnombre, txtthorario, txtttipo, txttiempo, txttprecio, txttingredientes;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,25 +33,6 @@ public class ComidaActivity extends AppCompatActivity implements View.OnClickLis
         ttiemo = (TextView)findViewById(R.id.txttiemp);
         bhora.setOnClickListener(this);
 
-
-        //Referencias los campos con id de elemento y se hace casting
-
-        /*
-        camponombre = (EditText) findViewById(R.id.ediNombre2);
-        campohorario = (EditText) findViewById(R.id.ediPrecio2);
-        campotipo =  (RadioButton) findViewById(R.id.rdbPlato);
-        campohora = (EditText) findViewById(R.id.ediIngredientes);
-        campoprecio = (EditText) findViewById(R.id.ediPrecio2);
-        campoingredientes = (EditText) findViewById(R.id.ediIngredientes2);
-
-
-        txttnombre = (TextView) findViewById(R.id.txtNombrec);
-        txtthorario = (TextView) findViewById(R.id.txtHorac);
-        txtttipo = (TextView) findViewById(R.id.txtTipoc);
-        txttiempo = (TextView) findViewById(R.id.txtTiempoc);
-        txttprecio = (TextView) findViewById(R.id.txtPrecioc);
-        txttingredientes = (TextView) findViewById(R.id.txtIngredientesc);
-        */
 
     }
 
@@ -107,53 +82,6 @@ public class ComidaActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-
-    /*
-
-    private void guardarComida() {
-
-        //*Creamos un objeto preferencias que es un archivo de preferencias llamado credenciales, de modo privado
-
-        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-
-        //Obtener los que tenemos en el el sistema y se almacena en los String
-
-
-
-        String nombre = camponombre.getText().toString();
-        int precio = Integer.parseInt(campoprecio.getText().toString());
-        String ingredientes = campoingredientes.getText().toString();
-        String horario = campohorario.getText().toString();
-        String tipo = campotipo.getText().toString();
-        String hora = campohora.getText().toString();
-
-        // Le asignar al archivo credenciales los datos capturados
-
-        SharedPreferences.Editor editor =   preferences.edit();
-        editor.putString("name", nombre); //Primer parametro es el nombre del campo en el html
-        editor.putString("time", horario);
-        editor.putString("tip", tipo);
-        editor.putString("hour", hora);
-        editor.putInt("price", precio);
-        editor.putString("ingredients", ingredientes);
-
-
-
-
-        txttnombre.setText(nombre);
-        txttprecio.setText(precio+"");
-        txttingredientes.setText(ingredientes);
-        txtthora.setText(hora);
-
-        if(){
-
-        }
-
-
-
-        editor.commit();
-    }
-    */
 
 
 }

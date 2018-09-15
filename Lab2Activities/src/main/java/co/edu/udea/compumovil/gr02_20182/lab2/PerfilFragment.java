@@ -40,8 +40,7 @@ public class PerfilFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
-
-        init(view);
+       init(view);
         consultUser();
         return  view;
 

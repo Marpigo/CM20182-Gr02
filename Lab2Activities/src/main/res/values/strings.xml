@@ -26,6 +26,10 @@
     <string name="s_name_list_drink">Name</string>
 
 
+    <!-- Strings Fragment Acerca de-->
+    <string name="s_title_about">Title</string>
+    <string name="s_information_about">Information</string>
+
     <!-- Strings Fragment List Food-->
     <string name="s_name_list_food">Name</string>
     <string name="s_type_list_food">Type</string>

@@ -35,7 +35,6 @@ import co.edu.udea.compumovil.gr02_20182.lab2.Constantes.Constantes;
 
 public class UsuarioAtivity extends AppCompatActivity {
 
-    final int REQUEST_CODE_GALLERY = 999;
 
     ImageView campoPhoto;
     EditText campoName, campoEmail, campoPassword;
@@ -52,8 +51,17 @@ public class UsuarioAtivity extends AppCompatActivity {
         sqLiteHelper = new SQLiteHelper(this, "bdrestaurant.sqlite", null, 1);
         sqLiteHelper.queryData(Constantes.CREATE_USER_TABLE);
 
+        setupActionBar();
     }
 
+    private void setupActionBar() {
+        android.support.v7.app.ActionBar actionBar= getSupportActionBar();
+        if(actionBar != null)
+        {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            // actionBar.setTitle("");
+        }
+    }
 
 
     public  void init()

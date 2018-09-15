@@ -1,5 +1,7 @@
 package co.edu.udea.compumovil.gr02_20182.lab2;
 
+import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.TimePicker;
+
+import java.util.Calendar;
 
 public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -70,9 +76,11 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         int id = item.getItemId();
    if (id == R.id.action_close_navigation) {
             finish();
-        }
+        }else if (id == R.id.action_return) {
+       openFragmentServices();
+    }
 
-        return super.onOptionsItemSelected(item);
+         return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -95,7 +103,7 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         } else if (id == R.id.nav_Sing_off) {
 
         } else if (id == R.id.nav_about) {
-
+            openFragmenActividadAcercaDe();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -106,22 +114,28 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.imgFood:
-                openFragmenFood();
+                openActividadFood();
                 break;
 
             case R.id.imgDrink:
-              //  openFragmentServices();
+                openActividadDdrink();
+                break;
+            case R.id.imgProfileEdition:
+                openUsuarioActividad();
                 break;
         }
     }
 
 
-
-    private void openFragmenFood() {
-        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.fragmentContainers, new FoodFragment()).commit();
+    private void openActividadFood() {
+        Intent miIntent = new Intent(ServiciosActivityNavigationDrawer.this, FoodActivity.class);
+        startActivity(miIntent);
     }
 
+    private void openActividadDdrink() {
+        Intent miIntent = new Intent(ServiciosActivityNavigationDrawer.this, DrinkActivity.class);
+        startActivity(miIntent);
+    }
 
     private void openFragmentServices() {
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
@@ -149,6 +163,19 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.fragmentContainers, new ListFoodFragment()).commit();
     }
+
+
+    private void openFragmenActividadAcercaDe() {
+        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.fragmentContainers, new AcercaDeFragment()).commit();
+     }
+
+
+    private void openUsuarioActividad() {
+        Intent miIntent = new Intent(ServiciosActivityNavigationDrawer.this, UsuarioAtivity.class);
+        startActivity(miIntent);
+    }
+
 
 
 

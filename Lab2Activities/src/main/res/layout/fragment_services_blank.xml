@@ -9,11 +9,13 @@
     <!-- TODO: Update blank fragment layout -->
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="top|center">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:gravity="center">
 
             <ImageView
                 android:id="@+id/imgFood"
@@ -24,22 +26,15 @@
                 android:onClick="onClick"
                 android:scaleType="centerCrop"
                 tools:layout_editor_absoluteX="41dp"
-                tools:layout_editor_absoluteY="28dp" />
+                tools:layout_editor_absoluteY="28dp"
+                tools:ignore="OnClick" />
 
-            <ImageView
-                android:id="@+id/imgDrink"
-                android:layout_width="181dp"
-                android:layout_height="153dp"
-                android:layout_margin="5dp"
-                android:background="@drawable/drink"
-                android:scaleType="centerCrop"
-                tools:layout_editor_absoluteX="41dp"
-                tools:layout_editor_absoluteY="28dp" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/txtfood"
@@ -49,6 +44,31 @@
                 android:text="@string/s_plate"
                 android:textColor="?attr/actionModeSplitBackground"
                 android:textSize="18sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imgDrink"
+                android:layout_width="181dp"
+                android:layout_height="153dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/drink"
+                android:scaleType="centerCrop"
+                android:onClick="onClick"
+                tools:layout_editor_absoluteX="41dp"
+                tools:layout_editor_absoluteY="28dp"
+                tools:ignore="OnClick" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/txtdrink"
@@ -60,17 +80,8 @@
                 android:textSize="18sp" />
         </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-        </TableRow>
     </TableLayout>
+
+
 
 </FrameLayout>

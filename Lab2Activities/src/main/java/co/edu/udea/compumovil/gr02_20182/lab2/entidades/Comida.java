@@ -3,19 +3,24 @@ package co.edu.udea.compumovil.gr02_20182.lab2.entidades;
 public class Comida {
 
     private int id;
-    private byte photo;
     private String name;
+    private String schedule;
+    private String type;
+    private String time;
     private double price;
     private String ingredients;
+    private byte [] photo;
 
-    public Comida(int id, byte photo, String name, double price, String ingredients) {
+    public Comida(int id, String name, String schedule, String type, String time, double price, String ingredients, byte[] photo) {
         this.id = id;
-        this.photo = photo;
         this.name = name;
+        this.schedule = schedule;
+        this.type = type;
+        this.time = time;
         this.price = price;
         this.ingredients = ingredients;
+        this.photo = photo;
     }
-
 
     public int getId() {
         return id;
@@ -25,20 +30,36 @@ public class Comida {
         this.id = id;
     }
 
-    public byte getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(byte photo) {
-        this.photo = photo;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public double getPrice() {
@@ -55,5 +76,13 @@ public class Comida {
 
     public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 }
