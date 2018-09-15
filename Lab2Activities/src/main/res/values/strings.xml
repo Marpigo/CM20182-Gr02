@@ -55,6 +55,7 @@
 
     <!-- Strings Fragment Services-->
     <string name="s_plate">Plate</string>
+    <string name="s_food">Food</string>
     <string name="s_drink">Drink</string>
 
 

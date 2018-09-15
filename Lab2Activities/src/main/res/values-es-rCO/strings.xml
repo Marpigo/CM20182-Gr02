@@ -57,4 +57,5 @@
     <string name="s_time_p">Tiempo de P.</string>
     <string name="s_title_about">Titulo</string>
     <string name="s_information_about">Informacion</string>
+    <string name="s_food">Plato</string>
 </resources>

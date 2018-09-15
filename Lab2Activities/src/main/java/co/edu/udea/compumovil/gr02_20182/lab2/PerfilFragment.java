@@ -3,15 +3,20 @@ package co.edu.udea.compumovil.gr02_20182.lab2;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Camera;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.ByteArrayInputStream;
 
 import co.edu.udea.compumovil.gr02_20182.lab2.Constantes.Constantes;
 
@@ -38,12 +43,13 @@ public class PerfilFragment extends Fragment {
         *  3. Retorno la vista
         * */
 
+        MainActivity.conn=new SQLite_OpenHelper(getActivity(),"bdrestaurant",null,1);
+
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
        init(view);
         consultUser();
         return  view;
-
 
     }
 
@@ -55,19 +61,68 @@ public class PerfilFragment extends Fragment {
     }
 
 
-    public void consultUser()
+
+    private void consultUser() {
+
+        SQLiteDatabase db= MainActivity.conn.getReadableDatabase();
+        String[] parametros={user_login };
+        String[] campos={Constantes.CAMPO_NAME,Constantes.CAMPO_EMAIL};
+        Bitmap bitmap = null;
+
+        try {
+            Cursor cursor =db.query(Constantes.TABLA_USUARIO,campos,Constantes.CAMPO_NAME+"=?", parametros,null,null,null);
+            cursor.moveToFirst();
+            name_profil.setText(cursor.getString(0));
+            email_profil.setText(cursor.getString(1));
+
+
+            byte[] blob = cursor.getBlob(2);
+            ByteArrayInputStream bais = new ByteArrayInputStream(blob);
+            bitmap = BitmapFactory.decodeStream(bais);
+            photo_profil.setImageBitmap(bitmap);
+
+            cursor.close();
+        }catch (Exception e){
+          //  Toast.makeText(getActivity(), "Consulta fallida: " + e, Toast.LENGTH_LONG).show();
+         }
+
+    }
+
+
+    private void consultarSql() {
+        SQLiteDatabase db= MainActivity.conn.getReadableDatabase();
+        String[] parametros={"'", user_login, "'"};
+
+        try {
+            //select nombre,telefono from usuario where codigo=?
+            Cursor cursor=db.rawQuery("SELECT "+Constantes.CAMPO_NAME+","+ Constantes.CAMPO_EMAIL+
+                    " FROM "+Constantes.TABLA_USUARIO+" WHERE "+Constantes.CAMPO_NAME+"=?", parametros);
+
+            cursor.moveToFirst();
+            name_profil.setText(cursor.getString(0));
+            email_profil.setText(cursor.getString(1));
+            cursor.close();
+        }catch (Exception e){
+            Toast.makeText(getActivity(), "Consulta fallida: " + e, Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+
+
+    public void consultUserX()
     {
         try {
-
+/*
             Cursor registros = MainActivity.sqLiteHelper.getData("SELECT * FROM usuario WHERE name='" +user_login+ "'");
             registros.moveToFirst();
             name_profil.setText("Name: " + registros.getString(0));
             email_profil.setText("Email: " + registros.getString(1));
             byte[] image = registros.getBlob(3);
-           // photo_profil.setImageResource(image);
+          / photo_profil.setImageResource(image);
 
             registros.close();
-
+*/
 
         }catch (Exception e){
             Toast.makeText(getActivity(), "Consulta fallida: " + e, Toast.LENGTH_LONG).show();
@@ -75,6 +130,12 @@ public class PerfilFragment extends Fragment {
         }
     }
 
+    public  void consultaok()
+    {
+
+
+
+    }
 
 
 }

@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static SQLiteHelper sqLiteHelper;
+    public static SQLite_OpenHelper conn;
 
 
     @Override
@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sqLiteHelper = new SQLiteHelper(getApplicationContext(), "bdrestaurant.sqlite", null, 1);
+       // sqLiteHelper = new SQLiteHelper(getApplicationContext(), "bdrestaurant.sqlite", null, 1);
 
         new Handler().postDelayed(new Runnable() {
             @Override

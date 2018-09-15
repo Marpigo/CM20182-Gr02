@@ -29,6 +29,18 @@
                 tools:layout_editor_absoluteY="28dp"
                 tools:ignore="OnClick" />
 
+            <ImageView
+                android:id="@+id/imgDrink"
+                android:layout_width="181dp"
+                android:layout_height="153dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/drink"
+                android:onClick="onClick"
+                android:scaleType="centerCrop"
+                tools:ignore="OnClick"
+                tools:layout_editor_absoluteX="41dp"
+                tools:layout_editor_absoluteY="28dp" />
+
         </TableRow>
 
         <TableRow
@@ -45,31 +57,6 @@
                 android:textColor="?attr/actionModeSplitBackground"
                 android:textSize="18sp" />
 
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/imgDrink"
-                android:layout_width="181dp"
-                android:layout_height="153dp"
-                android:layout_margin="5dp"
-                android:background="@drawable/drink"
-                android:scaleType="centerCrop"
-                android:onClick="onClick"
-                tools:layout_editor_absoluteX="41dp"
-                tools:layout_editor_absoluteY="28dp"
-                tools:ignore="OnClick" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
             <TextView
                 android:id="@+id/txtdrink"
                 android:layout_width="wrap_content"
@@ -78,6 +65,7 @@
                 android:text="@string/s_drink"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp" />
+
         </TableRow>
 
     </TableLayout>

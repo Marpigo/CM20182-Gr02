@@ -1,15 +1,12 @@
 package co.edu.udea.compumovil.gr02_20182.lab2;
 
-import android.Manifest;
+import android.content.ContentValues;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,39 +15,30 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
 import co.edu.udea.compumovil.gr02_20182.lab2.Constantes.Constantes;
-
-
-
 
 /*
 * Activity para registrar los usuarios:
 *  Se captura los datos de la activity, para insertar en la bdrestaurant
 *
 * */
-
-
 public class UsuarioAtivity extends AppCompatActivity {
 
 
     ImageView campoPhoto;
     EditText campoName, campoEmail, campoPassword;
 
+    SQLite_OpenHelper conn;
 
-    public static SQLiteHelper sqLiteHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_ativity);
 
-        init();
-        sqLiteHelper = new SQLiteHelper(this, "bdrestaurant.sqlite", null, 1);
-        sqLiteHelper.queryData(Constantes.CREATE_USER_TABLE);
+        conn=new SQLite_OpenHelper(getApplicationContext(),"bdrestaurant",null,1);
 
+        init();
         setupActionBar();
     }
 
@@ -59,7 +47,6 @@ public class UsuarioAtivity extends AppCompatActivity {
         if(actionBar != null)
         {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            // actionBar.setTitle("");
         }
     }
 
@@ -91,23 +78,42 @@ public class UsuarioAtivity extends AppCompatActivity {
         }
     }
 
-
-
-    private  void insertUsers()
+    private  void insertUserssql()
     {
         try {
-            String name =campoName.getText().toString();
-            String email = campoEmail.getText().toString();
-            String password = campoPassword.getText().toString();
-            byte[] imagen = imageViewToByte(campoPhoto);
-            
-            sqLiteHelper.insertDataUser(name, email, password, imagen);
+            SQLite_OpenHelper conn=new SQLite_OpenHelper(this,"bdrestaurant",null,1);
+            SQLiteDatabase db=conn.getWritableDatabase();
+
+            String insert="INSERT INTO "+Constantes.TABLA_USUARIO
+                    +" ( " +Constantes.CAMPO_NAME+","+Constantes.CAMPO_EMAIL+","+Constantes.CAMPO_PASSWORD+","+Constantes.CAMPO_PHOTO+")" +
+                    " VALUES ('"+campoName.getText().toString()+"', '"+campoEmail.getText().toString()+"', '"
+                    +campoPassword.getText().toString()+"','" +imageViewToByte(campoPhoto)+ "')";
+            db.execSQL(insert);
+            db.close();
             limpiar();
         }catch (Exception e){
             Toast.makeText(getApplicationContext(), "Insercion fallida : " +e, Toast.LENGTH_SHORT).show();
         }
 
     }
+
+
+    private void insertUsers() {
+        SQLite_OpenHelper conn=new SQLite_OpenHelper(this,"bdrestaurant",null,1);
+
+        SQLiteDatabase db=conn.getWritableDatabase();
+        ContentValues values=new ContentValues();
+        values.put(Constantes.CAMPO_NAME,campoName.getText().toString());
+        values.put(Constantes.CAMPO_EMAIL,campoEmail.getText().toString());
+        values.put(Constantes.CAMPO_PASSWORD,campoPassword.getText().toString());
+        values.put(Constantes.CAMPO_PHOTO,imageViewToByte(campoPhoto));
+
+        Long idResultante=db.insert(Constantes.TABLA_USUARIO,Constantes.CAMPO_NAME,values);
+        Toast.makeText(getApplicationContext(),"Registro: "+idResultante,Toast.LENGTH_SHORT).show();
+        db.close();
+        limpiar();
+    }
+
 
     public static byte[] imageViewToByte(ImageView image) {
         Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
@@ -116,7 +122,6 @@ public class UsuarioAtivity extends AppCompatActivity {
         byte[] byteArray = stream.toByteArray();
         return byteArray;
     }
-
 
 
     /*
@@ -144,7 +149,6 @@ public class UsuarioAtivity extends AppCompatActivity {
     }
 
     private void limpiar() {
-        Toast.makeText(getApplicationContext(), "Registro exitoso!", Toast.LENGTH_SHORT).show();
         campoName.setText("");
         campoEmail.setText("");
         campoPassword.setText("");

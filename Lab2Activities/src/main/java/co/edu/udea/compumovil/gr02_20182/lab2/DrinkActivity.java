@@ -1,27 +1,26 @@
 package co.edu.udea.compumovil.gr02_20182.lab2;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-
 import co.edu.udea.compumovil.gr02_20182.lab2.Constantes.Constantes;
 
 public class DrinkActivity extends AppCompatActivity {
-
 
     EditText campoName;
     EditText campoPrice;
@@ -31,7 +30,7 @@ public class DrinkActivity extends AppCompatActivity {
 
     TextView campoNameInfo, campoPriceInfo, campoIngredientsInfo;
 
-    public static SQLiteHelper sqLiteHelper;
+    SQLite_OpenHelper conn;
 
 
     @Override
@@ -42,9 +41,8 @@ public class DrinkActivity extends AppCompatActivity {
 
         init();
 
-        sqLiteHelper = new SQLiteHelper(this, "bdrestaurant.sqlite", null, 1);
-        sqLiteHelper.queryData(Constantes.CREATE_DRINK_TABLE);
 
+        conn=new SQLite_OpenHelper(getApplicationContext(),"bdrestaurant",null,1);
 
         butregister.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -82,7 +80,6 @@ public class DrinkActivity extends AppCompatActivity {
 
         butregister = (Button) findViewById(R.id.butRegister_Drink);
 
-
         campoNameInfo = (TextView) findViewById(R.id.txtName_drink_information);
         campoPriceInfo = (TextView) findViewById(R.id.txtPrice_drink_information);
         campoIngredientsInfo = (TextView) findViewById(R.id.txtIngredents_drink_information);
@@ -90,23 +87,31 @@ public class DrinkActivity extends AppCompatActivity {
 
 
 
-    private  void insertDrink()
-    {
-        try {
+    private void insertDrink() {
 
-            Integer id = 1;
-            String name = campoName.getText().toString();
-            Integer price = Integer.parseInt(campoPrice.getText().toString());
-            String ingredients = campoIngredients.getText().toString();
-            byte[] imagen = imageViewToByte(campoPhoto);
+        try
+        {
+
+            SQLite_OpenHelper conn=new SQLite_OpenHelper(this,"bdrestaurant",null,1);
+
+            SQLiteDatabase db=conn.getWritableDatabase();
+            ContentValues values=new ContentValues();
+            values.put(Constantes.CAMPO_ID_B,"0");
+            values.put(Constantes.CAMPO_NAME_B,campoName.getText().toString());
+            values.put(Constantes.CAMPO_PRECIO_B, campoPrice.getText().toString());
+            values.put(Constantes.CAMPO_INGREDIENTES_B,campoIngredients.getText().toString());
+            values.put(Constantes.CAMPO_PHOTO_B,imageViewToByte(campoPhoto));
             informationFood();
 
-            sqLiteHelper.insertDataDrink(id, name, price, ingredients, imagen);
+            Long idResultante=db.insert(Constantes.TABLA_BEBIDA,Constantes.CAMPO_NAME_B,values);
+            Toast.makeText(getApplicationContext(),"Registro: "+idResultante,Toast.LENGTH_SHORT).show();
+            db.close();
             limpiar();
-        }catch (Exception e){
-            Toast.makeText(getApplicationContext(), "Insercion fallida : " +e, Toast.LENGTH_SHORT).show();
-        }
+    }catch (Exception e){
+        Toast.makeText(getApplicationContext(), "Insercion fallida : " +e, Toast.LENGTH_SHORT).show();
     }
+}
+
 
     private void informationFood() {
         /*Informacion de la captura*/
@@ -135,19 +140,15 @@ public class DrinkActivity extends AppCompatActivity {
         {
             Uri path = data.getData();
             campoPhoto.setImageURI(path);
-
         }
     }
 
-
     private void limpiar() {
-        Toast.makeText(new MainActivity(), "Registro exitoso!", Toast.LENGTH_SHORT).show();
+
         campoName.setText("");
         campoPrice.setText("0");
         campoIngredients.setText("");
         campoPhoto.setImageResource(R.drawable.drink2);
     }
-
-
 
 }

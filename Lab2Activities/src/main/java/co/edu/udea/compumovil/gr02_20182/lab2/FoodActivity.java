@@ -2,7 +2,9 @@ package co.edu.udea.compumovil.gr02_20182.lab2;
 
 import android.app.ActionBar;
 import android.app.TimePickerDialog;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.icu.text.AlphabeticIndex;
@@ -41,19 +43,12 @@ public class FoodActivity extends AppCompatActivity {
 
 
 
-    public static SQLiteHelper sqLiteHelper;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
 
         init();
-
-        sqLiteHelper = new SQLiteHelper(this, "bdrestaurant.sqlite", null, 1);
-        sqLiteHelper.queryData(Constantes.CREATE_FOOD_TABLE);
-
 
         butregister.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -114,27 +109,35 @@ public class FoodActivity extends AppCompatActivity {
 
     }
 
+    private void insertFood() {
+        try
+        {
 
-    private  void insertFood()
-    {
-        try {
+            SQLite_OpenHelper conn=new SQLite_OpenHelper(this,"bdrestaurant",null,1);
 
-            Integer id = 1;
-            String name = campoName.getText().toString();
+            SQLiteDatabase db=conn.getWritableDatabase();
+            ContentValues values=new ContentValues();
+            values.put(Constantes.CAMPO_ID_C,"0");
+            values.put(Constantes.CAMPO_NAME_C,campoName.getText().toString());
             String schedule = horariosPlato(campoMorning, campoAfternoon, campoEvening);
-            String type = campoMain.isChecked()?"Main food":"Entry";
-            String time = campoTime.getText().toString();
-            Integer price = Integer.parseInt(campoPrice.getText().toString());
-            String ingredients = campoIngredients.getText().toString();
-            byte[] imagen = imageViewToByte(campoPhoto);
+            values.put(Constantes.CAMPO_HORARIO_C, schedule);
+            String type = campoMain.isChecked() ? "Main food" : "Entry";
+            values.put(Constantes.CAMPO_TIPO_C,type);
+            values.put(Constantes.CAMPO_TIME_C,campoTime.getText().toString());
+            values.put(Constantes.CAMPO_PRECIO_C,campoPrice.getText().toString());
+            values.put(Constantes.CAMPO_INGREDIENTES_C,campoIngredients.getText().toString());
+            values.put(Constantes.CAMPO_PHOTO_B,imageViewToByte(campoPhoto));
             informationFood();
 
-            sqLiteHelper.insertDataFood(0, name, schedule, type, time, price, ingredients, imagen);
+            Long idResultante=db.insert(Constantes.TABLA_COMIDA,Constantes.CAMPO_NAME_C,values);
+            Toast.makeText(getApplicationContext(),"Registro: "+idResultante,Toast.LENGTH_SHORT).show();
+            db.close();
             limpiar();
         }catch (Exception e){
             Toast.makeText(getApplicationContext(), "Insercion fallida : " +e, Toast.LENGTH_SHORT).show();
         }
     }
+
 
 
     private void informationFood() {
@@ -192,7 +195,6 @@ public class FoodActivity extends AppCompatActivity {
     }
 
     private void limpiar() {
-        Toast.makeText(new MainActivity(), "Registro exitoso!", Toast.LENGTH_SHORT).show();
         campoName.setText("");
         campoMorning.setChecked(false);
         campoAfternoon.setChecked(false);

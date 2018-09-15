@@ -5,12 +5,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import co.edu.udea.compumovil.gr02_20182.lab2.Constantes.Constantes;
 
@@ -23,7 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     Button butenter_services;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         //campo a buscar
         campoName_profil = (EditText) findViewById(R.id.ediName_loguin);
         campoPassword = (EditText) findViewById(R.id.ediPass_loguin);
+
 
     }
 
