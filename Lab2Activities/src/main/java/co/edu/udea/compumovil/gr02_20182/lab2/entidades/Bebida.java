@@ -17,6 +17,10 @@ public class Bebida {
         this.photo = photo;
     }
 
+    public Bebida() {
+
+    }
+
     public int getId() {
         return id;
     }

@@ -95,7 +95,7 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         if (id == R.id.nav_food) {
             openFragmenListFood();
         } else if (id == R.id.nav_drink) {
-            openFragmenListDrink();
+            openActivityListDrink();
         } else if (id == R.id.nav_profile) {
             openFragmentPerfil();
         } else if (id == R.id.nav_configuration) {
@@ -154,9 +154,9 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
     }
 
 
-    private void openFragmenListDrink() {
-        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.fragmentContainers, new ListDrinkFragment()).commit();
+    private void openActivityListDrink() {
+        Intent miIntent = new Intent(ServiciosActivityNavigationDrawer.this, ListDrinkActivity.class);
+        startActivity(miIntent);
     }
 
     private void openFragmenListFood() {

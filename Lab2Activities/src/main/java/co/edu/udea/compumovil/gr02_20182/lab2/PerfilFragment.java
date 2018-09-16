@@ -110,32 +110,6 @@ public class PerfilFragment extends Fragment {
 
 
 
-    public void consultUserX()
-    {
-        try {
-/*
-            Cursor registros = MainActivity.sqLiteHelper.getData("SELECT * FROM usuario WHERE name='" +user_login+ "'");
-            registros.moveToFirst();
-            name_profil.setText("Name: " + registros.getString(0));
-            email_profil.setText("Email: " + registros.getString(1));
-            byte[] image = registros.getBlob(3);
-          / photo_profil.setImageResource(image);
-
-            registros.close();
-*/
-
-        }catch (Exception e){
-            Toast.makeText(getActivity(), "Consulta fallida: " + e, Toast.LENGTH_LONG).show();
-
-        }
-    }
-
-    public  void consultaok()
-    {
-
-
-
-    }
 
 
 }

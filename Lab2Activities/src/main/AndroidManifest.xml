@@ -29,7 +29,10 @@
         <activity
             android:name=".FoodActivity"
             android:parentActivityName=".LoginActivity" />
-        <activity android:name=".DrinkActivity"
+        <activity
+            android:name=".DrinkActivity"
+            android:parentActivityName=".ServiciosActivityNavigationDrawer" />
+        <activity android:name=".ListDrinkActivity"
             android:parentActivityName=".ServiciosActivityNavigationDrawer" />
     </application>
 
