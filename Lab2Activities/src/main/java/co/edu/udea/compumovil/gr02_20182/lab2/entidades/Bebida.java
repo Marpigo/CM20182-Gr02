@@ -6,10 +6,9 @@ public class Bebida {
     private String name;
     private double price;
     private String Ingredients;
-    private byte photo;
+    private byte [] photo;
 
-
-    public Bebida(int id, String name, double price, String ingredients, byte photo) {
+    public Bebida(int id, String name, double price, String ingredients, byte[] photo) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -20,6 +19,7 @@ public class Bebida {
     public Bebida() {
 
     }
+
 
     public int getId() {
         return id;
@@ -53,11 +53,11 @@ public class Bebida {
         Ingredients = ingredients;
     }
 
-    public byte getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(byte photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 }
