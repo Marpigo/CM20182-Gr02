@@ -80,7 +80,6 @@ public class list_food_Detalle_Fragment extends DialogFragment implements TextVi
         getCampoTimeDetall.setText(fooddetalle.time);
         getCampoPriceDetall.setText(fooddetalle.preci);
         getCampoIngredientsDetall.setText(fooddetalle.ingredient);
-        getCampoIngredientsDetall.setText(fooddetalle.ingredient);
 
         byte[] data = fooddetalle.photodetall;
         Bitmap image = toBitmap(data);

@@ -63,11 +63,7 @@ public class list_food_recycler_activity extends AppCompatActivity {
                 photodetall = comidaList.get(recycler.getChildAdapterPosition(view)).getPhoto();
 
 
-                //dialogoPersonalizado.informationFood(name, hour, type, time, preci, ingredient);
-                //openDetalle(name);
                 openDetalleFood();
-                //openDetalle(comidaList.get(recycler.getChildAdapterPosition(view)).getName());
-                //Toast.makeText(getApplicationContext(), "SIZE comidad: " + comidaList.get(recycler.getChildAdapterPosition(view)).getName(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -75,26 +71,6 @@ public class list_food_recycler_activity extends AppCompatActivity {
     }
 
 
-    public void openDetalle(String fooddetall)
-    {
-        AlertDialog.Builder detalle = new AlertDialog.Builder(list_food_recycler_activity.this);
-        detalle.setMessage(fooddetall + "1 " + "3").setCancelable(false)
-                .setPositiveButton("SI", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        fileList();
-                    }
-                })
-                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                });
-            AlertDialog titulo = detalle.create();
-            detalle.setTitle("Salir");
-            titulo.show();
-    }
 
     public void openDetalleFood() {
 

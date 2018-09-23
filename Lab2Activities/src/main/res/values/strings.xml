@@ -60,10 +60,10 @@
 
 
     <!-- Strings Fragment Detalle comida-->
-    
+
     <string name="s_cancel">Cancel</string>
     <string name="s_favourite">Favourite</string>
-    
+
     <!-- Strings Servicios_Activity_Navigation_Drawer -->
     <string name="s_close_navigation">Close</string>
 

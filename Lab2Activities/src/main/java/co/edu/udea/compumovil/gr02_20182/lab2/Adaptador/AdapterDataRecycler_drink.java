@@ -14,9 +14,13 @@ import java.util.List;
 import co.edu.udea.compumovil.gr02_20182.lab2.R;
 import co.edu.udea.compumovil.gr02_20182.lab2.entidades.Bebida;
 
-public class AdapterDataRecycler_drink extends RecyclerView.Adapter<AdapterDataRecycler_drink.ViewHolderDatos>{
+public class AdapterDataRecycler_drink extends RecyclerView.Adapter<AdapterDataRecycler_drink.ViewHolderDatos>
+        implements View.OnClickListener{
+
+
 
     List<Bebida> bebidaList;
+    private View.OnClickListener listener;
 
     public AdapterDataRecycler_drink(List<Bebida> bebidaList) {
         this.bebidaList = bebidaList;
@@ -26,6 +30,11 @@ public class AdapterDataRecycler_drink extends RecyclerView.Adapter<AdapterDataR
     @Override
     public AdapterDataRecycler_drink.ViewHolderDatos onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_drink_list,null,false);
+
+
+        /*evento click en las comida*/
+        view.setOnClickListener(this);
+
         return new ViewHolderDatos(view);
     }
 
@@ -59,5 +68,21 @@ public class AdapterDataRecycler_drink extends RecyclerView.Adapter<AdapterDataR
 
     public static Bitmap toBitmap(byte[] image) {
         return BitmapFactory.decodeByteArray(image, 0, image.length);
+    }
+
+
+
+    /*Encargado de escuchar el evento onclik*/
+    public void setOnClickListener(View.OnClickListener listener){
+        this.listener = listener;
+    }
+
+    /*Implementacion metodo basico de seleccion onclik*/
+    @Override
+    public void onClick(View view) {
+        if (listener != null)
+        {
+            listener.onClick(view);
+        }
     }
 }
