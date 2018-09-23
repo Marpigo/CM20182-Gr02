@@ -14,9 +14,13 @@ import java.util.List;
 import co.edu.udea.compumovil.gr02_20182.lab2.R;
 import co.edu.udea.compumovil.gr02_20182.lab2.entidades.Comida;
 
-public class AdapterDataRecycler_food extends RecyclerView.Adapter<AdapterDataRecycler_food.ViewHolderDatos> {
+public class AdapterDataRecycler_food extends
+        RecyclerView.Adapter<AdapterDataRecycler_food.ViewHolderDatos>
+        implements View.OnClickListener{
 
     List<Comida> comidaList;
+    private View.OnClickListener listener;
+
 
 
     public AdapterDataRecycler_food(List<Comida> comidaList) {
@@ -27,7 +31,14 @@ public class AdapterDataRecycler_food extends RecyclerView.Adapter<AdapterDataRe
     @Override
     public AdapterDataRecycler_food.ViewHolderDatos onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_food_list,null,false);
+
+
+        /*evento click en las comida*/
+        view.setOnClickListener(this);
+
+
         return new AdapterDataRecycler_food.ViewHolderDatos(view);
+
     }
 
     @Override
@@ -43,6 +54,21 @@ public class AdapterDataRecycler_food extends RecyclerView.Adapter<AdapterDataRe
     public int getItemCount() {
         return comidaList.size();
     }
+
+    /*Encargado de escuchar el evento onclik*/
+    public void setOnClickListener(View.OnClickListener listener){
+        this.listener = listener;
+    }
+
+    /*Implementacion metodo basico de seleccion onclik*/
+    @Override
+    public void onClick(View view) {
+        if (listener != null)
+        {
+            listener.onClick(view);
+        }
+    }
+
 
     public class ViewHolderDatos extends RecyclerView.ViewHolder {
         TextView name, price;
