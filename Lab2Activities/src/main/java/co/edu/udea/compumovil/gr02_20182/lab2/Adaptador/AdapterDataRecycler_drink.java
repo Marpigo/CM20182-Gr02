@@ -48,6 +48,7 @@ public class AdapterDataRecycler_drink extends RecyclerView.Adapter<AdapterDataR
         holder.photo.setImageBitmap(image);
     }
 
+
     @Override
     public int getItemCount() {
         return bebidaList.size();

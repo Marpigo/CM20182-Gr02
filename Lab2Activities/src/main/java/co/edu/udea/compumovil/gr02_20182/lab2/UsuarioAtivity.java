@@ -78,25 +78,6 @@ public class UsuarioAtivity extends AppCompatActivity {
         }
     }
 
-    private  void insertUserssql()
-    {
-        try {
-            SQLite_OpenHelper conn=new SQLite_OpenHelper(this,"bdrestaurant",null,1);
-            SQLiteDatabase db=conn.getWritableDatabase();
-
-            String insert="INSERT INTO "+Constantes.TABLA_USUARIO
-                    +" ( " +Constantes.CAMPO_NAME+","+Constantes.CAMPO_EMAIL+","+Constantes.CAMPO_PASSWORD+","+Constantes.CAMPO_PHOTO+")" +
-                    " VALUES ('"+campoName.getText().toString()+"', '"+campoEmail.getText().toString()+"', '"
-                    +campoPassword.getText().toString()+"','" +imageViewToByte(campoPhoto)+ "')";
-            db.execSQL(insert);
-            db.close();
-            limpiar();
-        }catch (Exception e){
-            Toast.makeText(getApplicationContext(), "Insercion fallida : " +e, Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
 
     private void insertUsers() {
         SQLite_OpenHelper conn=new SQLite_OpenHelper(this,"bdrestaurant",null,1);

@@ -67,7 +67,6 @@ public class PerfilFragment extends Fragment {
         SQLiteDatabase db= MainActivity.conn.getReadableDatabase();
         String[] parametros={user_login };
         String[] campos={Constantes.CAMPO_NAME,Constantes.CAMPO_EMAIL};
-        Bitmap bitmap = null;
 
         try {
             Cursor cursor =db.query(Constantes.TABLA_USUARIO,campos,Constantes.CAMPO_NAME+"=?", parametros,null,null,null);
@@ -75,11 +74,10 @@ public class PerfilFragment extends Fragment {
             name_profil.setText(cursor.getString(0));
             email_profil.setText(cursor.getString(1));
 
-
             byte[] blob = cursor.getBlob(2);
-            ByteArrayInputStream bais = new ByteArrayInputStream(blob);
-            bitmap = BitmapFactory.decodeStream(bais);
-            photo_profil.setImageBitmap(bitmap);
+
+            Bitmap image = toBitmap(blob);
+            photo_profil.setImageBitmap(image);
 
             cursor.close();
         }catch (Exception e){
@@ -88,25 +86,10 @@ public class PerfilFragment extends Fragment {
 
     }
 
-
-    private void consultarSql() {
-        SQLiteDatabase db= MainActivity.conn.getReadableDatabase();
-        String[] parametros={"'", user_login, "'"};
-
-        try {
-            //select nombre,telefono from usuario where codigo=?
-            Cursor cursor=db.rawQuery("SELECT "+Constantes.CAMPO_NAME+","+ Constantes.CAMPO_EMAIL+
-                    " FROM "+Constantes.TABLA_USUARIO+" WHERE "+Constantes.CAMPO_NAME+"=?", parametros);
-
-            cursor.moveToFirst();
-            name_profil.setText(cursor.getString(0));
-            email_profil.setText(cursor.getString(1));
-            cursor.close();
-        }catch (Exception e){
-            Toast.makeText(getActivity(), "Consulta fallida: " + e, Toast.LENGTH_LONG).show();
-        }
-
+    public static Bitmap toBitmap(byte[] image) {
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
+
 
 
 
