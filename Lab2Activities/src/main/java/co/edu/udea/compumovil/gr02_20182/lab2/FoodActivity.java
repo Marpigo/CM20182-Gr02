@@ -26,6 +26,8 @@ import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
 import co.edu.udea.compumovil.gr02_20182.lab2.Constantes.Constantes;
+import co.edu.udea.compumovil.gr02_20182.lab2.SQLiteconexion.DatabaseSQLite;
+import co.edu.udea.compumovil.gr02_20182.lab2.SQLiteconexion.DatabaseSQLiteFood;
 
 public class FoodActivity extends AppCompatActivity {
 
@@ -33,6 +35,7 @@ public class FoodActivity extends AppCompatActivity {
     CheckBox campoMorning, campoAfternoon, campoEvening;
     RadioButton campoMain, campoEntry;
     TextView campoTime;
+    TextView campoTimep;
     EditText campoPrice;
     EditText campoIngredients;
     ImageView campoPhoto;
@@ -89,6 +92,7 @@ public class FoodActivity extends AppCompatActivity {
         campoEvening = (CheckBox) findViewById(R.id.cheEvening_food);
         campoMain = (RadioButton) findViewById(R.id.radMain_food);
         campoEntry = (RadioButton) findViewById(R.id.radEntry_food);
+        campoTimep = (TextView) findViewById(R.id.txtTime_preparation_food);
         campoTime = (TextView) findViewById(R.id.txttime_look_food);
         campoPrice= (EditText) findViewById(R.id.ediPreci_food);
         campoIngredients = (EditText) findViewById(R.id.ediIngredents_food);
@@ -107,35 +111,43 @@ public class FoodActivity extends AppCompatActivity {
 
     }
 
-    private void insertFood() {
-        try
+    private void insertFood()
+    {
+        final DatabaseSQLiteFood databasesqlitefood = new DatabaseSQLiteFood();
+        final DatabaseSQLite databasesqlit = DatabaseSQLite.getInstance(this);
+        databasesqlit.open();
+
+        String name;
+        String schedule;
+        String type;
+        String time;
+        int price;
+        String ingredients;
+        byte[] photo;
+        int registro =0;
+
+        String campos="";
+        campos = validateCampo(campoName.getText().toString(), campoTime.getText().toString(), campoPrice.getText().toString(), campoIngredients.getText().toString());
+
+        if(campos.length()>0){
+            Toast.makeText(getApplicationContext(), "Verificar Campos: " + campos, Toast.LENGTH_SHORT).show();
+        }else
         {
+            name = campoName.getText().toString();
+            schedule = horariosPlato(campoMorning, campoAfternoon, campoEvening);
+            type = campoMain.isChecked() ? "Main food" : "Entry";
+            time = campoTime.getText().toString();
+            price = Integer.parseInt(campoPrice.getText().toString());
+            ingredients = campoIngredients.getText().toString();
+            photo = imageViewToByte(campoPhoto);
 
-            SQLite_OpenHelper conn=new SQLite_OpenHelper(this,"bdrestaurant",null,1);
-
-            SQLiteDatabase db=conn.getWritableDatabase();
-            ContentValues values=new ContentValues();
-            values.put(Constantes.CAMPO_ID_C,"0");
-            values.put(Constantes.CAMPO_NAME_C,campoName.getText().toString());
-            String schedule = horariosPlato(campoMorning, campoAfternoon, campoEvening);
-            values.put(Constantes.CAMPO_HORARIO_C, schedule);
-            String type = campoMain.isChecked() ? "Main food" : "Entry";
-            values.put(Constantes.CAMPO_TIPO_C,type);
-            values.put(Constantes.CAMPO_TIME_C,campoTime.getText().toString());
-            values.put(Constantes.CAMPO_PRECIO_C,campoPrice.getText().toString());
-            values.put(Constantes.CAMPO_INGREDIENTES_C,campoIngredients.getText().toString());
-            values.put(Constantes.CAMPO_PHOTO_B,imageViewToByte(campoPhoto));
             informationFood();
-
-            Long idResultante=db.insert(Constantes.TABLA_COMIDA,Constantes.CAMPO_NAME_C,values);
-            Toast.makeText(getApplicationContext(),"Registro: "+idResultante,Toast.LENGTH_SHORT).show();
-            db.close();
+            registro = databasesqlitefood.insertFood( name, schedule, type, time, price, ingredients, photo);
+            Toast.makeText(getApplicationContext(), "Se inserto " + registro + " registro", Toast.LENGTH_SHORT).show();
             limpiar();
-        }catch (Exception e){
-            Toast.makeText(getApplicationContext(), "Insercion fallida : " +e, Toast.LENGTH_SHORT).show();
+            databasesqlit.close();
         }
     }
-
 
 
     private void informationFood() {
@@ -148,6 +160,21 @@ public class FoodActivity extends AppCompatActivity {
         getCampoIngredientsInfo.setText(campoIngredients.getText().toString());
     }
 
+    /*
+     * Validar campos: Vacios o nulo
+     * */
+    String validateCampo (String name, String time, String price, String ingredients){
+        String campos;
+        campos = name !=null && name.trim().length()>0? "" : "\n" + campoName.getHint() + "\n";
+        campos += time !=null && time.trim().length()>0? "" :campoTimep.getText().toString() + "\n";
+        campos += price !=null && price.trim().length()>0? "" :campoPrice.getHint() + "\n";
+        campos += ingredients !=null && ingredients.trim().length()>0?"" : campoIngredients.getHint() + "\n";
+
+        return campos;
+    }
+
+
+
     private String horariosPlato(CheckBox morning, CheckBox afternoon, CheckBox evening)
     {
         String schedule="";
@@ -155,14 +182,15 @@ public class FoodActivity extends AppCompatActivity {
         {
             schedule = "Morning";
         }
+
         if(afternoon.isChecked())
         {
-            schedule += " " + "Afternoon";
+            schedule = schedule + " Afternoon";
         }
 
         if(evening.isChecked())
         {
-            schedule += " " + "Evening";
+            schedule = schedule + " Evening";
         }
         return  schedule;
     }
@@ -197,8 +225,6 @@ public class FoodActivity extends AppCompatActivity {
         campoMorning.setChecked(false);
         campoAfternoon.setChecked(false);
         campoEvening.setChecked(false);
-        campoMain.setChecked(false);
-        campoEntry.setChecked(false);
         campoTime.setText("");
         campoPrice.setText("0");
         campoIngredients.setText("");

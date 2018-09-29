@@ -14,6 +14,7 @@ import java.util.List;
 
 import co.edu.udea.compumovil.gr02_20182.lab2.Adaptador.AdapterDataRecycler_food;
 import co.edu.udea.compumovil.gr02_20182.lab2.SQLiteconexion.DatabaseSQLite;
+import co.edu.udea.compumovil.gr02_20182.lab2.SQLiteconexion.DatabaseSQLiteFood;
 import co.edu.udea.compumovil.gr02_20182.lab2.entidades.Comida;
 
 public class list_food_recycler_activity extends AppCompatActivity {
@@ -36,35 +37,33 @@ public class list_food_recycler_activity extends AppCompatActivity {
     }
 
     public void llenarRecycler()
-    {       // Define final variables since they have to be accessed from inner class
+    {
+        // Define final variables since they have to be accessed from inner class
+        DatabaseSQLiteFood databasesqlitefood = new DatabaseSQLiteFood();
         final DatabaseSQLite databaseSqlite = DatabaseSQLite.getInstance(this);
+
         databaseSqlite.open();
        // Toast.makeText(getApplicationContext(), "SIZE comidad: " + databaseSqlite.getListComida().size(), Toast.LENGTH_SHORT).show();
-        comidaList = databaseSqlite.getListComida(); //recibir lista
+        comidaList = databasesqlitefood.getListComida(); //recibir lista
 
         recycler= (RecyclerView) findViewById(R.id.recyclerFood);
         recycler.setLayoutManager(new LinearLayoutManager(this));
         //recycler.setLayoutManager(new GridLayoutManager(this, 2)); ver en dos columna la informacion
         AdapterDataRecycler_food adapter = new AdapterDataRecycler_food(comidaList);
 
-
         /*metodo onclik de seleccion de las comida*/
         adapter.setOnClickListener(new View.OnClickListener() {
             @Override//Este es el metodo onclick generado en el adaptador
             public void onClick(View view) {
 
-
                 name = comidaList.get(recycler.getChildAdapterPosition(view)).getName();
                 hour = comidaList.get(recycler.getChildAdapterPosition(view)).getSchedule();
                 type = comidaList.get(recycler.getChildAdapterPosition(view)).getType();
                 time = comidaList.get(recycler.getChildAdapterPosition(view)).getTime();
-                preci = comidaList.get(recycler.getChildAdapterPosition(view)).getPrice() +"";
-                ingredient = comidaList.get(recycler.getChildAdapterPosition(view)).getIngredients();
+                preci = comidaList.get(recycler.getChildAdapterPosition(view)).getPreci() +"";
+                ingredient = comidaList.get(recycler.getChildAdapterPosition(view)).getIngredient();
                 photodetall = comidaList.get(recycler.getChildAdapterPosition(view)).getPhoto();
-
-
                 openDetalleFood();
-
             }
         });
         recycler.setAdapter(adapter);

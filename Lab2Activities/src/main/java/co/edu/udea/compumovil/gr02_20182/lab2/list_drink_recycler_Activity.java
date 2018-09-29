@@ -11,6 +11,7 @@ import java.util.List;
 
 import co.edu.udea.compumovil.gr02_20182.lab2.Adaptador.AdapterDataRecycler_drink;
 import co.edu.udea.compumovil.gr02_20182.lab2.SQLiteconexion.DatabaseSQLite;
+import co.edu.udea.compumovil.gr02_20182.lab2.SQLiteconexion.DatabaseSQLiteDrink;
 import co.edu.udea.compumovil.gr02_20182.lab2.entidades.Bebida;
 
 public class list_drink_recycler_Activity extends AppCompatActivity {
@@ -34,11 +35,14 @@ public class list_drink_recycler_Activity extends AppCompatActivity {
     }
 
     public void llenarRecycler()
-    {       // Define final variables since they have to be accessed from inner class
+    {
+
+        DatabaseSQLiteDrink databasesqlitedrink = new DatabaseSQLiteDrink();
         final DatabaseSQLite databaseSqlite = DatabaseSQLite.getInstance(this);
         databaseSqlite.open();
       //  Toast.makeText(getApplicationContext(), "SIZE : " + databaseSqlite.getListBebida().size(), Toast.LENGTH_SHORT).show();
-        bebidaList = databaseSqlite.getListBebida(); //recibir lista
+        bebidaList = databasesqlitedrink.getListBebida(); //recibir lista
+
 
         recycler= (RecyclerView) findViewById(R.id.recyclerDrink);
         recycler.setLayoutManager(new LinearLayoutManager(this));

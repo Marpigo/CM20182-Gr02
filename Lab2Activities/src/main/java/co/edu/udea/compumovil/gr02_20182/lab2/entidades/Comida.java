@@ -7,18 +7,18 @@ public class Comida {
     private String schedule;
     private String type;
     private String time;
-    private int price;
-    private String ingredients;
+    private int preci;
+    private String ingredient;
     private byte [] photo;
 
-    public Comida(int id, String name, String schedule, String type, String time, int price, String ingredients, byte[] photo) {
+    public Comida(int id, String name, String schedule, String type, String time, int preci, String ingredient, byte[] photo) {
         this.id = id;
         this.name = name;
         this.schedule = schedule;
         this.type = type;
         this.time = time;
-        this.price = price;
-        this.ingredients = ingredients;
+        this.preci = preci;
+        this.ingredient = ingredient;
         this.photo = photo;
     }
 
@@ -66,20 +66,20 @@ public class Comida {
         this.time = time;
     }
 
-    public double getPrice() {
-        return price;
+    public double getPreci() {
+        return preci;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setPreci(int price) {
+        this.preci = price;
     }
 
-    public String getIngredients() {
-        return ingredients;
+    public String getIngredient() {
+        return ingredient;
     }
 
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
+    public void setIngredient(String ingredient) {
+        this.ingredient = ingredient;
     }
 
     public byte[] getPhoto() {

@@ -104,8 +104,7 @@
                     android:id="@+id/txttime_look_food"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/s_time" />
+                    android:layout_marginStart="10dp" />
 
                 <Button
                     android:id="@+id/butTime_food"

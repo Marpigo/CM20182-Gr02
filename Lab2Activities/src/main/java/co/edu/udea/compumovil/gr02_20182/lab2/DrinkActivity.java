@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import co.edu.udea.compumovil.gr02_20182.lab2.Constantes.Constantes;
+import co.edu.udea.compumovil.gr02_20182.lab2.SQLiteconexion.DatabaseSQLite;
+import co.edu.udea.compumovil.gr02_20182.lab2.SQLiteconexion.DatabaseSQLiteDrink;
 
 public class DrinkActivity extends AppCompatActivity {
 
@@ -30,19 +32,12 @@ public class DrinkActivity extends AppCompatActivity {
 
     TextView campoNameInfo, campoPriceInfo, campoIngredientsInfo;
 
-    SQLite_OpenHelper conn;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink);
 
-
         init();
-
-
-        conn=new SQLite_OpenHelper(getApplicationContext(),"bdrestaurant",null,1);
 
         butregister.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -50,7 +45,6 @@ public class DrinkActivity extends AppCompatActivity {
                 insertDrink();
             }
         });
-
         campoPhoto.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -59,7 +53,6 @@ public class DrinkActivity extends AppCompatActivity {
         });
 
         setupActionBar();
-
     }
 
     private void setupActionBar() {
@@ -87,30 +80,51 @@ public class DrinkActivity extends AppCompatActivity {
 
 
 
-    private void insertDrink() {
+    private void insertDrink()
+    {
+        DatabaseSQLiteDrink databasesqlitedrink = new DatabaseSQLiteDrink();
+        final DatabaseSQLite databasesqlit = DatabaseSQLite.getInstance(this);
+        databasesqlit.open();
 
-        try
+        String name;
+        double price;
+        String ingredients;
+        byte[] photo;
+        int registro =0;
+        String campos="";
+
+        campos = validateCampo(campoName.getText().toString(), campoPrice.getText().toString(), campoIngredients.getText().toString());
+
+        if(campos.length()>0){
+
+            Toast.makeText(getApplicationContext(), "Verificar Campos: " + campos, Toast.LENGTH_SHORT).show();
+
+        }else
         {
+            name = campoName.getText().toString();
+            price = Integer.parseInt(campoPrice.getText().toString());
+            ingredients = campoIngredients.getText().toString();
+            photo = imageViewToByte(campoPhoto);
 
-            SQLite_OpenHelper conn=new SQLite_OpenHelper(this,"bdrestaurant",null,1);
-
-            SQLiteDatabase db=conn.getWritableDatabase();
-            ContentValues values=new ContentValues();
-            values.put(Constantes.CAMPO_ID_B,"0");
-            values.put(Constantes.CAMPO_NAME_B,campoName.getText().toString());
-            values.put(Constantes.CAMPO_PRECIO_B, campoPrice.getText().toString());
-            values.put(Constantes.CAMPO_INGREDIENTES_B,campoIngredients.getText().toString());
-            values.put(Constantes.CAMPO_PHOTO_B,imageViewToByte(campoPhoto));
             informationFood();
-
-            Long idResultante=db.insert(Constantes.TABLA_BEBIDA,Constantes.CAMPO_NAME_B,values);
-            Toast.makeText(getApplicationContext(),"Registro: "+idResultante,Toast.LENGTH_SHORT).show();
-            db.close();
+            registro = databasesqlitedrink.insertDrink(name, price, ingredients, photo);
+            Toast.makeText(getApplicationContext(), "Se inserto " + registro + " registro", Toast.LENGTH_SHORT).show();
             limpiar();
-    }catch (Exception e){
-        Toast.makeText(getApplicationContext(), "Insercion fallida : " +e, Toast.LENGTH_SHORT).show();
+            databasesqlit.close();
+        }
     }
-}
+
+
+    /*
+     * Validar campos: Vacios o nulo
+     * */
+    String validateCampo (String name, String price, String ingredients){
+        String campos;
+        campos = name !=null && name.trim().length()>0? "" : "\n" + campoName.getHint() + "\n";
+        campos += price !=null && price.trim().length()>0? "" :campoPrice.getHint() + "\n";
+        campos += ingredients !=null && ingredients.trim().length()>0?"" : campoIngredients.getHint() + "\n";
+        return campos;
+    }
 
 
     private void informationFood() {
