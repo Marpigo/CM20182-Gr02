@@ -1,4 +1,4 @@
-package co.edu.udea.compumovil.gr02_20182.lab2;
+package co.edu.udea.compumovil.gr02_20182.lab2.Fragment;
 
 
 import android.database.Cursor;
@@ -19,6 +19,8 @@ import android.widget.Toast;
 import java.io.ByteArrayInputStream;
 
 import co.edu.udea.compumovil.gr02_20182.lab2.Constantes.Constantes;
+import co.edu.udea.compumovil.gr02_20182.lab2.MainActivity;
+import co.edu.udea.compumovil.gr02_20182.lab2.R;
 
 
 public class PerfilFragment extends Fragment {
@@ -43,12 +45,12 @@ public class PerfilFragment extends Fragment {
         *  3. Retorno la vista
         * */
 
-        MainActivity.conn=new SQLite_OpenHelper(getActivity(),"bdrestaurant",null,1);
+//        MainActivity.conn=new SQLite_OpenHelper(getActivity(),"bdrestaurant",null,1);
 
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
        init(view);
-        consultUser();
+  //      consultUser();
         return  view;
 
     }
@@ -61,7 +63,7 @@ public class PerfilFragment extends Fragment {
     }
 
 
-
+/*
     private void consultUser() {
 
         SQLiteDatabase db= MainActivity.conn.getReadableDatabase();
@@ -85,6 +87,7 @@ public class PerfilFragment extends Fragment {
          }
 
     }
+    */
 
     public static Bitmap toBitmap(byte[] image) {
         return BitmapFactory.decodeByteArray(image, 0, image.length);

@@ -1,5 +1,11 @@
 package co.edu.udea.compumovil.gr02_20182.lab2.entidades;
 
+import java.io.Serializable;
+
+/*
+* Implementamos serializable
+* para poder transtorpar el objeto
+* */
 public class Bebida {
 
     private int id;

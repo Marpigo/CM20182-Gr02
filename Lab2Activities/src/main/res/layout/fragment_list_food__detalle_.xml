@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".list_food_Detalle_Fragment">
+    tools:context=".Fragment.list_food_Detalle_Fragment">
 
     <!-- TODO: Update blank fragment layout -->
 

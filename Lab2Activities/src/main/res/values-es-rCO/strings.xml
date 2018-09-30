@@ -60,4 +60,7 @@
     <string name="s_food">Plato</string>
     <string name="s_cancel">Cancelar</string>
     <string name="s_favourite">Favorito</string>
+    <string name="s_list_food_menu">Listado de PLatos</string>
+    <string name="s_list_drink_menu">Listado de Bebidas</string>
+    <string name="s_menu_search">Buscar</string>
 </resources>

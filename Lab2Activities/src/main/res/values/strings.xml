@@ -24,17 +24,21 @@
     <!-- Strings Fragment List Drink-->
     <string name="s_price_list_drink">Price</string>
     <string name="s_name_list_drink">Name</string>
-
-
-    <!-- Strings Fragment Acerca de-->
-    <string name="s_title_about">Title</string>
-    <string name="s_information_about">Information</string>
+    <string name="s_list_drink_menu">List Drink</string>
 
     <!-- Strings Fragment List Food-->
+    <string name="s_list_food_menu">List Food</string>
     <string name="s_name_list_food">Name</string>
     <string name="s_type_list_food">Type</string>
     <string name="s_price_list_food">Price</string>
     <string name="s_time_list_food">Time preparations</string>
+
+    <!-- Strings Menu busqueda -->
+    <string name="s_menu_search">Search</string>
+
+    <!-- Strings Fragment Acerca de-->
+    <string name="s_title_about">Title</string>
+    <string name="s_information_about">Information</string>
 
 
     <!-- Strings Fragment Configuration-->

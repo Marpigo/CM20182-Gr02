@@ -28,7 +28,7 @@ public class UsuarioAtivity extends AppCompatActivity {
     ImageView campoPhoto;
     EditText campoName, campoEmail, campoPassword;
 
-    SQLite_OpenHelper conn;
+    //SQLite_OpenHelper conn;
 
 
     @Override
@@ -36,7 +36,7 @@ public class UsuarioAtivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_ativity);
 
-        conn=new SQLite_OpenHelper(getApplicationContext(),"bdrestaurant",null,1);
+      //  conn=new SQLite_OpenHelper(getApplicationContext(),"bdrestaurant",null,1);
 
         init();
         setupActionBar();
@@ -66,7 +66,7 @@ public class UsuarioAtivity extends AppCompatActivity {
 
                 if(validateString(campoName.getText().toString()) && validateString(campoEmail.getText().toString()) && validateString(campoPassword.getText().toString()))
                 {
-                    insertUsers();
+                   // insertUsers();
                 }else {
                     Toast.makeText(getApplicationContext(), "Verificar: Campos vacios", Toast.LENGTH_SHORT).show();
                 }
@@ -78,7 +78,7 @@ public class UsuarioAtivity extends AppCompatActivity {
         }
     }
 
-
+/*
     private void insertUsers() {
         SQLite_OpenHelper conn=new SQLite_OpenHelper(this,"bdrestaurant",null,1);
 
@@ -94,7 +94,7 @@ public class UsuarioAtivity extends AppCompatActivity {
         db.close();
         limpiar();
     }
-
+*/
 
     public static byte[] imageViewToByte(ImageView image) {
         Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();

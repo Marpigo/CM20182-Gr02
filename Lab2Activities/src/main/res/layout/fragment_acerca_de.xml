@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/parrilla"
     android:orientation="vertical"
-    tools:context=".AcercaDeFragment">
+    tools:context=".Fragment.AcercaDeFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

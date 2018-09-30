@@ -1,4 +1,4 @@
-package co.edu.udea.compumovil.gr02_20182.lab2;
+package co.edu.udea.compumovil.gr02_20182.lab2.Fragment;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import co.edu.udea.compumovil.gr02_20182.lab2.R;
+
 
 public class list_food_Detalle_Fragment extends DialogFragment implements TextView.OnEditorActionListener {
 
@@ -24,7 +26,7 @@ public class list_food_Detalle_Fragment extends DialogFragment implements TextVi
     ImageView imgfood_detall;
     Button butcancelDetall;
 
-    public static  list_food_recycler_activity fooddetalle;
+   // ServiciosActivityNavigationDrawer fooddetalle = new ServiciosActivityNavigationDrawer();
 
     public interface NuevoDialogListener {
         void FinalizaCuadroDialogo(String texto);
@@ -55,7 +57,7 @@ public class list_food_Detalle_Fragment extends DialogFragment implements TextVi
             }
         });
 
-        informationFood();
+        //informationFood();
         return  view;
     }
 
@@ -71,21 +73,22 @@ public class list_food_Detalle_Fragment extends DialogFragment implements TextVi
         butcancelDetall= (Button) view.findViewById(R.id.butClose_detall);
     }
 
+    /*
     public void informationFood() {
 
-        /*Informacion de la captura*/
-        campoNameDetall.setText(fooddetalle.name);
-        campoHourDetall.setText(fooddetalle.hour);
-        campoTypeDetall.setText(fooddetalle.type);
-        getCampoTimeDetall.setText(fooddetalle.time);
-        getCampoPriceDetall.setText(fooddetalle.preci);
-        getCampoIngredientsDetall.setText(fooddetalle.ingredient);
+        //Informacion de la captura
+        campoNameDetall.setText(fooddetalle.nameC);
+        campoHourDetall.setText(fooddetalle.hourC);
+        campoTypeDetall.setText(fooddetalle.typeC);
+        getCampoTimeDetall.setText(fooddetalle.timeC);
+        getCampoPriceDetall.setText(fooddetalle.preciC);
+        getCampoIngredientsDetall.setText(fooddetalle.ingredientC);
 
-        byte[] data = fooddetalle.photodetall;
+        byte[] data = fooddetalle.photodetallC;
         Bitmap image = toBitmap(data);
         imgfood_detall.setImageBitmap(image);
     }
-
+*/
     public static Bitmap toBitmap(byte[] image) {
         return BitmapFactory.decodeByteArray(image, 0, image.length);
     }

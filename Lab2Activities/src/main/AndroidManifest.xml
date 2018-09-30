@@ -32,11 +32,6 @@
         <activity
             android:name=".DrinkActivity"
             android:parentActivityName=".ServiciosActivityNavigationDrawer" />
-        <activity
-            android:name=".list_drink_recycler_Activity"
-            android:parentActivityName=".ServiciosActivityNavigationDrawer" />
-        <activity android:name=".list_food_recycler_activity"
-            android:parentActivityName=".ServiciosActivityNavigationDrawer" />
     </application>
 
 </manifest>

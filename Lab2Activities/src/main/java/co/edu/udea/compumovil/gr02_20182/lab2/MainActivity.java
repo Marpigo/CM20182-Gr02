@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static SQLite_OpenHelper conn;
+    //public static SQLite_OpenHelper conn;
 
 
     @Override

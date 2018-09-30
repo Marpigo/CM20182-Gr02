@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragment_list_drink__detalle">
+    tools:context=".Fragment.FragmentListDrinkDetalle">
 
     <!-- TODO: Update blank fragment layout -->
 
     <ImageView
-        android:id="@+id/imgDrink_detalle2"
+        android:id="@+id/imgDrink_detalle"
         android:layout_width="match_parent"
         android:layout_height="88dp"
         android:src="@drawable/food" />

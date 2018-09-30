@@ -43,6 +43,7 @@ public class AdapterDataRecycler_drink extends RecyclerView.Adapter<AdapterDataR
     public void onBindViewHolder(AdapterDataRecycler_drink.ViewHolderDatos holder, int position) {
         holder.name.setText(bebidaList.get(position).getName());
         holder.price.setText(bebidaList.get(position).getPrice()+"");
+
         byte[] data = bebidaList.get(position).getPhoto();
         Bitmap image = toBitmap(data);
         holder.photo.setImageBitmap(image);
