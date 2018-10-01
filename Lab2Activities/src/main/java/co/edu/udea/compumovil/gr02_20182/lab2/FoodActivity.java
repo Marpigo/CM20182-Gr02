@@ -80,7 +80,7 @@ public class FoodActivity extends AppCompatActivity {
         if(actionBar != null)
         {
            actionBar.setDisplayHomeAsUpEnabled(true);
-           // actionBar.setTitle("");
+            actionBar.setTitle(getString(R.string.s_register_food_frame) +" " + getString(R.string.s_food));
          }
     }
 

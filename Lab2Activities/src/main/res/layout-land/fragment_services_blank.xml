@@ -48,24 +48,6 @@
             android:layout_height="match_parent"
             android:gravity="center">
 
-            <TextView
-                android:id="@+id/txtfood"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/s_food"
-                android:textColor="?attr/actionModeSplitBackground"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/txtdrink"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/s_drink"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp" />
-
         </TableRow>
 
     </TableLayout>

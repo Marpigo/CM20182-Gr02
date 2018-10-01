@@ -60,7 +60,7 @@ public class DrinkActivity extends AppCompatActivity {
         if(actionBar != null)
         {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            // actionBar.setTitle("");
+            actionBar.setTitle(getString(R.string.s_register) +" " + getString(R.string.s_drink));
         }
     }
 

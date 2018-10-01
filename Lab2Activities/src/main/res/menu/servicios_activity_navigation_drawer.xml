@@ -12,12 +12,6 @@
         android:icon="@drawable/ic_search_black_24dp"
         android:title="@string/s_menu_search"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_return"
-        android:orderInCategory="100"
-        android:icon="@drawable/ic_arrow_back_black_24dp"
-        android:title="@string/s_close_navigation"
-        app:showAsAction="ifRoom" />
 
 
 </menu>

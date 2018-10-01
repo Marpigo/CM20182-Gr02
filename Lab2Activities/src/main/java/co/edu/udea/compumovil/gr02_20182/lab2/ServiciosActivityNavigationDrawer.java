@@ -3,8 +3,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,20 +15,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
 import co.edu.udea.compumovil.gr02_20182.lab2.Fragment.AcercaDeFragment;
 import co.edu.udea.compumovil.gr02_20182.lab2.Fragment.ConfigurationFragment;
 import co.edu.udea.compumovil.gr02_20182.lab2.Fragment.FragmentListDrinkRecycler;
 import co.edu.udea.compumovil.gr02_20182.lab2.Fragment.FragmentListFoodRecycler;
 import co.edu.udea.compumovil.gr02_20182.lab2.Fragment.PerfilFragment;
 import co.edu.udea.compumovil.gr02_20182.lab2.Fragment.ServicesBlankFragment;
-import co.edu.udea.compumovil.gr02_20182.lab2.entidades.Bebida;
+
 
 public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         FragmentListDrinkRecycler.OnFragmentInteractionListener,
         FragmentListFoodRecycler.OnFragmentInteractionListener
         {
-
 
 
     @Override
@@ -40,16 +40,34 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         /*insertar regist*/
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.Insert);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+
+
+
+
+        final FloatingActionsMenu fabgrupo = (FloatingActionsMenu) findViewById(R.id.fabGrupo);
+        FloatingActionButton fabdrink = (FloatingActionButton) findViewById(R.id.fabDrink);
+        FloatingActionButton fabfood  = (FloatingActionButton) findViewById(R.id.fabFood);
+
+
+        fabfood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                dialogRegister();
-
-
+                openActividadDdrink();
+                fabgrupo.collapse();
             }
         });
+
+        fabdrink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActividadFood();
+                fabgrupo.collapse();
+            }
+        });
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -78,8 +96,7 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         int id = item.getItemId();
    if (id == R.id.action_close_navigation) {
             finish();
-        }else if (id == R.id.action_return) {
-       openFragmentServices();
+
     }
          return super.onOptionsItemSelected(item);
     }
@@ -128,6 +145,7 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
     private void openFragmentServices() {
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.fragmentContainers, new ServicesBlankFragment()).commit();
+
     }
     private void openFragmentConfiguration() {
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
@@ -158,25 +176,4 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
 
     }
-            public void dialogRegister(){
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(" ")
-                        .setTitle(getString(R.string.s_register));
-
-                builder.setPositiveButton(getString(R.string.s_food), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        openActividadFood();
-                    }
-                });
-                builder.setNegativeButton(getString(R.string.s_drink), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        openActividadDdrink();
-                    }
-                });
-
-
-                builder.show();
-            }
-
 }
