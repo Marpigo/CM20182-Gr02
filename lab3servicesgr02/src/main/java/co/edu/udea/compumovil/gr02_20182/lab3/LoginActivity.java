@@ -9,13 +9,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.List;
 import co.edu.udea.compumovil.gr02_20182.lab3.Fragment.PerfilFragment;
-
+import co.edu.udea.compumovil.gr02_20182.lab3.Models.Usuario;
+import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLite;
+import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLiteUser;
 
 public class LoginActivity extends AppCompatActivity {
 
 
-    EditText campoName_profil;/*Usaurio a buscar, perfil*/
+    EditText campoName;/*Usaurio a buscar, perfil*/
     EditText campoPassword;
     Button butenter_services;
 
@@ -28,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         butenter_services = (Button)findViewById(R.id.butLoguin);
 
         //campo a buscar
-        campoName_profil = (EditText) findViewById(R.id.ediName_loguin);
+        campoName = (EditText) findViewById(R.id.ediName_loguin);
         campoPassword = (EditText) findViewById(R.id.ediPass_loguin);
 
 
@@ -38,12 +41,15 @@ public class LoginActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.butLoguin:
-                if(validateString(campoName_profil.getText().toString()) && validateString(campoPassword.getText().toString())  )
-            {
-                PerfilFragment.user_login= campoName_profil.getText().toString();
-                openNavigationDrawer();
+                String campos="";
+                campos = validateCampo(campoName.getText().toString(), campoPassword.getText().toString());
+                if(campos.length() == 0)
+                {
+                    PerfilFragment.user_login= campoName.getText().toString(); //User logueado
+                    PerfilFragment.user_pass= campoPassword.getText().toString();
+                    openNavigationDrawer();
             }else{
-                    Toast.makeText(getApplicationContext(), "Login ó Password ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, campos, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -67,11 +73,37 @@ public class LoginActivity extends AppCompatActivity {
     /*
      * Validar campos: Vacios o nulo
      * */
-    Boolean validateString (String text){
-        return text!=null && text.trim().length()>0; //Valido si el texto es diferente null y texto quitado los espacios es > 0 sera valido
-
+    String validateCampo (String name, String password){
+        String campos;
+        campos = name !=null && name.trim().length()>0? "" : "\n" + campoName.getHint() + "\n";
+        campos += password !=null && password.trim().length()>0?"" : campoPassword.getHint() + "\n";
+        campos += userValidate()?"" : "Usuario o contraseña no valido"+ "\n";
+        return campos;
     }
 
+
+    Boolean userValidate()
+    {
+        Boolean uservalido = false;
+        List<Usuario> userList;
+        DatabaseSQLiteUser databasesqliteduser = new DatabaseSQLiteUser();
+        final DatabaseSQLite databasesqlit = DatabaseSQLite.getInstance(this);
+        databasesqlit.open();
+
+        String name;
+        String password;
+        int consulta = 0;
+
+        name = campoName.getText().toString();
+        password = campoPassword.getText().toString();
+
+        userList = databasesqliteduser.getUser(name, password);
+
+        uservalido = userList.size()>0?true:false;
+
+        databasesqlit.close();
+        return  uservalido;
+    }
 
 
 

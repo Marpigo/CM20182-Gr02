@@ -29,7 +29,6 @@ public class FragmentListFoodRecycler extends Fragment {
     /*Variables recycler Comida*/
     public static List<Comida> comidaList;
     RecyclerView recyclerC;
-    public list_food_Detalle_Fragment dialogoPersonalizadoC;
     public String nameC, hourC, typeC, timeC, preciC, ingredientC;
     public byte [] photodetallC;
 

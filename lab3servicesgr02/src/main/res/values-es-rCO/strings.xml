@@ -63,4 +63,5 @@
     <string name="s_list_food_menu">Listado de PLatos</string>
     <string name="s_list_drink_menu">Listado de Bebidas</string>
     <string name="s_menu_search">Buscar</string>
+    <string name="s_user_update">"Se Actualizo  el registro "</string>
 </resources>

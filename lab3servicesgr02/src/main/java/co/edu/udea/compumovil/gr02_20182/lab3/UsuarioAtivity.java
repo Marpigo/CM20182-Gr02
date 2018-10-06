@@ -2,17 +2,25 @@ package co.edu.udea.compumovil.gr02_20182.lab3;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
+
+import co.edu.udea.compumovil.gr02_20182.lab3.Fragment.PerfilFragment;
+import co.edu.udea.compumovil.gr02_20182.lab3.Models.Usuario;
+import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLite;
+import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLiteUser;
 
 /*
 * Activity para registrar los usuarios:
@@ -25,7 +33,8 @@ public class UsuarioAtivity extends AppCompatActivity {
     ImageView campoPhoto;
     EditText campoName, campoEmail, campoPassword;
 
-    //SQLite_OpenHelper conn;
+    Button butregistrar;
+    public static int modo = 0; /*0.Nuevo, 1.Modificar*/
 
 
     @Override
@@ -33,10 +42,14 @@ public class UsuarioAtivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_ativity);
 
-      //  conn=new SQLite_OpenHelper(getApplicationContext(),"bdrestaurant",null,1);
-
         init();
         setupActionBar();
+
+        if (modo == 1)
+        {
+            userQuery();
+        }
+
     }
 
     private void setupActionBar() {
@@ -53,65 +66,84 @@ public class UsuarioAtivity extends AppCompatActivity {
         campoName = (EditText) findViewById(R.id.ediNameUser);
         campoEmail = (EditText) findViewById(R.id.ediEmailUser);
         campoPassword = (EditText) findViewById(R.id.ediPasswordUser);
-        campoPhoto = (ImageView) findViewById(R.id.imgPhoto);
+        campoPhoto = (ImageView) findViewById(R.id.imgPhotoUser);
+        butregistrar = (Button) findViewById(R.id.butRegistrarUser);
+        campoPhoto = (ImageView) findViewById(R.id.imgPhotoUser);
     }
 
+
     public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.butRegistrarUser:
+                String campos = "";
 
-        switch (view.getId()){
-            case R.id.butLoguin2:
+                campos = validateCampo(campoName.getText().toString(), campoEmail.getText().toString(), campoPassword.getText().toString());
 
-                if(validateString(campoName.getText().toString()) && validateString(campoEmail.getText().toString()) && validateString(campoPassword.getText().toString()))
-                {
-                   // insertUsers();
-                }else {
-                    Toast.makeText(getApplicationContext(), "Verificar: Campos vacios", Toast.LENGTH_SHORT).show();
-                }
+                if (campos.length() == 0) {
 
-                break;
-            case R.id.imgPhoto:
-                imagenGallery();
-                break;
+                    if (modo == 0 ){
+                        insertUser();
+                        limpiar();
+                    }else if(modo == 1){
+                        updateUser();
+                        PerfilFragment.user_login = campoName.getText().toString();
+                        PerfilFragment.user_pass = campoPassword.getText().toString();
+                        modo =0;
+                        limpiar();
+                    }
+
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Verificar Campos: " + campos, Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                    case R.id.imgPhotoUser:
+                        imagenGallery();
+                        break;
         }
     }
 
-/*
-    private void insertUsers() {
-        SQLite_OpenHelper conn=new SQLite_OpenHelper(this,"bdrestaurant",null,1);
+    private void insertUser() {
+        DatabaseSQLiteUser databasesqliteduser = new DatabaseSQLiteUser();
+        final DatabaseSQLite databasesqlit = DatabaseSQLite.getInstance(this);
+        databasesqlit.open();
 
-        SQLiteDatabase db=conn.getWritableDatabase();
-        ContentValues values=new ContentValues();
-        values.put(Constantes.CAMPO_NAME,campoName.getText().toString());
-        values.put(Constantes.CAMPO_EMAIL,campoEmail.getText().toString());
-        values.put(Constantes.CAMPO_PASSWORD,campoPassword.getText().toString());
-        values.put(Constantes.CAMPO_PHOTO,imageViewToByte(campoPhoto));
+        String name;
+        String email;
+        String password;
+        byte[] photo;
+        int registro = 0;
 
-        Long idResultante=db.insert(Constantes.TABLA_USUARIO,Constantes.CAMPO_NAME,values);
-        Toast.makeText(getApplicationContext(),"Registro: "+idResultante,Toast.LENGTH_SHORT).show();
-        db.close();
-        limpiar();
+         name = campoName.getText().toString();
+         email = campoEmail.getText().toString();
+         password = campoPassword.getText().toString();
+         photo = imageViewToByte(campoPhoto);
+
+         registro = databasesqliteduser.insertUser(name, email, password, photo);
+         Toast.makeText(getApplicationContext(), "Se inserto " + registro + " registro", Toast.LENGTH_SHORT).show();
+         databasesqlit.close();
     }
-*/
 
-    public static byte[] imageViewToByte(ImageView image) {
-        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
+    public static byte[] imageViewToByte (ImageView image){
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
         return byteArray;
     }
 
-
     /*
-    * Validar campos: Vacios o nulo
-    * */
-    Boolean validateString (String text){
-        return text!=null && text.trim().length()>0; //Valido si el texto es diferente null y texto quitado los espacios es > 0 sera valido
-
+         * Validar campos: Vacios o nulo
+         * */
+        String validateCampo (String name, String email, String password){
+        String campos;
+        campos = name !=null && name.trim().length()>0? "" : "\n" + campoName.getHint() + "\n";
+        campos += email !=null && email.trim().length()>0? "" :campoEmail.getHint() + "\n";
+        campos += password !=null && password.trim().length()>0?"" : campoPassword.getHint() + "\n";
+        return campos;
     }
 
 
-    private void imagenGallery() {
+        private void imagenGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/");
         startActivityForResult(intent.createChooser(intent,"Seleccionar la aplicación"),10);
@@ -132,6 +164,52 @@ public class UsuarioAtivity extends AppCompatActivity {
         campoPassword.setText("");
         campoPhoto.setImageResource(R.drawable.ic_person_red_24dp);
     }
+
+    public void  userQuery() {
+        Boolean uservalido = false;
+        List<Usuario> userList;
+        DatabaseSQLiteUser databasesqliteduser = new DatabaseSQLiteUser();
+        final DatabaseSQLite databasesqlit = DatabaseSQLite.getInstance(this);
+        databasesqlit.open();
+
+        String name;
+        String password;
+
+        userList = databasesqliteduser.getUser(PerfilFragment.user_login, PerfilFragment.user_pass);
+        campoName.setText(userList.get(0).getName());
+        campoEmail.setText(userList.get(0).getEamil());
+        campoPassword.setText(userList.get(0).getPassword());
+        byte[] data = userList.get(0).getPhoto();
+        Bitmap image = toBitmap(data);
+        campoPhoto.setImageBitmap(image);
+        databasesqlit.close();
+    }
+
+    public static Bitmap toBitmap(byte[] image) {
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
+    }
+
+
+    private void updateUser() {
+        DatabaseSQLiteUser databasesqliteduser = new DatabaseSQLiteUser();
+        final DatabaseSQLite databasesqlit = DatabaseSQLite.getInstance(this);
+        databasesqlit.open();
+
+        String name;
+        String email;
+        String password;
+        byte[] photo;
+        int registro = 0;
+
+        name = campoName.getText().toString();
+        email = campoEmail.getText().toString();
+        password = campoPassword.getText().toString();
+        photo = imageViewToByte(campoPhoto);
+        registro = databasesqliteduser.updateUser(PerfilFragment.user_login, name, email, password, photo);
+        Toast.makeText(getApplicationContext(), getString(R.string.s_user_update) + " " + registro, Toast.LENGTH_SHORT).show();
+        databasesqlit.close();
+    }
+
 
 
 }

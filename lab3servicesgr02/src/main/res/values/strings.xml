@@ -56,6 +56,7 @@
     <string name="s_email_user">Email</string>
     <string name="s_register_user">Register</string>
     <string name="s_create_Account">Create Account</string>
+    <string name="s_user_update">Register update </string>
 
     <!-- Strings Fragment Services-->
     <string name="s_plate">Plate</string>

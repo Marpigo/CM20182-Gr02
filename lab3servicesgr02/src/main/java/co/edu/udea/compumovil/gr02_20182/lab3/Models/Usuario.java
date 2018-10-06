@@ -13,6 +13,9 @@ public class Usuario {
         this.password = password;
     }
 
+    public Usuario() {
+    }
+
     public byte[] getPhoto() {
         return photo;
     }

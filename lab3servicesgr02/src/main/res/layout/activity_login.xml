@@ -52,7 +52,7 @@
                 android:layout_marginLeft="10dp"
                 android:ems="10"
                 android:hint="@string/s_pass_loguin"
-                android:inputType="textPersonName" />
+                android:inputType="textPassword" />
         </TableRow>
 
         <TableRow

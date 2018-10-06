@@ -1,6 +1,5 @@
 package co.edu.udea.compumovil.gr02_20182.lab3.Fragment;
 
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -11,13 +10,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
+import co.edu.udea.compumovil.gr02_20182.lab3.Models.Usuario;
 import co.edu.udea.compumovil.gr02_20182.lab3.R;
-
-
+import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLite;
+import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLiteUser;
 
 public class PerfilFragment extends Fragment {
 
-    public static String user_login;
+    public static String user_login, user_pass;
 
     TextView name_profil, email_profil;
     ImageView photo_profil;
@@ -27,22 +29,11 @@ public class PerfilFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
-        /*
-        * No reconoce porque la findViewById: por que no se puede enlazar con un objeto
-        *  que no este dentro de lavista, no es igual a un activity
-        *  1. Crear una vista
-        *  2. Enlazar los elementos
-        *  3. Retorno la vista
-        * */
-
-//        MainActivity.conn=new SQLite_OpenHelper(getActivity(),"bdrestaurant",null,1);
-
-        View view = inflater.inflate(R.layout.fragment_perfil, container, false);
+       View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
        init(view);
-  //      consultUser();
+       userQuery();
         return  view;
 
     }
@@ -54,38 +45,33 @@ public class PerfilFragment extends Fragment {
         photo_profil = (ImageView)view.findViewById(R.id.imgPhotoProfile);
     }
 
+    public void  userQuery()
+    {
+        Boolean uservalido = false;
+        List<Usuario> userList;
+        DatabaseSQLiteUser databasesqliteduser = new DatabaseSQLiteUser();
+        final DatabaseSQLite databasesqlit = DatabaseSQLite.getInstance(getContext());
+        databasesqlit.open();
 
-/*
-    private void consultUser() {
+        String name;
+        String password;
 
-        SQLiteDatabase db= MainActivity.conn.getReadableDatabase();
-        String[] parametros={user_login };
-        String[] campos={Constantes.CAMPO_NAME,Constantes.CAMPO_EMAIL};
+        userList = databasesqliteduser.getUser(user_login, user_pass);
+        name_profil.setText(userList.get(0).getName());
+        email_profil.setText(userList.get(0).getEamil());
 
-        try {
-            Cursor cursor =db.query(Constantes.TABLA_USUARIO,campos,Constantes.CAMPO_NAME+"=?", parametros,null,null,null);
-            cursor.moveToFirst();
-            name_profil.setText(cursor.getString(0));
-            email_profil.setText(cursor.getString(1));
+        byte[] data = userList.get(0).getPhoto();
+        Bitmap image = toBitmap(data);
+        photo_profil.setImageBitmap(image);
 
-            byte[] blob = cursor.getBlob(2);
-
-            Bitmap image = toBitmap(blob);
-            photo_profil.setImageBitmap(image);
-
-            cursor.close();
-        }catch (Exception e){
-          //  Toast.makeText(getActivity(), "Consulta fallida: " + e, Toast.LENGTH_LONG).show();
-         }
+        databasesqlit.close();
 
     }
-    */
+
 
     public static Bitmap toBitmap(byte[] image) {
         return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
-
-
 
 
 

@@ -52,41 +52,6 @@ public class DatabaseSQLite {
         }
     }
 
-    /**
-     * Read all quotes from the database.
-     *
-     * @return a List of quotes
-     */
-    public List<String> getNames() {
-        List<String> list = new ArrayList<>();
-        Cursor cursor = database.rawQuery("SELECT name FROM bebida", null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            list.add(cursor.getString(0));
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return list;
-    }
-
-    /**
-     * Read the BLOB data as byte[]
-     *
-     * @param name name of the place
-     * @return image as byte[]
-     */
-    public byte[] getImage(String name) {
-        byte[] data = null;
-        Cursor cursor = database.rawQuery("SELECT photo FROM bebida WHERE name = ?", new String[]{name});
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            data = cursor.getBlob(0);
-            break;  // Assumption: name is unique
-        }
-        cursor.close();
-        return data;
-    }
-
 
 
 }

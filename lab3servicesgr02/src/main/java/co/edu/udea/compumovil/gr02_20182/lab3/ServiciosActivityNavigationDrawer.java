@@ -108,6 +108,7 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         } else if (id == R.id.nav_configuration) {
             openFragmentConfiguration();
         } else if (id == R.id.nav_Sing_off) {
+            singOff();
         } else if (id == R.id.nav_about) {
             openFragmenActividadAcercaDe();
         }
@@ -124,7 +125,11 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
                 //openActividadDdrink();
                 break;
             case R.id.imgProfileEdition:
+                UsuarioAtivity.modo = 1;/*Modo edicion*/
                 openUsuarioActividad();
+                break;
+            case R.id.imageViewLogo:
+                openFragmentServices();/*Presionar el logo muestra el menu*/
                 break;
         }
     }
@@ -164,6 +169,15 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
     private void openFragmentRecyclerFood() {
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.fragmentContainers, new FragmentListFoodRecycler()).commit();
+    }
+
+    private void singOff()
+    {
+        PerfilFragment.user_login ="";
+        PerfilFragment.user_login ="";
+        Intent miIntent = new Intent(ServiciosActivityNavigationDrawer.this, LoginActivity.class);
+        startActivity(miIntent);
+        finish();
     }
 
     @Override
