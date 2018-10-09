@@ -31,7 +31,7 @@ public class DatabaseSQLiteFood {
                 comida.setTime(cursor.getString(4));
                 comida.setPreci(cursor.getInt(5));
                 comida.setIngredient(cursor.getString(6));
-                comida.setPhoto(cursor.getBlob(7));
+                //comida.setPhoto(cursor.getBlob(7));
 
                 comidaList.add(comida);
             }

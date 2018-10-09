@@ -1,5 +1,6 @@
 package co.edu.udea.compumovil.gr02_20182.lab3;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -14,12 +15,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 
 import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLite;
 import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLiteDrink;
 
-public class DrinkActivity extends AppCompatActivity {
+public class DrinkActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
     EditText campoName;
     EditText campoPrice;
@@ -28,6 +38,12 @@ public class DrinkActivity extends AppCompatActivity {
     Button butregister;
 
     TextView campoNameInfo, campoPriceInfo, campoIngredientsInfo;
+
+    ProgressDialog progreso;
+    //Van a permitir establecer la conexion con nuestro servicio web services
+    RequestQueue request;
+    JsonObjectRequest jsonobjectrequest;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +89,9 @@ public class DrinkActivity extends AppCompatActivity {
         campoNameInfo = (TextView) findViewById(R.id.txtName_drink_information);
         campoPriceInfo = (TextView) findViewById(R.id.txtPrice_drink_information);
         campoIngredientsInfo = (TextView) findViewById(R.id.txtIngredents_drink_information);
+
+        request = Volley.newRequestQueue(this);
+
     }
 
 
@@ -162,4 +181,14 @@ public class DrinkActivity extends AppCompatActivity {
         campoPhoto.setImageResource(R.drawable.drink2);
     }
 
+    /*Metodos que nos permite Volley*/
+    @Override
+    public void onErrorResponse(VolleyError error) {
+
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+
+    }
 }

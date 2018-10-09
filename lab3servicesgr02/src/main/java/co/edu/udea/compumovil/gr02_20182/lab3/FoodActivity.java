@@ -1,5 +1,6 @@
 package co.edu.udea.compumovil.gr02_20182.lab3;
 
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,12 +20,21 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLite;
 import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLiteFood;
 
-public class FoodActivity extends AppCompatActivity {
+public class FoodActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
     EditText campoName;
     CheckBox campoMorning, campoAfternoon, campoEvening;
@@ -37,6 +48,10 @@ public class FoodActivity extends AppCompatActivity {
     Button butTime;
 
     TextView campoNameInfo, campoHourInfo, campoTypeInfo, getCampoTimeInfo, getCampoPriceInfo, getCampoIngredientsInfo;
+    ProgressDialog progreso;
+    //Van a permitir establecer la conexion con nuestro servicio web services
+    RequestQueue request;
+    JsonObjectRequest jsonobjectrequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +60,19 @@ public class FoodActivity extends AppCompatActivity {
 
         init();
 
+        /*
         butregister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 insertFood();
+            }
+        });
+*/
+        butregister.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+               openWebServices();
+               informationFood();
             }
         });
 
@@ -103,9 +127,72 @@ public class FoodActivity extends AppCompatActivity {
         getCampoPriceInfo = (TextView) findViewById(R.id.txtPrice_food_information);
         getCampoIngredientsInfo = (TextView) findViewById(R.id.txtIngredents_food_information);
 
+        request = Volley.newRequestQueue(this);
+
     }
 
-    private void insertFood()
+    public  void openWebServices() {
+
+        progreso = new ProgressDialog(this);
+        progreso.setMessage(getString(R.string.s_web_loading));
+        progreso.show();
+
+        //String server ="localhost";
+        String server ="192.168.1.1";
+        String name;
+        String schedule;
+        String type;
+        String time;
+        String preci;
+        String ingredients;
+        byte[] photo;
+        int registro =0;
+
+        name = campoName.getText().toString().toUpperCase();
+        schedule = horariosPlato(campoMorning, campoAfternoon, campoEvening);
+        type = campoMain.isChecked() ? "TRUE":"FALSE";
+        time = campoTime.getText().toString();
+        preci = campoPrice.getText().toString();
+        ingredients = campoIngredients.getText().toString().toUpperCase();
+        photo = imageViewToByte(campoPhoto);
+
+        String url = "http://"+server+"/REST/wsJSONRegistroC.php?" +
+                "id="+null+
+                "&name="+name+
+                "&schedule="+schedule+
+                "&type="+type+
+                "&time="+time+
+                "&preci="+preci+
+                "&ingredient="+ingredients+
+                "&photo="+null;
+
+        url = url.replace(" ", "%20");
+
+        Log.i( "URL: ", url);
+
+        //Enviamos la informacion a volley. Realiza el llamado a la url, e intenta conectarse a nuestro servicio REST
+        jsonobjectrequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+        request.add(jsonobjectrequest);
+
+    }
+
+
+    @Override
+    public void onResponse(JSONObject response) {  //Si todo esta correcto se ingresa a este metodo
+        Toast.makeText(getApplicationContext(), getString(R.string.s_web_insert_full), Toast.LENGTH_SHORT).show();
+        progreso.hide();
+        limpiar();
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        progreso.hide();
+        Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_register) + " " + error.toString(), Toast.LENGTH_SHORT).show();
+        Log.i( getString(R.string.s_web_not_register), error.toString());
+    }
+
+
+        private void insertFood()
     {
         final DatabaseSQLiteFood databasesqlitefood = new DatabaseSQLiteFood();
         final DatabaseSQLite databasesqlit = DatabaseSQLite.getInstance(this);
@@ -172,20 +259,11 @@ public class FoodActivity extends AppCompatActivity {
     private String horariosPlato(CheckBox morning, CheckBox afternoon, CheckBox evening)
     {
         String schedule="";
-        if(morning.isChecked())
-        {
-            schedule = "Morning";
-        }
 
-        if(afternoon.isChecked())
-        {
-            schedule = schedule + " Afternoon";
-        }
+        schedule = morning.isChecked()?"TRUE,":"FALSE,";
+        schedule += afternoon.isChecked()?"TRUE,":"FALSE,";
+        schedule += evening.isChecked()?"TRUE":"FALSE";
 
-        if(evening.isChecked())
-        {
-            schedule = schedule + " Evening";
-        }
         return  schedule;
     }
 
@@ -240,9 +318,6 @@ public class FoodActivity extends AppCompatActivity {
         }, minuto, hora,false);
         timePickerDialog.show();
     }
-
-
-
 
 
 

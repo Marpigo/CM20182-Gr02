@@ -64,4 +64,8 @@
     <string name="s_list_drink_menu">Listado de Bebidas</string>
     <string name="s_menu_search">Buscar</string>
     <string name="s_user_update">"Se Actualizo  el registro "</string>
+    <string name="s_web_insert_full">Registro exitoso</string>
+    <string name="s_web_loading">Cargando ......</string>
+    <string name="s_web_not_register">No se pudo registrar</string>
+    <string name="s_web_not_query">"No se pudo la consulta "</string>
 </resources>
