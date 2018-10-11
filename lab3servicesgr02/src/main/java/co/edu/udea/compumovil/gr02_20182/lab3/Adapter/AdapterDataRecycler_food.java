@@ -14,8 +14,6 @@ import java.util.List;
 import co.edu.udea.compumovil.gr02_20182.lab3.Models.Comida;
 import co.edu.udea.compumovil.gr02_20182.lab3.R;
 
-
-
 public class AdapterDataRecycler_food extends
         RecyclerView.Adapter<AdapterDataRecycler_food.ViewHolderDatos>
         implements View.OnClickListener{
@@ -25,7 +23,6 @@ public class AdapterDataRecycler_food extends
     public AdapterDataRecycler_food(List<Comida> comidaList) {
         this.comidaList = comidaList;
     }
-
 
     @Override
     public AdapterDataRecycler_food.ViewHolderDatos onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -47,7 +44,6 @@ public class AdapterDataRecycler_food extends
         //byte[] data = comidaList.get(position).getPhoto();
         //Bitmap image = toBitmap(data);
         //holder.photo.setImageBitmap(image);
-
     }
 
     @Override
@@ -86,5 +82,4 @@ public class AdapterDataRecycler_food extends
     public static Bitmap toBitmap(byte[] image) {
         return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
-
 }

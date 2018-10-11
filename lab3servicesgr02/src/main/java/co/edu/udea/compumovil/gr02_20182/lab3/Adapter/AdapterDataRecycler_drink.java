@@ -33,7 +33,6 @@ public class AdapterDataRecycler_drink extends RecyclerView.Adapter<AdapterDataR
     public AdapterDataRecycler_drink.ViewHolderDatos onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_drink_list,null,false);
 
-
         /*evento click en las comida*/
         view.setOnClickListener(this);
 

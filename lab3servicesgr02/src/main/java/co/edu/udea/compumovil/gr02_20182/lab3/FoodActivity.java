@@ -137,8 +137,11 @@ public class FoodActivity extends AppCompatActivity implements Response.Listener
         progreso.setMessage(getString(R.string.s_web_loading));
         progreso.show();
 
-        //String server ="localhost";
-        String server ="192.168.1.1";
+
+        String ipserver = getString(R.string.s_ip_000webhost);
+        //String server ="192.168.1.6";
+
+
         String name;
         String schedule;
         String type;
@@ -156,7 +159,7 @@ public class FoodActivity extends AppCompatActivity implements Response.Listener
         ingredients = campoIngredients.getText().toString().toUpperCase();
         photo = imageViewToByte(campoPhoto);
 
-        String url = "http://"+server+"/REST/wsJSONRegistroC.php?" +
+        String url = ipserver+"/REST/wsJSONRegistroC.php?" +
                 "id="+null+
                 "&name="+name+
                 "&schedule="+schedule+
@@ -189,45 +192,6 @@ public class FoodActivity extends AppCompatActivity implements Response.Listener
         progreso.hide();
         Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_register) + " " + error.toString(), Toast.LENGTH_SHORT).show();
         Log.i( getString(R.string.s_web_not_register), error.toString());
-    }
-
-
-        private void insertFood()
-    {
-        final DatabaseSQLiteFood databasesqlitefood = new DatabaseSQLiteFood();
-        final DatabaseSQLite databasesqlit = DatabaseSQLite.getInstance(this);
-        databasesqlit.open();
-
-        String name;
-        String schedule;
-        String type;
-        String time;
-        int price;
-        String ingredients;
-        byte[] photo;
-        int registro =0;
-
-        String campos="";
-        campos = validateCampo(campoName.getText().toString(), campoTime.getText().toString(), campoPrice.getText().toString(), campoIngredients.getText().toString());
-
-        if(campos.length()>0){
-            Toast.makeText(getApplicationContext(), "Verificar Campos: " + campos, Toast.LENGTH_SHORT).show();
-        }else
-        {
-            name = campoName.getText().toString();
-            schedule = horariosPlato(campoMorning, campoAfternoon, campoEvening);
-            type = campoMain.isChecked() ? "Main food" : "Entry";
-            time = campoTime.getText().toString();
-            price = Integer.parseInt(campoPrice.getText().toString());
-            ingredients = campoIngredients.getText().toString();
-            photo = imageViewToByte(campoPhoto);
-
-            informationFood();
-            registro = databasesqlitefood.insertFood( name, schedule, type, time, price, ingredients, photo);
-            Toast.makeText(getApplicationContext(), "Se inserto " + registro + " registro", Toast.LENGTH_SHORT).show();
-            limpiar();
-            databasesqlit.close();
-        }
     }
 
 

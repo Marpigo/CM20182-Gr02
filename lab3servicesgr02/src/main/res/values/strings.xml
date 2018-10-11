@@ -1,5 +1,12 @@
 <resources>
 
+
+
+
+    <!-- 000WebHost -->
+    <string name="s_ip_000webhost">https://restauranteudea.000webhostapp.com</string>
+
+
     <!-- Strings Web services -->
     <!-- Activity FOOD -->
     <string name="s_web_insert_full">Insert full</string>

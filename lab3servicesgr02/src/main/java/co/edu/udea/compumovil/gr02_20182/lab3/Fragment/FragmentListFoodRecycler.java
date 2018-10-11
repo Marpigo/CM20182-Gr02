@@ -86,8 +86,9 @@ public class FragmentListFoodRecycler extends Fragment implements Response.Liste
         progreso.setMessage(getString(R.string.s_web_loading));
         progreso.show();
 
-        String server ="192.168.1.1";
-        String url = "http://"+server+"/REST/wsJSONConsultarListaC.php";
+        String ipserver = getString(R.string.s_ip_000webhost);
+        //String server ="192.168.1.6";
+        String url = ipserver+"/REST/wsJSONConsultarListaC.php";
 
         Log.i( "URL: ", url);
 
@@ -106,7 +107,7 @@ public class FragmentListFoodRecycler extends Fragment implements Response.Liste
 
 
             udateList(response);//Actualizar lista
-            Log.i( "Tamaño2: ", foodList.size()+"");
+         //   Log.i( "Tamaño2: ", foodList.size()+"");
 
             //metodo onclik de seleccion de las comida
             adapter.setOnClickListener(new View.OnClickListener() {
