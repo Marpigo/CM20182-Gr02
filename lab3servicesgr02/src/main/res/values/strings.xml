@@ -13,6 +13,7 @@
     <string name="s_web_loading">Loading...</string>
     <string name="s_web_not_register">Could not register</string>
     <string name="s_web_not_query">The query could not be</string>
+    <string name="s_web_not_photo">Error when loading the image</string>
 
     <string name="app_name">RestMobile</string>
     <string name="s_app_name">RestMobile</string>

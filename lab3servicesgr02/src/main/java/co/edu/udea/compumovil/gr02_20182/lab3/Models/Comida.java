@@ -10,11 +10,12 @@ public class Comida {
     private String ingredient;
     //private byte [] photo;
     private String photo;
+    private String photoUrl;
 
     public Comida() {
     }
 
-    public Comida(int id, String name, String schedule, String type, String time, int preci, String ingredient, String photo) {
+    public Comida(int id, String name, String schedule, String type, String time, int preci, String ingredient, String photo, String photoUrl) {
         this.id = id;
         this.name = name;
         this.schedule = schedule;
@@ -23,6 +24,7 @@ public class Comida {
         this.preci = preci;
         this.ingredient = ingredient;
         this.photo = photo;
+        this.photoUrl = photoUrl;
     }
 
     public int getId() {
@@ -87,5 +89,13 @@ public class Comida {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

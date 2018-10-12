@@ -87,7 +87,6 @@ public class FragmentListFoodRecycler extends Fragment implements Response.Liste
         progreso.show();
 
         String ipserver = getString(R.string.s_ip_000webhost);
-        //String server ="192.168.1.6";
         String url = ipserver+"/REST/wsJSONConsultarListaC.php";
 
         Log.i( "URL: ", url);
@@ -102,7 +101,7 @@ public class FragmentListFoodRecycler extends Fragment implements Response.Liste
 
             progreso.hide();
 
-            AdapterDataRecycler_food adapter=new AdapterDataRecycler_food(foodList);
+            AdapterDataRecycler_food adapter=new AdapterDataRecycler_food(foodList, getContext());
             recyclerFood.setAdapter(adapter);
 
 
@@ -140,7 +139,8 @@ public class FragmentListFoodRecycler extends Fragment implements Response.Liste
                 comida.setTime(jsonObject.optString("time"));
                 comida.setPreci(jsonObject.optInt("preci"));
                 comida.setIngredient(jsonObject.optString("ingredient"));
-                 comida.setPhoto(jsonObject.optString("photo"));
+                //comida.setPhoto(jsonObject.optString("photo"));
+                comida.setPhotoUrl(jsonObject.optString("photo"));
                 foodList.add(comida);
              }
           } catch (JSONException e) {

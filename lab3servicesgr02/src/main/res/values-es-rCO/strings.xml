@@ -68,4 +68,5 @@
     <string name="s_web_loading">Cargando ......</string>
     <string name="s_web_not_register">No se pudo registrar</string>
     <string name="s_web_not_query">"No se pudo la consulta "</string>
+    <string name="s_web_not_photo">Error al cargar la imagen</string>
 </resources>
