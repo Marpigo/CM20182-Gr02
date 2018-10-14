@@ -31,6 +31,7 @@ import java.util.List;
 
 import co.edu.udea.compumovil.gr02_20182.lab3.Adapter.AdapterDataRecycler_food;
 import co.edu.udea.compumovil.gr02_20182.lab3.Models.Comida;
+import co.edu.udea.compumovil.gr02_20182.lab3.Pattern.VolleySingleton;
 import co.edu.udea.compumovil.gr02_20182.lab3.R;
 import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLite;
 import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLiteFood;
@@ -47,7 +48,6 @@ public class FragmentListFoodRecycler extends Fragment implements Response.Liste
 
     ProgressDialog progreso;
     //Van a permitir establecer la conexion con nuestro servicio web services
-    RequestQueue request;
     JsonObjectRequest jsonobjectrequest;
 
     public String nameC, hourC, typeC, timeC, preciC, ingredientC;
@@ -76,8 +76,6 @@ public class FragmentListFoodRecycler extends Fragment implements Response.Liste
        recyclerFood= (RecyclerView) view.findViewById(R.id.recyclerFood);
        recyclerFood.setLayoutManager(new LinearLayoutManager(getContext()));
        recyclerFood.setHasFixedSize(true);
-
-       request = Volley.newRequestQueue(getContext());
     }
 
     public  void openWebServices() {
@@ -93,7 +91,8 @@ public class FragmentListFoodRecycler extends Fragment implements Response.Liste
 
         //Enviamos la informacion a volley. Realiza el llamado a la url, e intenta conectarse a nuestro servicio REST
         jsonobjectrequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
-        request.add(jsonobjectrequest);
+        //Instanciamos el patron singleton  - volleySingleton
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonobjectrequest);
     }
 
     @Override

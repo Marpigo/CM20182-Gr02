@@ -18,7 +18,7 @@ import com.android.volley.toolbox.ImageRequest;
 import java.util.List;
 
 import co.edu.udea.compumovil.gr02_20182.lab3.Models.Comida;
-import co.edu.udea.compumovil.gr02_20182.lab3.Models.VolleySingleton;
+import co.edu.udea.compumovil.gr02_20182.lab3.Pattern.VolleySingleton;
 import co.edu.udea.compumovil.gr02_20182.lab3.R;
 
 public class AdapterDataRecycler_food extends

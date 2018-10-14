@@ -1,4 +1,4 @@
-package co.edu.udea.compumovil.gr02_20182.lab3.Models;
+package co.edu.udea.compumovil.gr02_20182.lab3.Pattern;
 
 import android.content.Context;
 
@@ -36,4 +36,6 @@ public class VolleySingleton {
     public <T> void addToRequestQueue(Request<T> request) {
         getRequestQueue().add(request);
     }
+
+
 }
