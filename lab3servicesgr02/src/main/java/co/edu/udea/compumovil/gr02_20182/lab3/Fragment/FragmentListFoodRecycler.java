@@ -99,10 +99,8 @@ public class FragmentListFoodRecycler extends Fragment implements Response.Liste
     public void onResponse(JSONObject response) {
 
             progreso.hide();
-
             AdapterDataRecycler_food adapter=new AdapterDataRecycler_food(foodList, getContext());
             recyclerFood.setAdapter(adapter);
-
 
             udateList(response);//Actualizar lista
          //   Log.i( "Tamaño2: ", foodList.size()+"");
@@ -115,9 +113,6 @@ public class FragmentListFoodRecycler extends Fragment implements Response.Liste
                 }
             });
             recyclerFood.setAdapter(adapter);
-
-
-
     }
 
     /*Actualizar la ArrayList con el Array comidaArrJson*/

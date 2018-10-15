@@ -26,9 +26,9 @@ public class DatabaseSQLiteDrink {
                 bebidas=new Bebida();
                 bebidas.setId(cursor.getInt(0));
                 bebidas.setName(cursor.getString(1));
-                bebidas.setPrice(cursor.getInt(2));
+                bebidas.setPreci(cursor.getInt(2));
                 bebidas.setIngredients(cursor.getString(3));
-                bebidas.setPhoto(cursor.getBlob(4));
+                //bebidas.setPhoto(cursor.getBlob(4));
                 bebidaList.add(bebidas);
             }
         }catch (Exception e){

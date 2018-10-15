@@ -3,22 +3,24 @@ package co.edu.udea.compumovil.gr02_20182.lab3.Models;
 public class Bebida {
     private int id;
     private String name;
-    private double price;
+    private int preci;
     private String Ingredients;
-    private byte [] photo;
-
-    public Bebida(int id, String name, double price, String ingredients, byte[] photo) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        Ingredients = ingredients;
-        this.photo = photo;
-    }
+   // private byte [] photo;
+   private String photo;
+    private String photoUrl;
 
     public Bebida() {
 
     }
 
+    public Bebida(int id, String name, int preci, String ingredients, String photo, String photoUrl) {
+        this.id = id;
+        this.name = name;
+        this.preci = preci;
+        Ingredients = ingredients;
+        this.photo = photo;
+        this.photoUrl = photoUrl;
+    }
 
     public int getId() {
         return id;
@@ -36,12 +38,12 @@ public class Bebida {
         this.name = name;
     }
 
-    public double getPrice() {
-        return price;
+    public int getPreci() {
+        return preci;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setPreci(int preci) {
+        this.preci = preci;
     }
 
     public String getIngredients() {
@@ -52,11 +54,19 @@ public class Bebida {
         Ingredients = ingredients;
     }
 
-    public byte[] getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

@@ -96,8 +96,6 @@ public class FoodActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_conexion), Toast.LENGTH_SHORT).show();
                 }
 
-
-
             }
         });
 
@@ -200,7 +198,7 @@ public class FoodActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_register), Toast.LENGTH_SHORT).show();
-                Log.i( getString(R.string.s_web_not_register),"No conexion");
+               // Log.i( getString(R.string.s_web_not_register),"No conexion");
                 progreso.hide();
             }
         })
@@ -335,8 +333,6 @@ public class FoodActivity extends AppCompatActivity {
         bitmaphoto = null;
 
     }
-
-
     public void abrirReloj() {
         final Calendar calendario = Calendar.getInstance();
         int  hora = calendario.get(Calendar.HOUR_OF_DAY);
@@ -350,7 +346,4 @@ public class FoodActivity extends AppCompatActivity {
         }, minuto, hora,false);
         timePickerDialog.show();
     }
-
-
-
 }
