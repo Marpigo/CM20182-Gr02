@@ -21,20 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/txtBienvenido"
         android:scaleType="centerCrop"
-        android:src="@drawable/welcome"
+        android:src="@drawable/welcomev2"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
 
-    <Button
-        android:id="@+id/btnServicios"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/colorPrimaryDark"
-        android:text="www.restaurant"
-        android:textColor="#ffff"
-        android:textSize="16sp"
-        android:textStyle="bold" />
 </android.support.constraint.ConstraintLayout>
