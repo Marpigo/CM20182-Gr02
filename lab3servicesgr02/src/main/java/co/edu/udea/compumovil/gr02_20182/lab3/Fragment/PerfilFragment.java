@@ -24,8 +24,6 @@ public class PerfilFragment extends Fragment {
     TextView name_profil, email_profil;
     ImageView photo_profil;
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,7 +33,6 @@ public class PerfilFragment extends Fragment {
        init(view);
        userQuery();
         return  view;
-
     }
 
     public  void init(View view)
@@ -58,22 +55,18 @@ public class PerfilFragment extends Fragment {
 
         userList = databasesqliteduser.getUser(user_login, user_pass);
         name_profil.setText(userList.get(0).getName());
-        email_profil.setText(userList.get(0).getEamil());
+        email_profil.setText(userList.get(0).getEmail());
 
         byte[] data = userList.get(0).getPhoto();
         Bitmap image = toBitmap(data);
         photo_profil.setImageBitmap(image);
 
         databasesqlit.close();
-
     }
 
 
     public static Bitmap toBitmap(byte[] image) {
         return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
-
-
-
 
 }

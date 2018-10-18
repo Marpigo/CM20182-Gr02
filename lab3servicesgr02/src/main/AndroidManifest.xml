@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/><!-- Mirar si hay conexion de internet -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/> <!-- ​ service que se ejecute automáticamente cuando el dispositivo inicie (BOOT) -->
+
 
     <application
         android:allowBackup="true"
@@ -20,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".Sync.BootupReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".ServiciosActivityNavigationDrawer"
             android:label="@string/title_activity_servicios_navigation_drawer"
@@ -34,6 +44,7 @@
         <activity
             android:name=".DrinkActivity"
             android:parentActivityName=".ServiciosActivityNavigationDrawer" />
+
     </application>
 
 </manifest>

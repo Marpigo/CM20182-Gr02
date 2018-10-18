@@ -1,27 +1,30 @@
 package co.edu.udea.compumovil.gr02_20182.lab3.Models;
 
 public class Usuario {
-    private byte [] photo;
+    private int id;
     private String name;
-    private String eamil;
+    private String email;
     private  String password;
-
-    public Usuario(String name, String eamil, String password, byte[] photo) {
-        this.photo = photo;
-        this.name = name;
-        this.eamil = eamil;
-        this.password = password;
-    }
+    private byte [] photo;
 
     public Usuario() {
-    }
 
-    public byte[] getPhoto() {
-        return photo;
-    }
+   }
 
-    public void setPhoto(byte[] photo) {
+    public Usuario(int id, String name, String email, String password, byte[] photo) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
         this.photo = photo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -32,12 +35,12 @@ public class Usuario {
         this.name = name;
     }
 
-    public String getEamil() {
-        return eamil;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEamil(String eamil) {
-        this.eamil = eamil;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -46,5 +49,13 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 }

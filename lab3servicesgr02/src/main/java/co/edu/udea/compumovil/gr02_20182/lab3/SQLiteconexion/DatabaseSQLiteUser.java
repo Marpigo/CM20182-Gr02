@@ -27,7 +27,7 @@ public class DatabaseSQLiteUser {
             while (cursor.moveToNext()){
                 usuarios=new Usuario();
                 usuarios.setName(cursor.getString(0));
-                usuarios.setEamil(cursor.getString(1));
+                usuarios.setEmail(cursor.getString(1));
                 usuarios.setPassword(cursor.getString(2));
                 usuarios.setPhoto(cursor.getBlob(3));
                 usuarioList.add(usuarios);
@@ -38,13 +38,14 @@ public class DatabaseSQLiteUser {
         return usuarioList;
     }
 
-    public  int insertUser(String name, String email, String password, byte[] photo) {
+    public  int insertUser(int id, String name, String email, String password, byte[] photo) {
         int registro  =0;
         try
         {
             SQLiteDatabase bd = databasesqlit.database ;
 
             ContentValues values=new ContentValues();
+            values.put(Constantes.CAMPO_ID, id);
             values.put(Constantes.CAMPO_NAME, name);
             values.put(Constantes.CAMPO_EMAIL,email);
             values.put(Constantes.CAMPO_PASSWORD, password);
@@ -57,6 +58,12 @@ public class DatabaseSQLiteUser {
 
         }
         return registro;
+    }
+
+    public void deleteUsers() {
+        SQLiteDatabase bd = databasesqlit.database;
+        bd.execSQL("DELETE FROM " + Constantes.TABLA_USUARIO);
+        //bd.execSQL("DELETE FROM " + Constantes.TABLA_USUARIO+ " WHERE "+ Constantes.CAMPO_ID+"='"+value+"'");
     }
 
 
@@ -88,7 +95,7 @@ public class DatabaseSQLiteUser {
             while (cursor.moveToNext()){
                 usuarios=new Usuario();
                 usuarios.setName(cursor.getString(0));
-                usuarios.setEamil(cursor.getString(1));
+                usuarios.setEmail(cursor.getString(1));
                 usuarios.setPassword(cursor.getString(2));
                 usuarios.setPhoto(cursor.getBlob(3));
                 usuarioList.add(usuarios);

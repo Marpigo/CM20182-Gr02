@@ -7,6 +7,7 @@ public class Constantes {
      *
      * */
     public static final String TABLA_USUARIO="usuario";
+    public static final String CAMPO_ID="id";
     public static final String CAMPO_PHOTO="photo";
     public static final String CAMPO_NAME="name";
     public static final String CAMPO_EMAIL="email";
