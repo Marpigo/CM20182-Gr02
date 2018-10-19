@@ -41,15 +41,21 @@ public class DatabaseSQLiteFood {
         return comidaList;
     }
 
+    public void deleteFood() {
+        SQLiteDatabase bd = databasesqlit.database;
+        bd.execSQL("DELETE FROM " + Constantes.TABLA_COMIDA);
+    }
 
 
-    public  int insertFood(String name, String schedule, String type, String time, int price, String ingredients, byte[] photo) {
+
+    public  int insertFood(int id, String name, String schedule, String type, String time, double price, String ingredients, byte[] photo) {
         int registro  =0;
         try
         {
            SQLiteDatabase bd = databasesqlit.database;
 
             ContentValues values=new ContentValues();
+            values.put(Constantes.CAMPO_ID_C, id);
             values.put(Constantes.CAMPO_NAME_C, name);
             values.put(Constantes.CAMPO_HORARIO_C, schedule);
             values.put(Constantes.CAMPO_TIPO_C,type);

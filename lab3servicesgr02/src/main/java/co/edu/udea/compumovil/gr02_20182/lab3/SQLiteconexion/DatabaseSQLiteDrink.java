@@ -38,14 +38,20 @@ public class DatabaseSQLiteDrink {
     }
 
 
+    public void deleteDrink() {
+        SQLiteDatabase bd = databasesqlit.database;
+        bd.execSQL("DELETE FROM " + Constantes.TABLA_BEBIDA);
+    }
 
-    public  int insertDrink(String name, double price, String ingredients, byte[] photo) {
+
+    public  int insertDrink(int id, String name, double price, String ingredients, byte[] photo) {
         int registro  =0;
         try
         {
             SQLiteDatabase bd = databasesqlit.database ;
 
             ContentValues values=new ContentValues();
+            values.put(Constantes.CAMPO_ID_B, id);
             values.put(Constantes.CAMPO_NAME_B, name);
             values.put(Constantes.CAMPO_PRECIO_B,price);
             values.put(Constantes.CAMPO_INGREDIENTES_B, ingredients);

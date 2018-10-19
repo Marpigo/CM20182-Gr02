@@ -2,10 +2,13 @@ package co.edu.udea.compumovil.gr02_20182.lab3;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,15 +31,18 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import co.edu.udea.compumovil.gr02_20182.lab3.Fragment.PerfilFragment;
 import co.edu.udea.compumovil.gr02_20182.lab3.Models.Usuario;
 import co.edu.udea.compumovil.gr02_20182.lab3.Pattern.VolleySingleton;
 import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLite;
+import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLiteDrink;
+import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLiteFood;
 import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLiteUser;
 
-public class LoginActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<JSONObject> {
+public class LoginActivity extends AppCompatActivity{
 
 
     EditText campoName;/*Usaurio a buscar, perfil*/
@@ -58,54 +64,52 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        butenter_services = (Button)findViewById(R.id.butLoguin);
+        butenter_services = (Button) findViewById(R.id.butLoguin);
 
         //campo a buscar
         campoName = (EditText) findViewById(R.id.ediName_loguin);
         campoPassword = (EditText) findViewById(R.id.ediPass_loguin);
-        campoPhoto = (ImageView) findViewById(R.id.imageView2);
+        campoPhoto = (ImageView) findViewById(R.id.imageView);
 
-        openWebServices();
-
+        //Validar si hay conexion de internet
+        ConnectivityManager con = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkinfo = con.getActiveNetworkInfo();
+        if (networkinfo != null && networkinfo.isConnected()) {
+            openWebServiceLocalUser();
+            openWebServiceLocaDrink();
+            openWebServiceLocaFood();
+        } else {
+            Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_conexion), Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public  void openWebServices() {
-
-        progreso = new ProgressDialog(this);
-        progreso.setMessage(getString(R.string.s_web_loading));
-        progreso.show();
-
+    public  void openWebServiceLocalUser() {
 
         String ipserver = getString(R.string.s_ip_000webhost);
         String url = ipserver+"/REST/wsJSONConsultarListaU.php";
 
-        //Log.i( "URL: ", url);
-
-        //Enviamos la informacion a volley. Realiza el llamado a la url, e intenta conectarse a nuestro servicio REST
-        jsonobjectrequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+       //Enviamos la informacion a volley. Realiza el llamado a la url, e intenta conectarse a nuestro servicio REST
+        jsonobjectrequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                deleteDatosLocalUser();
+                UpdateDatosLocalUser(response);//Actualizar base local usuario
+                campoPhoto.setImageResource(R.drawable.user);
+                Toast.makeText(getApplicationContext(), "Update bd Local", Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_query) + " " + error.toString(), Toast.LENGTH_SHORT).show();
+                Log.i( getString(R.string.s_web_not_query), error.toString());
+            }
+        });
         //Instanciamos el patron singleton  - volleySingleton
         VolleySingleton.getIntanciaVolley(this).addToRequestQueue(jsonobjectrequest);
-
     }
 
 
-    @Override
-    public void onResponse(JSONObject response) {
-        deleteDatos();
-        udateDatos(response);//Actualizar base local usuario
-       // campoPhoto.setImageResource(R.drawable.login);
-        //   Log.i( "Tamaño2: ", foodList.size()+"");
-
-    }
-
-    @Override
-    public void onErrorResponse(VolleyError error) {
-        progreso.hide();
-        Toast.makeText(this, getString(R.string.s_web_not_query) + " " + error.toString(), Toast.LENGTH_SHORT).show();
-        Log.i( getString(R.string.s_web_not_query), error.toString());
-    }
-
-    private void deleteDatos()
+    private void deleteDatosLocalUser()
     {
         final DatabaseSQLite databasesqlit = DatabaseSQLite.getInstance(this);
         DatabaseSQLiteUser databasesqliteduser = new DatabaseSQLiteUser();
@@ -113,7 +117,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         databasesqliteduser.deleteUsers();
         databasesqlit.close();
     }
-    private void udateDatos(JSONObject response) {
+    private void UpdateDatosLocalUser(JSONObject response) {
         final DatabaseSQLite databasesqlit = DatabaseSQLite.getInstance(this);
         DatabaseSQLiteUser databasesqliteduser = new DatabaseSQLiteUser();
         databasesqlit.open();
@@ -139,71 +143,188 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
                 password = jsonObject.optString("password");
                 photourl = jsonObject.optString("photo");
 
-                //openWebServiceImagen(jsonObject.optString("photo"));
-               // campoPhoto = (ImageView) findViewById(R.id.imageView2);
-
                 openPhotoUrl(photourl);
-                //photo = imageViewToByte(campoPhoto);
-
-                registro = databasesqliteduser.insertUser(id, name, email, password, photo);
+                photo = imageViewToByte(campoPhoto);
+             registro = databasesqliteduser.insertUser(id, name, email, password, photo);
             }
         } catch (JSONException e) {
             e.printStackTrace();
             Log.i( "Error 2: ", e.toString());
             Toast.makeText(this, "Error insertar bd: " + " "+response, Toast.LENGTH_LONG).show();
-            progreso.hide();
+           // progreso.hide();
         }
-
-
-        Toast.makeText(getApplicationContext(), "Se inserto " + registro + " registro", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getApplicationContext(), "Se inserto " + registro + " registro", Toast.LENGTH_SHORT).show();
         databasesqlit.close();
-        progreso.hide();
-        campoPhoto.setImageResource(R.drawable.login);
     }
 
-    /*
-    public void imangenes(String imagenUrl)
-    {
-        imagenUrl = imagenUrl.replace("/https:/", "https:/");
-        File imgFile = new  File(imagenUrl);
-        Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-        ImageView myImage = (ImageView) findViewById(R.id.imageView2);
-        myImage.setImageBitmap(myBitmap);
-    }
-*/
+    public  void openWebServiceLocaDrink() {
 
+        String ipserver = getString(R.string.s_ip_000webhost);
+        String url = ipserver+"/REST/wsJSONConsultarListaB.php";
 
-    private void openPhotoUrl(String urlImagen) {
-
-        urlImagen=urlImagen.replace(" ","%20");
-
-        ImageRequest imageRequest=new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
+        //Enviamos la informacion a volley. Realiza el llamado a la url, e intenta conectarse a nuestro servicio REST
+        jsonobjectrequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(Bitmap response) {
-                campoPhoto.setImageBitmap(response);
-                //campoPhoto.setImageResource(response.getGenerationId());
-                //photo = imageViewToByte(response);
+            public void onResponse(JSONObject response) {
+                deleteDatosLocalDrink();
+                UpdateDatosLocaDrink(response);//Actualizar base local usuario
+                campoPhoto.setImageResource(R.drawable.user);
+               // Toast.makeText(getApplicationContext(), "Update bd Local", Toast.LENGTH_SHORT).show();
             }
-        }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplication(), "Error al cargar la imagen", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_query) + " " + error.toString(), Toast.LENGTH_SHORT).show();
+                Log.i( getString(R.string.s_web_not_query), error.toString());
             }
         });
+        //Instanciamos el patron singleton  - volleySingleton
+        VolleySingleton.getIntanciaVolley(this).addToRequestQueue(jsonobjectrequest);
+    }
 
-        VolleySingleton.getIntanciaVolley(this).addToRequestQueue(imageRequest);
+    private void deleteDatosLocalDrink()
+    {
+        final DatabaseSQLite databasesqlit = DatabaseSQLite.getInstance(this);
+        DatabaseSQLiteDrink databaseSQLitedrink = new DatabaseSQLiteDrink();
+        databasesqlit.open();
+        databaseSQLitedrink.deleteDrink();
+        databasesqlit.close();
+    }
+
+
+    private void UpdateDatosLocaDrink(JSONObject response) {
+        final DatabaseSQLite databasesqlit = DatabaseSQLite.getInstance(this);
+        DatabaseSQLiteDrink databaseSQLitedrink = new DatabaseSQLiteDrink();
+        databasesqlit.open();
+
+        int id;
+        String name;
+        double preci;
+        String ingredient;
+        String photourl;
+        //byte[] photo;
+        int registro = 0;
+
+        JSONArray json = response.optJSONArray("bebidaArrJson");
+        try {
+
+            for (int i = 0; i < json.length(); i++) {
+                JSONObject jsonObject = null;
+                jsonObject = json.getJSONObject(i);
+
+                id = jsonObject.optInt("id");
+                name = jsonObject.optString("name");
+                preci = jsonObject.optDouble("preci");
+                ingredient = jsonObject.optString("ingredient");
+                photourl = jsonObject.optString("photo");
+
+                openPhotoUrl(photourl);
+                photo = imageViewToByte(campoPhoto);
+                registro = databaseSQLitedrink.insertDrink(id, name, preci, ingredient, photo);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.i( "Error 2: ", e.toString());
+            Toast.makeText(this, "Error insertar bd: " + " "+response, Toast.LENGTH_LONG).show();
+            // progreso.hide();
+        }
+         Toast.makeText(getApplicationContext(), "Se inserto " + registro + " registro", Toast.LENGTH_SHORT).show();
+        databasesqlit.close();
+        //progreso.hide();
+
+    }
+
+    public  void openWebServiceLocaFood() {
+        String ipserver = getString(R.string.s_ip_000webhost);
+        String url = ipserver+"/REST/wsJSONConsultarListaC.php";
+
+        //Enviamos la informacion a volley. Realiza el llamado a la url, e intenta conectarse a nuestro servicio REST
+        jsonobjectrequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                deleteDatosLocalFood();
+                UpdateDatosLocaFood(response);//Actualizar base local usuario
+                campoPhoto.setImageResource(R.drawable.user);
+                // Toast.makeText(getApplicationContext(), "Update bd Local", Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_query) + " " + error.toString(), Toast.LENGTH_SHORT).show();
+                Log.i( getString(R.string.s_web_not_query), error.toString());
+            }
+        });
+        //Instanciamos el patron singleton  - volleySingleton
+        VolleySingleton.getIntanciaVolley(this).addToRequestQueue(jsonobjectrequest);
+    }
+
+    private void deleteDatosLocalFood()
+    {
+        final DatabaseSQLite databasesqlit = DatabaseSQLite.getInstance(this);
+        DatabaseSQLiteFood databaseSQLitedfood = new DatabaseSQLiteFood();
+        databasesqlit.open();
+        databaseSQLitedfood.deleteFood();
+        databasesqlit.close();
+    }
+
+
+    private void UpdateDatosLocaFood(JSONObject response) {
+        final DatabaseSQLite databasesqlit = DatabaseSQLite.getInstance(this);
+        DatabaseSQLiteFood databaseSQLitedfood = new DatabaseSQLiteFood();
+        databasesqlit.open();
+
+        int id;
+        String name;
+        String schedule;
+        String type;
+        String time;
+        double preci;
+        String ingredient;
+        String photourl;
+        //byte[] photo;
+        int registro = 0;
+
+        JSONArray json = response.optJSONArray("comidaArrJson");
+        try {
+
+            for (int i = 0; i < json.length(); i++) {
+                JSONObject jsonObject = null;
+                jsonObject = json.getJSONObject(i);
+
+                id = jsonObject.optInt("id");
+                name = jsonObject.optString("name");
+                schedule = jsonObject.optString("schedule");
+                type = jsonObject.optString("type");
+                time = jsonObject.optString("time");
+                preci = jsonObject.optDouble("preci");
+                ingredient = jsonObject.optString("ingredient");
+                photourl = jsonObject.optString("photo");
+
+                openPhotoUrl(photourl);
+                photo = imageViewToByte(campoPhoto);
+                registro = databaseSQLitedfood.insertFood(id, name, schedule, type, time, preci, ingredient, photo);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.i( "Error 2: ", e.toString());
+            Toast.makeText(this, "Error insertar bd: " + " "+response, Toast.LENGTH_LONG).show();
+            // progreso.hide();
+        }
+        Toast.makeText(getApplicationContext(), "Se inserto " + registro + " registro", Toast.LENGTH_SHORT).show();
+        databasesqlit.close();
+        //progreso.hide();
 
     }
 
 
-    private void openWebServiceImagen(String url)
-    {
-      //  url = url.replace("","%20");
+    private void openPhotoUrl(String url) {
+        url=url.replace(" ","%20");
+        //  url = url.replace("","%20");
         ImageRequest imagerequest = new ImageRequest(url, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
                 campoPhoto.setImageBitmap(response);
-                //photo = imageViewToByte(response);
+              // photo = imageViewToByte(response);
 
             }
         }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
@@ -216,16 +337,16 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     }
 
 
-    public static byte[] imageViewToByte (Bitmap bitmap ){
-//        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+
+    public static byte[] imageViewToByte(ImageView image) {
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
         return byteArray;
     }
 
-
-    public void onClick(View view) {
+        public void onClick(View view) {
         switch (view.getId()){
             case R.id.butLoguin:
                 String campos="";

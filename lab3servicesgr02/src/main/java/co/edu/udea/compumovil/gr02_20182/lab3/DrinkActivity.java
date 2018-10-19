@@ -70,7 +70,6 @@ public class DrinkActivity extends AppCompatActivity{
         butregister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-
                 //Validar si hay conexion de internet
                 ConnectivityManager con = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkinfo = con.getActiveNetworkInfo();
@@ -91,9 +90,7 @@ public class DrinkActivity extends AppCompatActivity{
                 }else{
                     Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_conexion), Toast.LENGTH_SHORT).show();
                 }
-
-
-            }
+         }
         });
         campoPhoto.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -101,21 +98,18 @@ public class DrinkActivity extends AppCompatActivity{
                 imagenGallery();
             }
         });
-
         setupActionBar();
     }
 
-    public  void openWebServices() {
 
+    public  void openWebServices() {
         progreso = new ProgressDialog(this);
         progreso.setMessage(getString(R.string.s_web_loading));
         progreso.show();
 
-
         String ipserver = getString(R.string.s_ip_000webhost);
         //String server ="192.168.1.6";
         String url = ipserver+"/REST/wsJSONRegistroB.php?";
-
         //Conexion mediante el metodo POST
         stringrequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -167,9 +161,7 @@ public class DrinkActivity extends AppCompatActivity{
                 parametros.put("imagen",imagen);
                 return parametros;
             }
-
         };
-
         //Instanciamos el patron singleton - VolleySingleton
         stringrequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleySingleton.getIntanciaVolley(this).addToRequestQueue(stringrequest);

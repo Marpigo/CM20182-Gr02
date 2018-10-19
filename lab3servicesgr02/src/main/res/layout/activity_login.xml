@@ -89,6 +89,14 @@
                 android:text="@string/s_create_Account"
                 android:textColor="@android:color/holo_blue_dark"
                 android:textStyle="italic" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="5dp"
+                android:layout_height="10dp"
+                android:scaleType="fitCenter"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/user" />
         </TableRow>
 
 
