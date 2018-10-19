@@ -15,6 +15,7 @@
     <string name="s_web_not_query">The query could not be</string>
     <string name="s_web_not_photo">Error when loading the image</string>
     <string name="s_web_not_conexion">No internet connection</string>
+    <string name="s_web_syncronizar">Update food-drinks</string>
 
 
     <string name="app_name">RestMobile</string>

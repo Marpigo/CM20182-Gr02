@@ -8,6 +8,22 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
+    <ImageView
+        android:id="@+id/imageViewD"
+        android:layout_width="5dp"
+        android:layout_height="10dp"
+        android:scaleType="fitCenter"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/drink2" />
+
+    <ImageView
+        android:id="@+id/imageViewF"
+        android:layout_width="5dp"
+        android:layout_height="10dp"
+        android:scaleType="fitCenter"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/food" />
+
     <include
         layout="@layout/app_bar_servicios_activity_navigation_drawer"
         android:layout_width="match_parent"

@@ -70,4 +70,5 @@
     <string name="s_web_not_query">"No se pudo la consulta "</string>
     <string name="s_web_not_photo">Error al cargar la imagen</string>
     <string name="s_web_not_conexion">Sin conexion a internet</string>
+    <string name="s_web_syncronizar">Actualiz Platos-Bebidas</string>
 </resources>
