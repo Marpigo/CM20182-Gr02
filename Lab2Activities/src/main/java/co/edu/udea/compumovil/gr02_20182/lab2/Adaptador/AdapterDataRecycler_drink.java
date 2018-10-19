@@ -87,4 +87,5 @@ public class AdapterDataRecycler_drink extends RecyclerView.Adapter<AdapterDataR
             listener.onClick(view);
         }
     }
+
 }

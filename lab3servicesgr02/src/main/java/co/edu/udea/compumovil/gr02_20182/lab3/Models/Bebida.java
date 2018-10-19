@@ -1,26 +1,25 @@
 package co.edu.udea.compumovil.gr02_20182.lab3.Models;
 
 public class Bebida {
+
     private int id;
     private String name;
-    private int preci;
+    private int price;
     private String Ingredients;
-   // private byte [] photo;
-   private String photo;
-    private String photoUrl;
+    private byte [] photo;
+
+    public Bebida(int id, String name, int price, String ingredients, byte[] photo) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        Ingredients = ingredients;
+        this.photo = photo;
+    }
 
     public Bebida() {
 
     }
 
-    public Bebida(int id, String name, int preci, String ingredients, String photo, String photoUrl) {
-        this.id = id;
-        this.name = name;
-        this.preci = preci;
-        Ingredients = ingredients;
-        this.photo = photo;
-        this.photoUrl = photoUrl;
-    }
 
     public int getId() {
         return id;
@@ -38,12 +37,12 @@ public class Bebida {
         this.name = name;
     }
 
-    public int getPreci() {
-        return preci;
+    public double getPrice() {
+        return price;
     }
 
-    public void setPreci(int preci) {
-        this.preci = preci;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public String getIngredients() {
@@ -54,19 +53,12 @@ public class Bebida {
         Ingredients = ingredients;
     }
 
-    public String getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
-    }
 }

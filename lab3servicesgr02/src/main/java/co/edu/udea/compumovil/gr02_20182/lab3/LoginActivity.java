@@ -199,7 +199,7 @@ public class LoginActivity extends AppCompatActivity{
 
         int id;
         String name;
-        double preci;
+        int preci;
         String ingredient;
         String photourl;
         //byte[] photo;
@@ -214,7 +214,7 @@ public class LoginActivity extends AppCompatActivity{
 
                 id = jsonObject.optInt("id");
                 name = jsonObject.optString("name");
-                preci = jsonObject.optDouble("preci");
+                preci = jsonObject.optInt("preci");
                 ingredient = jsonObject.optString("ingredient");
                 photourl = jsonObject.optString("photo");
 

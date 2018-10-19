@@ -8,14 +8,15 @@ public class Comida {
     private String time;
     private int preci;
     private String ingredient;
-    //private byte [] photo;
-    private String photo;
+   private byte [] photo;
+    //private String photo;
     private String photoUrl;
 
     public Comida() {
     }
 
-    public Comida(int id, String name, String schedule, String type, String time, int preci, String ingredient, String photo, String photoUrl) {
+
+    public Comida(int id, String name, String schedule, String type, String time, int preci, String ingredient, byte[] photo, String photoUrl) {
         this.id = id;
         this.name = name;
         this.schedule = schedule;
@@ -83,11 +84,11 @@ public class Comida {
         this.ingredient = ingredient;
     }
 
-    public String getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 

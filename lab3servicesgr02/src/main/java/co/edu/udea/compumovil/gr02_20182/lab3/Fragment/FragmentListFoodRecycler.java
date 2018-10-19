@@ -36,21 +36,16 @@ import co.edu.udea.compumovil.gr02_20182.lab3.R;
 import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLite;
 import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLiteFood;
 
-public class FragmentListFoodRecycler extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class FragmentListFoodRecycler extends Fragment {
 
 
 
     private FragmentListDrinkRecycler.OnFragmentInteractionListener mListener;
 
     /*Variables recycler Comida*/
-    ArrayList<Comida> foodList;
-    RecyclerView recyclerFood;
-
-    ProgressDialog progreso;
-    //Van a permitir establecer la conexion con nuestro servicio web services
-    JsonObjectRequest jsonobjectrequest;
-
-    public String nameC, hourC, typeC, timeC, preciC, ingredientC;
+    public static List<Comida> comidaList;
+    RecyclerView recyclerC;
+     public String nameC, hourC, typeC, timeC, preciC, ingredientC;
     public byte [] photodetallC;
 
 
@@ -65,93 +60,30 @@ public class FragmentListFoodRecycler extends Fragment implements Response.Liste
         View view;
         view = inflater.inflate(R.layout.fragment_list_food_recycler, container, false);
 
-        referentRecyclerFood(view);
-        openWebServices();
+        openRecyclerFood(view);
 
         return  view;
     }
 
-    private void referentRecyclerFood(View view) {
-       foodList = new ArrayList<>();
-       recyclerFood= (RecyclerView) view.findViewById(R.id.recyclerFood);
-       recyclerFood.setLayoutManager(new LinearLayoutManager(getContext()));
-       recyclerFood.setHasFixedSize(true);
+    public void openRecyclerFood(View vista)
+    {
+        // Define final variables since they have to be accessed from inner class
+        DatabaseSQLiteFood databasesqlitefood = new DatabaseSQLiteFood();
+        final DatabaseSQLite databaseSqlite = DatabaseSQLite.getInstance(getContext());
+        databaseSqlite.open();
+        comidaList = databasesqlitefood.getListComida(); //recibir lista
+        recyclerC= (RecyclerView) vista.findViewById(R.id.recyclerFood);
+        recyclerC.setLayoutManager(new LinearLayoutManager(getContext()));
+        AdapterDataRecycler_food adapter = new AdapterDataRecycler_food(comidaList);
+        //metodo onclik de seleccion de las comida
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override//Este es el metodo onclick generado en el adaptador
+            public void onClick(View view) {
+                alertDialogBasico(comidaList.get(recyclerC.getChildAdapterPosition(view)));
+            }
+        });
+        recyclerC.setAdapter(adapter);
     }
-
-    public  void openWebServices() {
-
-        progreso = new ProgressDialog(getContext());
-        progreso.setMessage(getString(R.string.s_web_loading));
-        progreso.show();
-
-        String ipserver = getString(R.string.s_ip_000webhost);
-        String url = ipserver+"/REST/wsJSONConsultarListaC.php";
-
-        Log.i( "URL: ", url);
-
-        //Enviamos la informacion a volley. Realiza el llamado a la url, e intenta conectarse a nuestro servicio REST
-        jsonobjectrequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
-        //Instanciamos el patron singleton  - volleySingleton
-        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonobjectrequest);
-    }
-
-    @Override
-    public void onResponse(JSONObject response) {
-
-            progreso.hide();
-            AdapterDataRecycler_food adapter=new AdapterDataRecycler_food(foodList, getContext());
-            recyclerFood.setAdapter(adapter);
-
-            udateList(response);//Actualizar lista
-         //   Log.i( "Tamaño2: ", foodList.size()+"");
-
-            //metodo onclik de seleccion de las comida
-            adapter.setOnClickListener(new View.OnClickListener() {
-                @Override//Este es el metodo onclick generado en el adaptador
-                public void onClick(View view) {
-                    alertDialogBasico(foodList.get(recyclerFood.getChildAdapterPosition(view)));
-                }
-            });
-            recyclerFood.setAdapter(adapter);
-    }
-
-    /*Actualizar la ArrayList con el Array comidaArrJson*/
-    public void udateList(JSONObject response) {
-        Comida comida = null;
-        JSONArray json = response.optJSONArray("comidaArrJson");
-        try {
-
-            for (int i = 0; i < json.length(); i++) {
-                comida = new Comida();
-                JSONObject jsonObject = null;
-                jsonObject = json.getJSONObject(i);
-
-                comida.setId(jsonObject.optInt("id"));
-                comida.setName(jsonObject.optString("name"));
-                comida.setSchedule(jsonObject.optString("schedule"));
-                comida.setType(jsonObject.optString("type"));
-                comida.setTime(jsonObject.optString("time"));
-                comida.setPreci(jsonObject.optInt("preci"));
-                comida.setIngredient(jsonObject.optString("ingredient"));
-                //comida.setPhoto(jsonObject.optString("photo"));
-                comida.setPhotoUrl(jsonObject.optString("photo"));
-                foodList.add(comida);
-             }
-          } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(getContext(), "Error " + " "+response, Toast.LENGTH_LONG).show();
-            progreso.hide();
-        }
-    }
-
-    @Override
-    public void onErrorResponse(VolleyError error) {
-        progreso.hide();
-        Toast.makeText(getContext(), getString(R.string.s_web_not_query) + " " + error.toString(), Toast.LENGTH_SHORT).show();
-        Log.i( getString(R.string.s_web_not_query), error.toString());
-    }
-
-
 
 
     public void alertDialogBasico(Comida comida){
@@ -182,7 +114,7 @@ public class FragmentListFoodRecycler extends Fragment implements Response.Liste
     }
 
 
-        // TODO: Rename method, update argument and hook method into UI event
+    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -194,12 +126,12 @@ public class FragmentListFoodRecycler extends Fragment implements Response.Liste
         super.onAttach(context);
 
 
-            if (context instanceof FragmentListDrinkRecycler.OnFragmentInteractionListener) {
-                mListener = (FragmentListDrinkRecycler.OnFragmentInteractionListener) context;
-            } else {
-                throw new RuntimeException(context.toString()
-                        + " must implement OnFragmentInteractionListener");
-            }
+        if (context instanceof FragmentListDrinkRecycler.OnFragmentInteractionListener) {
+            mListener = (FragmentListDrinkRecycler.OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     @Override
@@ -207,7 +139,6 @@ public class FragmentListFoodRecycler extends Fragment implements Response.Liste
         super.onDetach();
         mListener = null;
     }
-
 
 
     public interface OnFragmentInteractionListener {

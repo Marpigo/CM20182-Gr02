@@ -22,104 +22,77 @@ import co.edu.udea.compumovil.gr02_20182.lab3.Pattern.VolleySingleton;
 import co.edu.udea.compumovil.gr02_20182.lab3.R;
 
 public class AdapterDataRecycler_food extends
-        RecyclerView.Adapter<AdapterDataRecycler_food.ViewHolderDatos>
+    RecyclerView.Adapter<AdapterDataRecycler_food.ViewHolderDatos>
         implements View.OnClickListener{
 
-    List<Comida> comidaList;
-    Context context;
-
-    private View.OnClickListener listener;
-    public AdapterDataRecycler_food(List<Comida> comidaList,  Context context) {
-        this.comidaList = comidaList;
-        this.context=context;
-    }
+        List<Comida> comidaList;
+        private View.OnClickListener listener;
 
 
-    @Override
-    public AdapterDataRecycler_food.ViewHolderDatos onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_food_list,null,false);
 
-        RecyclerView.LayoutParams layoutParams=new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        view.setLayoutParams(layoutParams);
-
-        /*evento click en las comida*/
-        view.setOnClickListener(this);
-        return new AdapterDataRecycler_food.ViewHolderDatos(view);
-    }
-
-    @Override
-    public void onBindViewHolder(AdapterDataRecycler_food.ViewHolderDatos holder, int position) {
-        holder.name.setText(comidaList.get(position).getName());
-        holder.price.setText(comidaList.get(position).getPreci()+"");
-
-        if (comidaList.get(position).getPhotoUrl()!=null){
-            //
-            openPhotoUrl(comidaList.get(position).getPhotoUrl(),holder);
-        }else{
-            holder.photo.setImageResource(R.drawable.food);
+    public AdapterDataRecycler_food(List<Comida> comidaList) {
+            this.comidaList = comidaList;
         }
-    }
 
-    private void openPhotoUrl(String photoUrl, final ViewHolderDatos holder) {
 
-        String ipserver = context.getString(R.string.s_ip_000webhost);
-        String urlImagen = photoUrl;
-        urlImagen=urlImagen.replace(" ","%20");
+        @Override
+        public AdapterDataRecycler_food.ViewHolderDatos onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_food_list,null,false);
 
-        ImageRequest imageRequest=new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
-            @Override
-            public void onResponse(Bitmap response) {
-                holder.photo.setImageBitmap(response);
+
+            /*evento click en las comida*/
+            view.setOnClickListener(this);
+
+
+            return new AdapterDataRecycler_food.ViewHolderDatos(view);
+
+        }
+
+        @Override
+        public void onBindViewHolder(AdapterDataRecycler_food.ViewHolderDatos holder, int position) {
+            holder.name.setText(comidaList.get(position).getName());
+            holder.price.setText(comidaList.get(position).getPreci()+"");
+            byte[] data = comidaList.get(position).getPhoto();
+            Bitmap image = toBitmap(data);
+            holder.photo.setImageBitmap(image);
+        }
+
+        @Override
+        public int getItemCount() {
+            return comidaList.size();
+        }
+
+        /*Encargado de escuchar el evento onclik*/
+        public void setOnClickListener(View.OnClickListener listener){
+            this.listener = listener;
+        }
+
+        /*Implementacion metodo basico de seleccion onclik*/
+        @Override
+        public void onClick(View view) {
+            if (listener != null)
+            {
+                listener.onClick(view);
             }
-        }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context,context.getString(R.string.s_web_not_photo),Toast.LENGTH_SHORT).show();
+        }
+
+
+        public class ViewHolderDatos extends RecyclerView.ViewHolder {
+            TextView name, price;
+            ImageView photo;
+
+
+            public ViewHolderDatos(View itemView) {
+                super(itemView);
+                name = (TextView) itemView.findViewById(R.id.txtNama_item_fodd);
+                price = (TextView) itemView.findViewById(R.id.txtPrice_item_food);
+                photo = (ImageView) itemView.findViewById(R.id.imgPhoto_item_food);
             }
-        });
-
-        VolleySingleton.getIntanciaVolley(context).addToRequestQueue(imageRequest);
-
-    }
-
-
-
-
-    @Override
-    public int getItemCount() {
-        return comidaList.size();
-    }
-
-    /*Encargado de escuchar el evento onclik*/
-    public void setOnClickListener(View.OnClickListener listener){
-        this.listener = listener;
-    }
-
-    /*Implementacion metodo basico de seleccion onclik*/
-    @Override
-    public void onClick(View view) {
-        if (listener != null)
-        {
-            listener.onClick(view);
         }
-    }
 
-
-    public class ViewHolderDatos extends RecyclerView.ViewHolder {
-        TextView name, price;
-        ImageView photo;
-
-        public ViewHolderDatos(View itemView) {
-            super(itemView);
-            name = (TextView) itemView.findViewById(R.id.txtNama_item_fodd);
-            price = (TextView) itemView.findViewById(R.id.txtPrice_item_food);
-            photo = (ImageView) itemView.findViewById(R.id.imgPhoto_item_food);
-
+        public static Bitmap toBitmap(byte[] image) {
+            return BitmapFactory.decodeByteArray(image, 0, image.length);
         }
-    }
 
-    public static Bitmap toBitmap(byte[] image) {
-        return BitmapFactory.decodeByteArray(image, 0, image.length);
-    }
+
 }
