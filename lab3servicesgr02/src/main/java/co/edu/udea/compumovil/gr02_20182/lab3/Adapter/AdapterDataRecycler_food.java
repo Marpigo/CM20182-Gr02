@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.udea.compumovil.gr02_20182.lab3.Models.Comida;
@@ -23,15 +26,19 @@ import co.edu.udea.compumovil.gr02_20182.lab3.R;
 
 public class AdapterDataRecycler_food extends
     RecyclerView.Adapter<AdapterDataRecycler_food.ViewHolderDatos>
-        implements View.OnClickListener{
+        implements View.OnClickListener, Filterable {
 
         List<Comida> comidaList;
+        List<Comida> comidaListfull;
+
         private View.OnClickListener listener;
 
 
 
     public AdapterDataRecycler_food(List<Comida> comidaList) {
-            this.comidaList = comidaList;
+
+        this.comidaList = comidaList;
+        this.comidaListfull = new ArrayList<>(comidaList);
         }
 
 
@@ -77,7 +84,8 @@ public class AdapterDataRecycler_food extends
         }
 
 
-        public class ViewHolderDatos extends RecyclerView.ViewHolder {
+
+    public class ViewHolderDatos extends RecyclerView.ViewHolder {
             TextView name, price;
             ImageView photo;
 
@@ -93,6 +101,47 @@ public class AdapterDataRecycler_food extends
         public static Bitmap toBitmap(byte[] image) {
             return BitmapFactory.decodeByteArray(image, 0, image.length);
         }
+
+
+
+
+    //  implements Filterable
+
+    @Override
+    public Filter getFilter() {
+        return foodFilter;
+    }
+
+
+
+    private Filter foodFilter = new Filter() {
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Comida> filteredList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(comidaListfull);
+            } else {
+                String filterPattern = constraint.toString().toUpperCase().trim();
+
+                for (Comida item : comidaListfull) {
+                    if (item.getName().toUpperCase().contains(filterPattern)) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            comidaList.clear();
+            comidaList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
 
 
 }

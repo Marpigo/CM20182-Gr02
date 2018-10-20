@@ -1,0 +1,13 @@
+CREDENCIALES 
+
+ link: https://co.000webhost.com/mejorar?gclid=EAIaIQobChMImuLsudj_3QIVjo-zCh3cYQxHEAAYASABEgI0-fD_BwE
+ usuario: edwar.martinez@udea.edu.co
+ pass :123456
+ Nombre sitio web:restauranteudea
+
+Base de Datos
+------------------------
+Host de base datos:localhost
+ Nombre de la BD:id7451289_bd_restaurante 
+ Nombre de usuario:id7451289_grupo02
+ Contraseña:123456

@@ -19,9 +19,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
+import android.support.v7.widget.SearchView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -29,21 +30,16 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-
 import co.edu.udea.compumovil.gr02_20182.lab3.Fragment.AcercaDeFragment;
 import co.edu.udea.compumovil.gr02_20182.lab3.Fragment.ConfigurationFragment;
 import co.edu.udea.compumovil.gr02_20182.lab3.Fragment.FragmentListDrinkRecycler;
 import co.edu.udea.compumovil.gr02_20182.lab3.Fragment.FragmentListFoodRecycler;
 import co.edu.udea.compumovil.gr02_20182.lab3.Fragment.PerfilFragment;
 import co.edu.udea.compumovil.gr02_20182.lab3.Fragment.ServicesBlankFragment;
-import co.edu.udea.compumovil.gr02_20182.lab3.Models.Usuario;
 import co.edu.udea.compumovil.gr02_20182.lab3.Pattern.VolleySingleton;
 import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLite;
 import co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion.DatabaseSQLiteDrink;
@@ -63,7 +59,9 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
             JsonObjectRequest jsonobjectrequest;
             ProgressDialog progreso;
             //Van a permitir establecer la conexion con nuestro servicio web services
-
+            
+            MenuItem searchItem;
+           public static int buscarrecycler =0; //1. busca drink, 2. Buscar food
 
             @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +77,9 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         campoPhotoD = (ImageView) findViewById(R.id.imageViewD);
         campoPhotoF = (ImageView) findViewById(R.id.imageViewF);
 
-        syncronizarDataLocal();
+
+
+
 
         fabfood.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,9 +115,43 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         }
     }
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
        openFragmentServices();
         getMenuInflater().inflate(R.menu.servicios_activity_navigation_drawer, menu);
+
+        //MenuInflater inflater = getMenuInflater();
+        getMenuInflater().inflate(R.menu.menu_buscador, menu);
+        searchItem = menu.findItem(R.id.action_search_menu);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+       // searchItem = menu.findItem(R.id.action_search_menu).setVisible(false);
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String buscar) {
+                try {
+
+                    if(buscarrecycler == 1) //buscar bebida
+                    {
+                        FragmentListDrinkRecycler.adapterdrink.getFilter().filter(buscar);
+                    }else if (buscarrecycler == 2){ //buscar platos
+                        FragmentListFoodRecycler.adapterfood.getFilter().filter(buscar);
+                    }else{
+                        Toast.makeText(getApplicationContext(), "No ha seleccionado una lista", Toast.LENGTH_SHORT).show();
+                    }
+                }catch (Exception e){
+                }
+
+
+                return false;
+            }
+        });
         return true;
     }
     @Override
@@ -135,8 +169,10 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_food) {
+            buscarrecycler = 2;
             openFragmentRecyclerFood();
         } else if (id == R.id.nav_drink) {
+            buscarrecycler =1;
             openFragmentRecyclerDrink();
         } else if (id == R.id.nav_profile) {
             openFragmentPerfil();
@@ -425,8 +461,6 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
                 VolleySingleton.getIntanciaVolley(this).addToRequestQueue(imagerequest);
             }
 
-
-
             public static byte[] imageViewToByte(ImageView image) {
                 Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -436,4 +470,4 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
             }
 
 
-        }
+   }

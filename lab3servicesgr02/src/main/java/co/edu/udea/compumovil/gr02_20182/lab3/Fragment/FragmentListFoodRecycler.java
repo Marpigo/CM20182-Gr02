@@ -48,6 +48,7 @@ public class FragmentListFoodRecycler extends Fragment {
      public String nameC, hourC, typeC, timeC, preciC, ingredientC;
     public byte [] photodetallC;
 
+    public static AdapterDataRecycler_food adapterfood;
 
     public FragmentListFoodRecycler() {
         // Required empty public constructor
@@ -74,15 +75,16 @@ public class FragmentListFoodRecycler extends Fragment {
         comidaList = databasesqlitefood.getListComida(); //recibir lista
         recyclerC= (RecyclerView) vista.findViewById(R.id.recyclerFood);
         recyclerC.setLayoutManager(new LinearLayoutManager(getContext()));
-        AdapterDataRecycler_food adapter = new AdapterDataRecycler_food(comidaList);
+        adapterfood = new AdapterDataRecycler_food(comidaList);
+        recyclerC.setAdapter(adapterfood);
         //metodo onclik de seleccion de las comida
-        adapter.setOnClickListener(new View.OnClickListener() {
+        adapterfood.setOnClickListener(new View.OnClickListener() {
             @Override//Este es el metodo onclick generado en el adaptador
             public void onClick(View view) {
                 alertDialogBasico(comidaList.get(recyclerC.getChildAdapterPosition(view)));
             }
         });
-        recyclerC.setAdapter(adapter);
+
     }
 
 
@@ -145,4 +147,7 @@ public class FragmentListFoodRecycler extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+
 }

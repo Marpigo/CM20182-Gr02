@@ -38,6 +38,7 @@ public class FragmentListDrinkRecycler extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    public static AdapterDataRecycler_drink adapterdrink;
     RecyclerView recycler;
     List<Bebida> bebidaList;
     public static String name, preci, ingredient;
@@ -69,10 +70,10 @@ public class FragmentListDrinkRecycler extends Fragment {
         bebidaList = databasesqlitedrink.getListBebida(); //recibir lista
 
         //  Toast.makeText(getContext(), "SIZE bebida : " + databasesqlitedrink.getListBebida().size(), Toast.LENGTH_SHORT).show();
-        AdapterDataRecycler_drink adapter = new AdapterDataRecycler_drink(bebidaList);//llenar el adaptador con la lista
-        recycler.setAdapter(adapter);
+        adapterdrink = new AdapterDataRecycler_drink(bebidaList);//llenar el adaptador con la lista
+        recycler.setAdapter(adapterdrink);
 
-        adapter.setOnClickListener(new View.OnClickListener() {
+        adapterdrink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 alertDialogBasico(bebidaList.get(recycler.getChildAdapterPosition(view)));
@@ -81,6 +82,9 @@ public class FragmentListDrinkRecycler extends Fragment {
         });
 
     }
+
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -136,4 +140,7 @@ public class FragmentListDrinkRecycler extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+
 }

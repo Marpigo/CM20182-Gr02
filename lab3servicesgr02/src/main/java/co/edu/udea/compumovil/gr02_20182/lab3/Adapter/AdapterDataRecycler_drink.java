@@ -3,12 +3,16 @@ package co.edu.udea.compumovil.gr02_20182.lab3.Adapter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.udea.compumovil.gr02_20182.lab3.R;
@@ -17,15 +21,19 @@ import co.edu.udea.compumovil.gr02_20182.lab3.Models.Bebida;
 
 
 public class AdapterDataRecycler_drink extends RecyclerView.Adapter<AdapterDataRecycler_drink.ViewHolderDatos>
-        implements View.OnClickListener{
+        implements View.OnClickListener, Filterable {
 
 
 
     List<Bebida> bebidaList;
+    List<Bebida> bebidaListfull;
     private View.OnClickListener listener;
 
     public AdapterDataRecycler_drink(List<Bebida> bebidaList) {
+
         this.bebidaList = bebidaList;
+        this.bebidaListfull = new ArrayList<>(bebidaList);
+
     }
 
     /*Este metodo nos enlaza el adaptador con item_list.xml*/
@@ -56,6 +64,7 @@ public class AdapterDataRecycler_drink extends RecyclerView.Adapter<AdapterDataR
     public int getItemCount() {
         return bebidaList.size();
     }
+
 
     public class ViewHolderDatos extends RecyclerView.ViewHolder {
         TextView name, price;
@@ -89,5 +98,42 @@ public class AdapterDataRecycler_drink extends RecyclerView.Adapter<AdapterDataR
             listener.onClick(view);
         }
     }
+
+
+    //  implements Filterable
+    @Override
+    public Filter getFilter() {
+        return drinkFilter;
+    }
+
+
+    private Filter drinkFilter = new Filter() {
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Bebida> filteredList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(bebidaListfull);
+            } else {
+                String filterPattern = constraint.toString().toUpperCase().trim();
+
+                for (Bebida item : bebidaListfull) {
+                    if (item.getName().toUpperCase().contains(filterPattern)) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            bebidaList.clear();
+            bebidaList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
 
 }
