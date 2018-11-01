@@ -5,7 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import co.edu.udea.compumovil.gr02_20182.lab4.MainActivity;
+import co.edu.edua.compumovil.gr02_20182.lab4.MainActivity;
+
 
 public class BootupReceiver extends BroadcastReceiver {
 

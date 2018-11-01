@@ -17,10 +17,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.edu.udea.compumovil.gr02_20182.lab4.Fragment.PerfilFragment;
-import co.edu.udea.compumovil.gr02_20182.lab4.Models.Usuario;
-import co.edu.udea.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLite;
-import co.edu.udea.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLiteUser;
+import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.PerfilFragment;
+import co.edu.edua.compumovil.gr02_20182.lab4.Models.Usuario;
+import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLite;
+import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLiteUser;
+
 
 public class LoginActivity extends AppCompatActivity{
 

@@ -33,7 +33,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import co.edu.udea.compumovil.gr02_20182.lab4.Pattern.VolleySingleton;
+import co.edu.edua.compumovil.gr02_20182.lab4.Pattern.VolleySingleton;
+
 
 public class DrinkActivity extends AppCompatActivity{
 

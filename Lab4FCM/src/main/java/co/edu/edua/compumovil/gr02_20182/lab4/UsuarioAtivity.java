@@ -40,11 +40,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import co.edu.udea.compumovil.gr02_20182.lab4.Fragment.PerfilFragment;
-import co.edu.udea.compumovil.gr02_20182.lab4.Models.Usuario;
-import co.edu.udea.compumovil.gr02_20182.lab4.Pattern.VolleySingleton;
-import co.edu.udea.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLite;
-import co.edu.udea.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLiteUser;
+import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.PerfilFragment;
+import co.edu.edua.compumovil.gr02_20182.lab4.Models.Usuario;
+import co.edu.edua.compumovil.gr02_20182.lab4.Pattern.VolleySingleton;
+import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLite;
+import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLiteUser;
 
 /*
 * Activity para registrar los usuarios:

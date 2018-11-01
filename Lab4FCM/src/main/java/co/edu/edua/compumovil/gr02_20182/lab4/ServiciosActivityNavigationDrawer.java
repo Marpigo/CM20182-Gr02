@@ -38,16 +38,17 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 
-import co.edu.udea.compumovil.gr02_20182.lab4.Fragment.AcercaDeFragment;
-import co.edu.udea.compumovil.gr02_20182.lab4.Fragment.ConfigurationFragment;
-import co.edu.udea.compumovil.gr02_20182.lab4.Fragment.FragmentListDrinkRecycler;
-import co.edu.udea.compumovil.gr02_20182.lab4.Fragment.FragmentListFoodRecycler;
-import co.edu.udea.compumovil.gr02_20182.lab4.Fragment.PerfilFragment;
-import co.edu.udea.compumovil.gr02_20182.lab4.Fragment.ServicesBlankFragment;
-import co.edu.udea.compumovil.gr02_20182.lab4.Pattern.VolleySingleton;
-import co.edu.udea.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLite;
-import co.edu.udea.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLiteDrink;
-import co.edu.udea.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLiteFood;
+import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.AcercaDeFragment;
+import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.ConfigurationFragment;
+import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.FragmentListDrinkRecycler;
+import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.FragmentListFoodRecycler;
+import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.PerfilFragment;
+import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.ServicesBlankFragment;
+import co.edu.edua.compumovil.gr02_20182.lab4.Pattern.VolleySingleton;
+import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLite;
+import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLiteDrink;
+import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLiteFood;
+
 
 public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
