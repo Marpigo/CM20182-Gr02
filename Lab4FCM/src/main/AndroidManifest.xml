@@ -35,18 +35,18 @@
             android:name=".ServiciosActivityNavigationDrawer"
             android:label="@string/title_activity_servicios_navigation_drawer"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LoginActivity" />
         <activity
             android:name=".UsuarioAtivity"
             android:parentActivityName=".ServiciosActivityNavigationDrawer" />
         <activity
-            android:name=".FoodActivity"
-            android:parentActivityName=".LoginActivity" />
+            android:name=".FoodActivity" />
         <activity
             android:name=".DrinkActivity"
             android:parentActivityName=".ServiciosActivityNavigationDrawer" />
-        <activity android:name=".PerfilActivity"
-            android:parentActivityName=".ServiciosActivityNavigationDrawer" />
+        <activity
+            android:name=".LoguinTabbed"
+            android:label="@string/title_activity_loguin_tabbed"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

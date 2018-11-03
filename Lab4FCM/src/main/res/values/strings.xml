@@ -1,5 +1,10 @@
 <resources>
 
+
+    <string name="s_Firebase_loguin_opciones">Loguin</string>
+    <string name="s_Firebase_loguin_google">Google</string>
+    <string name="s_Firebase_loguin_user">User</string>
+
     <!-- 000WebHost -->
     <string name="s_ip_000webhost">https://restauranteudea.000webhostapp.com</string>
 
@@ -129,4 +134,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_loguin">LoguinActivity</string>
+    <string name="title_activity_loguin_tabbed">LoguinTabbed</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
 </resources>

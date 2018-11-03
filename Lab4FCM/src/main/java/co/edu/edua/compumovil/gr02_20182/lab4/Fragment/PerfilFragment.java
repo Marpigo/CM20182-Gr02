@@ -1,10 +1,14 @@
-package co.edu.edua.compumovil.gr02_20182.lab4;
+package co.edu.edua.compumovil.gr02_20182.lab4.Fragment;
 
+import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,42 +21,54 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 
-public class PerfilActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+import co.edu.edua.compumovil.gr02_20182.lab4.R;
 
-    public static String user_login, user_pass;
+
+public class PerfilFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener {
+
 
     TextView name_profil, email_profil;
     ImageView photo_profil;
     private Context contexto;
-
+    Activity activity;
     private GoogleApiClient googleApiClient;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perfil);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        init();
-        setupActionBar();
+        View view;
+        view = inflater.inflate(R.layout.fragment_perfil, container, false);
+        init(view);
 
+        activity = getActivity();
+
+        //segundo parametro de la autenticacion un objeto de opciones que dira como autenticarnos
+        //Obetenemos tambien un Token con requestIdToken
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
-        googleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
+        //inicializamos el GoogleApiCliente
+        //gestionamos el ciclo de vida googlecliente con el activity utilizando enableAutoManage
+        googleApiClient = new GoogleApiClient.Builder(activity)
+                .enableAutoManage((FragmentActivity) activity, 1, this) //el 1 es para enurar el fragmente
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+
         loguinData();
+
+        return view;
     }
 
-    public  void init()
+
+    public  void init(View view)
     {
-        name_profil = (TextView)findViewById(R.id.txtNameProfil);
-        email_profil = (TextView)findViewById(R.id.txtEmailProfil);
-        photo_profil = (ImageView)findViewById(R.id.imgPhotoProfile);
+        name_profil = (TextView)view.findViewById(R.id.txtNameProfil);
+        email_profil = (TextView)view.findViewById(R.id.txtEmailProfil);
+        photo_profil = (ImageView)view.findViewById(R.id.imgPhotoProfile);
     }
 
     void loguinData()
@@ -60,20 +76,20 @@ public class PerfilActivity extends AppCompatActivity implements GoogleApiClient
         OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
         if(opr.isDone()){
             GoogleSignInResult result = opr.get();
-            userIn(result);
+            userLogueado(result);
         }else{
             //Toast.makeText(getContext(), "NO SE HA INICIADO SESION", Toast.LENGTH_SHORT).show();
         }
     }
 
     //aca ponemos lo que queremos hacer con el resultado, validamos que la operacion fue exitosa
-    private void userIn(GoogleSignInResult result) {
+    private void userLogueado(GoogleSignInResult result) {
         if (result.isSuccess()) {
 
             GoogleSignInAccount user = result.getSignInAccount();
             name_profil.setText(user.getDisplayName());
             email_profil.setText(user.getEmail());
-            Glide.with(this).load(user.getPhotoUrl()).into(photo_profil);
+            Glide.with(activity).load(user.getPhotoUrl()).into(photo_profil);
 
         } else {
             //Toast.makeText(this, "NO LOGUEADO", Toast.LENGTH_SHORT).show();
@@ -87,12 +103,5 @@ public class PerfilActivity extends AppCompatActivity implements GoogleApiClient
     }
 
 
-    private void setupActionBar() {
-        android.support.v7.app.ActionBar actionBar= getSupportActionBar();
-        if(actionBar != null)
-        {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(getString(R.string.s_profile));
-        }
-    }
+
 }

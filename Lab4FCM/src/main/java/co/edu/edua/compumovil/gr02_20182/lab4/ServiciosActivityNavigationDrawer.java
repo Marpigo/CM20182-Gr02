@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -31,6 +32,12 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.common.api.ResultCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +49,7 @@ import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.AcercaDeFragment;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.ConfigurationFragment;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.FragmentListDrinkRecycler;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.FragmentListFoodRecycler;
+import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.PerfilFragment;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.ServicesBlankFragment;
 import co.edu.edua.compumovil.gr02_20182.lab4.Pattern.VolleySingleton;
 import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLite;
@@ -52,10 +60,10 @@ import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLiteFood;
 public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         FragmentListDrinkRecycler.OnFragmentInteractionListener,
-        FragmentListFoodRecycler.OnFragmentInteractionListener
-        {
+        FragmentListFoodRecycler.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedListener {
 
-            public static Context contexto;
+
+            private GoogleApiClient googleApiClient;
 
             public static boolean syncronizar = false;
             ImageView campoPhotoD;
@@ -72,7 +80,7 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
             @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        contexto = this;
+
         setContentView(R.layout.activity_servicios_navigation_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -108,7 +116,25 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        userAutenticacion();
     }
+
+    void userAutenticacion(){
+        //segundo parametro de la autenticacion un objeto de opciones que dira como autenticarnos
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        //inicializamos el GoogleApiCliente
+        //gestionamos el ciclo de vida googlecliente con el activity utilizando enableAutoManage
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+    }
+
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -253,8 +279,8 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         fm.beginTransaction().replace(R.id.fragmentContainers, new ConfigurationFragment()).commit();
     }
     private void openFragmentPerfil() {
-        Intent miIntent = new Intent(ServiciosActivityNavigationDrawer.this, PerfilActivity.class);
-        startActivity(miIntent);
+        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.fragmentContainers, new PerfilFragment()).commit();
     }
     private void openFragmenActividadAcercaDe() {
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
@@ -275,14 +301,30 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
 
     private void singOff()
     {
-       // PerfilFragment.user_login ="";
-       // PerfilFragment.user_login ="";
-        Intent miIntent = new Intent(ServiciosActivityNavigationDrawer.this, LoginActivity.class);
-        startActivity(miIntent);
-        finish();
+
+        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+            @Override
+            public void onResult(@NonNull Status status) {
+                if (status.isSuccess()) {
+
+                    openLoguin();
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "No se pudo cerrar la session", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
-    @Override
+
+    private void openLoguin() {
+                Intent miIntent = new Intent(ServiciosActivityNavigationDrawer.this, LoguinTabbed.class);
+                startActivity(miIntent);
+                finish();
+            }
+
+
+            @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
@@ -474,4 +516,8 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
             }
 
 
-   }
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+}
