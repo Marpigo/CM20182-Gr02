@@ -45,6 +45,8 @@
         <activity
             android:name=".DrinkActivity"
             android:parentActivityName=".ServiciosActivityNavigationDrawer" />
+        <activity android:name=".PerfilActivity"
+            android:parentActivityName=".ServiciosActivityNavigationDrawer" />
     </application>
 
 </manifest>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "178719311759",
+    "firebase_url": "https://computacionmovilg02.firebaseio.com",
+    "project_id": "computacionmovilg02",
+    "storage_bucket": "computacionmovilg02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178719311759:android:9e22a698cd9e5c5f",
+        "android_client_info": {
+          "package_name": "co.edu.edua.compumovil.gr02_20182.lab4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178719311759-0mkookhpe1mv92cemp3nml0o9pabi5ih.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.edu.edua.compumovil.gr02_20182.lab4",
+            "certificate_hash": "42e6364999ab651eff74d4fcfd3c5cd0b063501c"
+          }
+        },
+        {
+          "client_id": "178719311759-jcbgo965tdm7n59s65jv9e6e7ftd2tbe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwPKjzzqZfXsUWaUfbEH38ExohK-awaU0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "178719311759-jcbgo965tdm7n59s65jv9e6e7ftd2tbe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

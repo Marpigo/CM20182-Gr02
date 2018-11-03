@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Fragment.ServicesBlankFragment">
 
 
@@ -26,16 +26,9 @@
                 android:background="@drawable/food2"
                 android:onClick="onClick"
                 android:scaleType="centerCrop"
+                tools:ignore="OnClick"
                 tools:layout_editor_absoluteX="41dp"
-                tools:layout_editor_absoluteY="28dp"
-                tools:ignore="OnClick" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
+                tools:layout_editor_absoluteY="28dp" />
 
         </TableRow>
 
@@ -50,20 +43,13 @@
                 android:layout_height="153dp"
                 android:layout_margin="5dp"
                 android:background="@drawable/drink"
-                android:scaleType="centerCrop"
                 android:onClick="onClick"
+                android:scaleType="centerCrop"
+                tools:ignore="OnClick"
                 tools:layout_editor_absoluteX="41dp"
-                tools:layout_editor_absoluteY="28dp"
-                tools:ignore="OnClick" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
+                tools:layout_editor_absoluteY="28dp" />
         </TableRow>
 
     </TableLayout>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

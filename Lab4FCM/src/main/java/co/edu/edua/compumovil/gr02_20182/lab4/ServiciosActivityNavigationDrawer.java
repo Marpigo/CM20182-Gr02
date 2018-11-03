@@ -42,7 +42,6 @@ import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.AcercaDeFragment;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.ConfigurationFragment;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.FragmentListDrinkRecycler;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.FragmentListFoodRecycler;
-import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.PerfilFragment;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.ServicesBlankFragment;
 import co.edu.edua.compumovil.gr02_20182.lab4.Pattern.VolleySingleton;
 import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLite;
@@ -55,6 +54,8 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         FragmentListDrinkRecycler.OnFragmentInteractionListener,
         FragmentListFoodRecycler.OnFragmentInteractionListener
         {
+
+            public static Context contexto;
 
             public static boolean syncronizar = false;
             ImageView campoPhotoD;
@@ -71,6 +72,7 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
             @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        contexto = this;
         setContentView(R.layout.activity_servicios_navigation_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -81,9 +83,6 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         FloatingActionButton fabfood  = (FloatingActionButton) findViewById(R.id.fabFood);
         campoPhotoD = (ImageView) findViewById(R.id.imageViewD);
         campoPhotoF = (ImageView) findViewById(R.id.imageViewF);
-
-
-
 
 
         fabfood.setOnClickListener(new View.OnClickListener() {
@@ -121,8 +120,8 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
     }
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
-       openFragmentServices();
-        getMenuInflater().inflate(R.menu.servicios_activity_navigation_drawer, menu);
+      /// openFragmentServices(); ///////////////////////////////////////
+       getMenuInflater().inflate(R.menu.servicios_activity_navigation_drawer, menu);
 
         //MenuInflater inflater = getMenuInflater();
         getMenuInflater().inflate(R.menu.menu_buscador, menu);
@@ -254,8 +253,8 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
         fm.beginTransaction().replace(R.id.fragmentContainers, new ConfigurationFragment()).commit();
     }
     private void openFragmentPerfil() {
-        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.fragmentContainers, new PerfilFragment()).commit();
+        Intent miIntent = new Intent(ServiciosActivityNavigationDrawer.this, PerfilActivity.class);
+        startActivity(miIntent);
     }
     private void openFragmenActividadAcercaDe() {
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
@@ -276,8 +275,8 @@ public class ServiciosActivityNavigationDrawer extends AppCompatActivity
 
     private void singOff()
     {
-        PerfilFragment.user_login ="";
-        PerfilFragment.user_login ="";
+       // PerfilFragment.user_login ="";
+       // PerfilFragment.user_login ="";
         Intent miIntent = new Intent(ServiciosActivityNavigationDrawer.this, LoginActivity.class);
         startActivity(miIntent);
         finish();

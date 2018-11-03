@@ -12,6 +12,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -21,14 +22,25 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,11 +52,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.PerfilFragment;
+import co.edu.edua.compumovil.gr02_20182.lab4.Constants.Constantes;
 import co.edu.edua.compumovil.gr02_20182.lab4.Models.Usuario;
 import co.edu.edua.compumovil.gr02_20182.lab4.Pattern.VolleySingleton;
 import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLite;
 import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLiteUser;
+
 
 /*
 * Activity para registrar los usuarios:
@@ -54,10 +67,16 @@ import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLiteUser;
 public class UsuarioAtivity extends AppCompatActivity {
 
 
+    DatabaseReference mDatabase; //Referencia a la base de datos
+    StorageReference mStorageRef; // para referenciar la foto a guardar Storage
+    FirebaseAuth mAuth;
+    private Uri filePath;
+
+
     ImageView campoPhoto;
     EditText campoName, campoEmail, campoPassword;
 
-    Button butregistrar;
+    Button butregistrarFirebase;
     public static int modo = 0; /*0.Nuevo, 1.Modificar*/
 
     ProgressDialog progreso;
@@ -76,8 +95,12 @@ public class UsuarioAtivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_ativity);
 
+
+
         init();
         setupActionBar();
+
+        //cargarFirebase();
 
         if (modo == 1)
         {
@@ -97,11 +120,15 @@ public class UsuarioAtivity extends AppCompatActivity {
 
     public  void init()
     {
+        mDatabase = FirebaseDatabase.getInstance().getReference(); //Inicia la referencia con la base de datos en el nodo principal 'mRootReference'
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
         campoName = (EditText) findViewById(R.id.ediNameUser);
         campoEmail = (EditText) findViewById(R.id.ediEmailUser);
         campoPassword = (EditText) findViewById(R.id.ediPasswordUser);
         campoPhoto = (ImageView) findViewById(R.id.imgPhotoUser);
-        butregistrar = (Button) findViewById(R.id.butRegistrarUser);
+        butregistrarFirebase = (Button) findViewById(R.id.butRegistrarUser);
         campoPhoto = (ImageView) findViewById(R.id.imgPhotoUser);
     }
 
@@ -121,27 +148,17 @@ public class UsuarioAtivity extends AppCompatActivity {
                     if (modo == 0 ){ //Nuevo
                         if(networkinfo != null && networkinfo.isConnected())
                         {
-                            campos = validateCampo(campoName.getText().toString(), campoEmail.getText().toString(), campoPassword.getText().toString());
+                            cargarUserFirebase();
 
-                            if(campos.length()>0){
-                                Toast.makeText(getApplicationContext(), "Verificar Campos: " + campos, Toast.LENGTH_SHORT).show();
-                            }else
-                            {
-                                openWebServices();
-                                openWebServiceLocalUser();//Actualizar user locales desde la nube
-                                //limpiar(); limpio los campos si todo sale bien en, webservice en onResponse()
-                            }
+
                         }else{
                             Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_conexion), Toast.LENGTH_SHORT).show();
                         }
-
-
-
                     }else if(modo == 1){ //Modificar
-                        updateWebServices();
+                      //  updateWebServices();
                         openWebServiceLocalUser();//Actualizar user locales desde la nube
-                        PerfilFragment.user_login = campoName.getText().toString();
-                        PerfilFragment.user_pass = campoPassword.getText().toString();
+                        //PerfilFragment.user_login = campoName.getText().toString();
+                        //PerfilFragment.user_pass = campoPassword.getText().toString();
                         modo =0;
                         limpiar();
                     }
@@ -156,130 +173,113 @@ public class UsuarioAtivity extends AppCompatActivity {
         }
     }
 
-    public  void openWebServices() {
+    public  void cargarUserFirebase() {
         progreso = new ProgressDialog(this);
         progreso.setMessage(getString(R.string.s_web_loading));
         progreso.show();
-        String ipserver = getString(R.string.s_ip_000webhost);
-        //String server ="192.168.1.6";
-        String url = ipserver+"/REST/wsJSONRegistroU.php?";
-        //Conexion mediante el metodo POST
-        stringrequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                progreso.hide();
 
-                if (response.trim().equalsIgnoreCase("registraJson")){
-                    limpiar();
-                    progreso.hide();
-                    Toast.makeText(getApplicationContext(), getString(R.string.s_web_insert_full), Toast.LENGTH_SHORT).show();
-                }else{
-                    progreso.hide();
-                    Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_register) + " " + response +"", Toast.LENGTH_SHORT).show();
-                    Log.i( getString(R.string.s_web_not_register), response +"");
+
+        // imagen = convertirImgString(bitmaphoto);
+
+
+        if(filePath!=null){
+            //Subimos la imagen un direcotorio Fotos, nombre de la foto filepath
+            final StorageReference fotoRef = mStorageRef.child("Fotos").child(mAuth.getCurrentUser().getUid()).child(filePath.getLastPathSegment());
+             fotoRef.putFile(filePath).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception { //subimos la foto al Storage con fotoRef.putFile
+                    if(!task.isSuccessful()){
+                        throw new Exception();
+                    }
+
+                    return fotoRef.getDownloadUrl(); //una vez que suba todo, devuelve el link de descarga
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_register), Toast.LENGTH_SHORT).show();
-                Log.i( getString(R.string.s_web_not_register),"No conexion");
-                progreso.hide();
-            }
-        })
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if(task.isSuccessful()){ //si se pudo devolver el link, gurdo el resultado en dowloadLink
+                        Uri downloadLink = task.getResult();
 
-        {//Implementar GETpara para enviar los datos
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                String name;
-                String email;
-                String password;
-                String imagen;
+                        String name;
+                        String email;
+                        String password;
+                        String imagen;
+                        name = campoName.getText().toString().toUpperCase();
+                        email = campoEmail.getText().toString().toLowerCase();
+                        password = campoPassword.getText().toString().toUpperCase();
 
-                name = campoName.getText().toString().toUpperCase();
-                email = campoEmail.getText().toString().toLowerCase();
-                password = campoPassword.getText().toString().toUpperCase();
 
-                imagen = convertirImgString(bitmaphoto);
+                        //utilizamos un Map, y por medio de un HasMap mandamos todos los datos
+                        Map<String, Object> datosUsers = new HashMap<>();
+                        datosUsers.put("name", name);
+                        datosUsers.put("email", email);
+                        datosUsers.put("password", password);
+                        datosUsers.put("imagen", downloadLink.toString());
 
-                //Llenamos la structura de datos getParams, para enviar webservices
-                Map<String,String> parametros=new HashMap<>();
-                parametros.put("id","");
-                parametros.put("name",name);
-                parametros.put("email",email);
-                parametros.put("password",password);
+                        //.push es como un identificador para cada nod
+                        mDatabase.child(Constantes.TABLA_USUARIO).child(mAuth.getCurrentUser().getUid()).child("productos").push().updateChildren(datosUsers).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                limpiar();
+                                progreso.hide();
+                                Toast.makeText(getApplicationContext(), "Se cargo el producto correctamente.", Toast.LENGTH_SHORT).show();
 
-                parametros.put("imagen",imagen);
-                return parametros;
-            }
-        };
-        //Instanciamos el patron singleton - VolleySingleton
-        stringrequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        VolleySingleton.getIntanciaVolley(this).addToRequestQueue(stringrequest);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progreso.hide();
+                                Toast.makeText(getApplicationContext(), "Error al cargar el producto" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
     }
 
 
-    public  void updateWebServices() {
+    public  void recibirFirebase() {
         progreso = new ProgressDialog(this);
         progreso.setMessage(getString(R.string.s_web_loading));
         progreso.show();
-        String ipserver = getString(R.string.s_ip_000webhost);
-        //String server ="192.168.1.6";
-        String url = ipserver+"/REST/wsJSONUpdateU.php?";
-        //Conexion mediante el metodo POST
-        stringrequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                progreso.hide();
 
-                if (response.trim().equalsIgnoreCase("updateJson")){
-                    limpiar();
-                    progreso.hide();
-                    Toast.makeText(getApplicationContext(), getString(R.string.s_web_insert_full), Toast.LENGTH_SHORT).show();
-                }else{
-                    progreso.hide();
-                    Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_register) + " " + response +"", Toast.LENGTH_SHORT).show();
-                    Log.i( getString(R.string.s_web_not_register), response +"");
+        //estamos dentro del nodo usuario
+        mDatabase.child(Constantes.TABLA_USUARIO).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) { //dataSnapshot: Nos devuelve  un solo valor de los tipos de usuarios
+
+                for(final DataSnapshot snapshot: dataSnapshot.getChildren()) //getChildren: obtiene los datos de cada nodo de dataSnapshot, lo almacena en snapshot
+                {
+                    //Itero dentro de cada uno de los push o key subido de usuarios
+                    mDatabase.child(Constantes.TABLA_USUARIO).child(snapshot.getKey()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            Usuario user = snapshot.getValue(Usuario.class); //Obtenemos los valores que solo estan declarado en Usuario models
+                            Log.e("Datos ", "" + snapshot.getValue());
+                            //String nombre = user.getName();
+
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_register), Toast.LENGTH_SHORT).show();
-                Log.i( getString(R.string.s_web_not_register),"No conexion");
-                progreso.hide();
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
-        })
+        });
 
-        {//Implementar GETpara para enviar los datos
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                String name;
-                String email;
-                String password;
-                String imagen;
+        progreso.hide();
 
-                name = campoName.getText().toString().toUpperCase();
-                email = campoEmail.getText().toString().toLowerCase();
-                password = campoPassword.getText().toString().toUpperCase();
-
-                imagen = convertirImgString(bitmaphoto);
-
-                //Llenamos la structura de datos getParams, para enviar webservices
-                Map<String,String> parametros=new HashMap<>();
-                parametros.put("id","");
-                parametros.put("name",name);
-                parametros.put("email",email);
-                parametros.put("password",password);
-
-                parametros.put("imagen",imagen);
-                return parametros;
-            }
-        };
-        //Instanciamos el patron singleton - VolleySingleton
-        stringrequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        VolleySingleton.getIntanciaVolley(this).addToRequestQueue(stringrequest);
     }
+
 
 
     private String convertirImgString(Bitmap bitmap) {
@@ -306,7 +306,7 @@ public class UsuarioAtivity extends AppCompatActivity {
         campos = name !=null && name.trim().length()>0? "" : "\n" + campoName.getHint() + "\n";
         campos += email !=null && email.trim().length()>0? "" :campoEmail.getHint() + "\n";
         campos += password !=null && password.trim().length()>0?"" : campoPassword.getHint() + "\n";
-        campos += bitmaphoto !=null?"":"Imagen";
+       //campos += bitmaphoto !=null?"":"Imagen";
         return campos;
     }
 
@@ -321,11 +321,10 @@ public class UsuarioAtivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK)
         {
-            Uri path = data.getData();
-            //campoPhoto.setImageURI(path);
+            filePath = data.getData();
 
             try {
-                bitmaphoto=MediaStore.Images.Media.getBitmap(this.getContentResolver(),path);
+                bitmaphoto=MediaStore.Images.Media.getBitmap(this.getContentResolver(),filePath);
                 campoPhoto.setImageBitmap(bitmaphoto);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -370,13 +369,13 @@ public class UsuarioAtivity extends AppCompatActivity {
         String name;
         String password;
 
-        userList = databasesqliteduser.getUser(PerfilFragment.user_login, PerfilFragment.user_pass);
-        campoName.setText(userList.get(0).getName());
-        campoEmail.setText(userList.get(0).getEmail());
-        campoPassword.setText(userList.get(0).getPassword());
-        byte[] data = userList.get(0).getPhoto();
-        Bitmap image = toBitmap(data);
-        campoPhoto.setImageBitmap(image);
+      //  userList = databasesqliteduser.getUser(PerfilFragment.user_login, PerfilFragment.user_pass);
+        //campoName.setText(userList.get(0).getName());
+        //campoEmail.setText(userList.get(0).getEmail());
+        //campoPassword.setText(userList.get(0).getPassword());
+        //byte[] data = userList.get(0).getPhoto();
+        //Bitmap image = toBitmap(data);
+        //campoPhoto.setImageBitmap(image);
         databasesqlit.close();
     }
 
@@ -400,7 +399,7 @@ public class UsuarioAtivity extends AppCompatActivity {
         email = campoEmail.getText().toString();
         password = campoPassword.getText().toString();
         photo = imageViewToByte(campoPhoto);
-        registro = databasesqliteduser.updateUser(PerfilFragment.user_login, name, email, password, photo);
+        //registro = databasesqliteduser.updateUser(PerfilFragment.user_login, name, email, password, photo);
         Toast.makeText(getApplicationContext(), getString(R.string.s_user_update) + " " + registro, Toast.LENGTH_SHORT).show();
         databasesqlit.close();
     }
