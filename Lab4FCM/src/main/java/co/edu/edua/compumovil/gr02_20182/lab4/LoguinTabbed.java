@@ -1,8 +1,6 @@
 package co.edu.edua.compumovil.gr02_20182.lab4;
 
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -17,7 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.TextView;
+import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.LoguinFirebaseFragment;
+import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.LoguinGoogleFragment;
 
 public class LoguinTabbed extends AppCompatActivity {
 
@@ -76,9 +75,10 @@ public class LoguinTabbed extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_clsose_tab) {
+            finish();
         }
+
 
         return super.onOptionsItemSelected(item);
     }

@@ -12,8 +12,8 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -32,20 +32,21 @@
         </receiver>
 
         <activity
-            android:name=".ServiciosActivityNavigationDrawer"
-            android:label="@string/title_activity_servicios_navigation_drawer"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".UsuarioAtivity"
             android:parentActivityName=".ServiciosActivityNavigationDrawer" />
         <activity
-            android:name=".FoodActivity" />
+            android:name=".FoodActivity"
+            android:parentActivityName=".ServiciosActivityNavigationDrawer" />
         <activity
             android:name=".DrinkActivity"
             android:parentActivityName=".ServiciosActivityNavigationDrawer" />
         <activity
             android:name=".LoguinTabbed"
             android:label="@string/title_activity_loguin_tabbed"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ServiciosNavigationDrawer"
+            android:label="@string/title_activity_servicios_navigation_drawer"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

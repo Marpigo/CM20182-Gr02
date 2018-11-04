@@ -6,9 +6,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
@@ -25,15 +23,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         setContentView(R.layout.activity_main);
 
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                openLoguin();
-            }
-        }, 3000);
 
 
-       /* GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
@@ -43,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 .build();
 
         userAutenticadoEstado();
-*/
+
 
 
     }
@@ -82,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     private void openNavigationDrawer() {
-        Intent miIntent = new Intent(MainActivity.this, ServiciosActivityNavigationDrawer.class);
+        Intent miIntent = new Intent(MainActivity.this, ServiciosNavigationDrawer.class);
         startActivity(miIntent);
         finish();
     }

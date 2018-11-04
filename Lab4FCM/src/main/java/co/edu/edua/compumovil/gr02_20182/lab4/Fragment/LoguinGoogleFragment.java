@@ -1,10 +1,9 @@
-package co.edu.edua.compumovil.gr02_20182.lab4;
+package co.edu.edua.compumovil.gr02_20182.lab4.Fragment;
 
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,10 +11,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -26,6 +23,9 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import co.edu.edua.compumovil.gr02_20182.lab4.R;
+import co.edu.edua.compumovil.gr02_20182.lab4.ServiciosNavigationDrawer;
 
 
 public class LoguinGoogleFragment extends Fragment  implements GoogleApiClient.OnConnectionFailedListener {
@@ -66,7 +66,7 @@ public class LoguinGoogleFragment extends Fragment  implements GoogleApiClient.O
                     Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
                     startActivityForResult(intent, SIGN_IN_CODE);
                 }else{
-                    Toast.makeText(activity, campos, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, getString(R.string.s_Google_verificar) + ": "+ campos, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -115,8 +115,6 @@ public class LoguinGoogleFragment extends Fragment  implements GoogleApiClient.O
         if (result.isSuccess()) {
             openNavigationDrawer();
         } else {
-            progressBar.setVisibility(View.GONE);
-            signInButton.setVisibility(View.VISIBLE);
            // Toast.makeText(this, "NO LOGUEADO", Toast.LENGTH_SHORT).show();
         }
     }
@@ -125,11 +123,11 @@ public class LoguinGoogleFragment extends Fragment  implements GoogleApiClient.O
     //este metodo se ejecuta cuando la conexion falla
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(activity, "Authentication failed.Google service", Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, getString(R.string.s_Google_Autenticacion_fallo), Toast.LENGTH_SHORT).show();
     }
 
     private void openNavigationDrawer() {
-        Intent miIntent = new Intent(getContext(), ServiciosActivityNavigationDrawer.class);
+        Intent miIntent = new Intent(getContext(), ServiciosNavigationDrawer.class);
         startActivity(miIntent);
     }
 

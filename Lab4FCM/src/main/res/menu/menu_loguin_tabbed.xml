@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="co.edu.edua.compumovil.gr02_20182.lab4.LoguinTabbed">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_clsose_tab"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/s_close_navigation"
         app:showAsAction="never" />
 </menu>

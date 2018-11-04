@@ -7,4 +7,5 @@
         android:title="@string/s_close_navigation"
         app:showAsAction="never" />
 
+
 </menu>

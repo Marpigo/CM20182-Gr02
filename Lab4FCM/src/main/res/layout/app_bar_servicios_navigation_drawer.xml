@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ServiciosActivityNavigationDrawer">
+    tools:context=".ServiciosNavigationDrawer">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -14,14 +14,13 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:title="@string/s_services"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="wrap_content"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/s_services" />
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_servicios_activity_navigation_drawer" />
+    <include layout="@layout/content_servicios_navigation_drawer" />
 
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
@@ -52,7 +51,6 @@
 
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
-
 
 
 

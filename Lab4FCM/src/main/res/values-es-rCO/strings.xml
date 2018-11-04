@@ -74,4 +74,6 @@
     <string name="s_Firebase_loguin_google">Google</string>
     <string name="s_Firebase_loguin_user">Usuario</string>
     <string name="s_Firebase_loguin_opciones">Loguin</string>
+    <string name="s_Google_Autenticacion_fallo">Autenticacion Google fallo</string>
+    <string name="s_Google_verificar">Verificar</string>
 </resources>
