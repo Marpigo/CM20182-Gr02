@@ -47,6 +47,8 @@ public class ServiciosNavigationDrawer extends AppCompatActivity
 
 
     private GoogleApiClient googleApiClient;
+    private FirebaseAuth firebaseAuth;
+
 
     public static boolean syncronizar = false;
     ProgressDialog progreso;
@@ -282,8 +284,6 @@ public class ServiciosNavigationDrawer extends AppCompatActivity
         fm.beginTransaction().replace(R.id.fragmentContainers, new FragmentListFoodRecycler()).commit();
     }
 
-    private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
 
     private void singOff()

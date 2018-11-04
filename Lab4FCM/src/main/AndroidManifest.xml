@@ -33,13 +33,13 @@
 
         <activity
             android:name=".UsuarioAtivity"
-            android:parentActivityName=".ServiciosActivityNavigationDrawer" />
+            android:parentActivityName=".ServiciosNavigationDrawer" />
         <activity
             android:name=".FoodActivity"
-            android:parentActivityName=".ServiciosActivityNavigationDrawer" />
+            android:parentActivityName=".ServiciosNavigationDrawer" />
         <activity
             android:name=".DrinkActivity"
-            android:parentActivityName=".ServiciosActivityNavigationDrawer" />
+            android:parentActivityName=".ServiciosNavigationDrawer" />
         <activity
             android:name=".LoguinTabbed"
             android:label="@string/title_activity_loguin_tabbed"
