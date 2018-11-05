@@ -6,6 +6,10 @@
     <string name="s_Firebase_loguin_user">User</string>
     <string name="s_Google_Autenticacion_fallo">Authentication failed.Google service"</string>
     <string name="s_Google_verificar">Check</string>
+    <string name="s_requerimiento">request</string>
+    <string name="s_gestonar">Manage</string>
+    <string name="s_Firebase_registro">Successful Registration</string>
+    <string name="s_Firebase_user_no_valido">Invalid user</string>
 
     <!-- 000WebHost -->
     <string name="s_ip_000webhost">https://restauranteudea.000webhostapp.com</string>

@@ -76,4 +76,8 @@
     <string name="s_Firebase_loguin_opciones">Loguin</string>
     <string name="s_Google_Autenticacion_fallo">Autenticacion Google fallo</string>
     <string name="s_Google_verificar">Verificar</string>
+    <string name="s_requerimiento">Requerimiento</string>
+    <string name="s_gestonar">Gestionar</string>
+    <string name="s_Firebase_registro">Registro exitoso</string>
+    <string name="s_Firebase_user_no_valido">Usuario no valido</string>
 </resources>

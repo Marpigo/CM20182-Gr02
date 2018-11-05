@@ -1,29 +1,31 @@
 package co.edu.edua.compumovil.gr02_20182.lab4.Models;
 
 public class Usuario {
-    private int id;
+    private String id;
     private String name;
     private String email;
     private  String password;
-    private byte [] photo;
+    private String imagen;
+    private int autenticado = 0;
 
     public Usuario() {
 
    }
 
-    public Usuario(int id, String name, String email, String password, byte[] photo) {
+    public Usuario(String id, String name, String email, String password, String imagen, int autenticado) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.photo = photo;
+        this.imagen = imagen;
+        this.autenticado = autenticado;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -51,11 +53,19 @@ public class Usuario {
         this.password = password;
     }
 
-    public byte[] getPhoto() {
-        return photo;
+    public String getImagen() {
+        return imagen;
     }
 
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public int getAutenticado() {
+        return autenticado;
+    }
+
+    public void setAutenticado(int autenticado) {
+        this.autenticado = autenticado;
     }
 }

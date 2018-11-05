@@ -28,7 +28,7 @@ public class DatabaseSQLiteUser {
                 usuarios.setName(cursor.getString(0));
                 usuarios.setEmail(cursor.getString(1));
                 usuarios.setPassword(cursor.getString(2));
-                usuarios.setPhoto(cursor.getBlob(3));
+                //usuarios.setPhoto(cursor.getBlob(3));
                 usuarioList.add(usuarios);
             }
         }catch (Exception e){
@@ -96,7 +96,7 @@ public class DatabaseSQLiteUser {
                 usuarios.setName(cursor.getString(0));
                 usuarios.setEmail(cursor.getString(1));
                 usuarios.setPassword(cursor.getString(2));
-                usuarios.setPhoto(cursor.getBlob(3));
+              //  usuarios.setPhoto(cursor.getBlob(3));
                 usuarioList.add(usuarios);
             }
         }catch (Exception e){

@@ -9,6 +9,7 @@
 
     <!-- ​ service que se ejecute automáticamente cuando el dispositivo inicie (BOOT) -->
     <application
+        android:name=".MyFirebaseApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

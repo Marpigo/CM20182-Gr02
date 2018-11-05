@@ -24,14 +24,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.UserFirebase;
 import co.edu.edua.compumovil.gr02_20182.lab4.R;
 import co.edu.edua.compumovil.gr02_20182.lab4.ServiciosNavigationDrawer;
 
 
 public class LoguinGoogleFragment extends Fragment  implements GoogleApiClient.OnConnectionFailedListener {
-
-    EditText campoName;/*Usaurio a buscar, perfil*/
-    EditText campoPassword;
 
     private SignInButton signInButton;
     private GoogleApiClient googleApiClient;
@@ -58,16 +56,10 @@ public class LoguinGoogleFragment extends Fragment  implements GoogleApiClient.O
             public void onClick(View v) {
                 activity = getActivity();
 
-                String campos="";
-                campos = validateCampo(campoName.getText().toString(), campoPassword.getText().toString());
-                if(campos.length() == 0)
-                {
                     //Intent que abre el selector o el inicio de sesion para una cuenta google
                     Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
                     startActivityForResult(intent, SIGN_IN_CODE);
-                }else{
-                    Toast.makeText(activity, getString(R.string.s_Google_verificar) + ": "+ campos, Toast.LENGTH_SHORT).show();
-                }
+
             }
         });
         return  view;
@@ -93,9 +85,7 @@ public class LoguinGoogleFragment extends Fragment  implements GoogleApiClient.O
         signInButton.setSize(SignInButton.SIZE_WIDE);
         signInButton.setColorScheme(SignInButton.COLOR_DARK);
 
-        //campo a buscar
-        campoName = (EditText) view.findViewById(R.id.ediName_loguinG);
-        campoPassword = (EditText) view.findViewById(R.id.ediPass_loguinG);
+
     }
 
 
@@ -114,6 +104,7 @@ public class LoguinGoogleFragment extends Fragment  implements GoogleApiClient.O
     private void iniciarSesionResultado(GoogleSignInResult result) {
         if (result.isSuccess()) {
             openNavigationDrawer();
+            UserFirebase.logueado  = 1;
         } else {
            // Toast.makeText(this, "NO LOGUEADO", Toast.LENGTH_SHORT).show();
         }
@@ -134,7 +125,7 @@ public class LoguinGoogleFragment extends Fragment  implements GoogleApiClient.O
 
     /*
      * Validar campos: Vacios o nulo
-     * */
+
     String validateCampo (String name, String password){
         String campos;
         campos = !TextUtils.isEmpty(name)? "" : "\n" + campoName.getHint() + "\n";
@@ -158,7 +149,7 @@ public class LoguinGoogleFragment extends Fragment  implements GoogleApiClient.O
             }
         }
         return activa;
-
     }
+    */
 
 }
