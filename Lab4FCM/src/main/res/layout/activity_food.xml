@@ -4,55 +4,148 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FoodActivity">
+    tools:context=".FoodActivity"
+    tools:layout_editor_absoluteY="81dp">
+
+    <ImageView
+        android:id="@+id/imgFood"
+        android:layout_width="91dp"
+        android:layout_height="81dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="onClick"
+        android:src="@drawable/food"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableRow" />
+
+    <ListView
+        android:id="@+id/lv_datosFood"
+        android:layout_width="302dp"
+        android:layout_height="131dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="356dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableRow2">
+
+        <TextView
+            android:id="@+id/txtSchedule_food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/s_schedule_food_frame" />
+
+        <CheckBox
+            android:id="@+id/cheMorning_food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/s_morning_food_frame" />
+
+        <CheckBox
+            android:id="@+id/cheAfternoon_food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/s_afternoon_food_frame" />
+
+        <CheckBox
+            android:id="@+id/cheEvening_food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/s_evening_food_frame" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="253dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@+id/tableRow"
+        tools:layout_editor_absoluteX="11dp">
+
+        <EditText
+            android:id="@+id/ediName_food"
+            android:layout_width="239dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/s_name_food_frame"
+            android:inputType="textPersonName" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="@android:color/holo_red_dark"
+        android:gravity="right"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/texManage"
+            android:layout_width="197dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center"
+            android:text="@string/s_gestonar"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            tools:ignore="RtlCompat" />
+
+        <ImageView
+            android:id="@+id/imaNewF"
+            android:layout_width="49dp"
+            android:layout_height="43dp"
+            android:onClick="onClick"
+            android:src="@drawable/ic_add" />
+
+        <ImageView
+            android:id="@+id/imaSaveF"
+            android:layout_width="57dp"
+            android:layout_height="42dp"
+            android:onClick="onClick"
+            android:src="@drawable/ic_save" />
+
+        <ImageView
+            android:id="@+id/imaDeleteF"
+            android:layout_width="58dp"
+            android:layout_height="42dp"
+            android:onClick="onClick"
+            android:src="@drawable/ic_delete" />
+
+    </TableRow>
+
+    <TextView
+        android:id="@+id/texIdF"
+        android:layout_width="93dp"
+        android:layout_height="15dp"
+        android:visibility="invisible" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="0dp"
+        android:layout_width="384dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/tableRow3"
+        tools:layout_editor_absoluteX="0dp">
 
         <TableLayout
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/txtSchedule_food"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/s_schedule_food_frame" />
-
-                <CheckBox
-                    android:id="@+id/cheMorning_food"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/s_morning_food_frame" />
-
-                <CheckBox
-                    android:id="@+id/cheAfternoon_food"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/s_afternoon_food_frame" />
-
-                <CheckBox
-                    android:id="@+id/cheEvening_food"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/s_evening_food_frame" />
-            </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -61,12 +154,12 @@
                 <TextView
                     android:id="@+id/txtType_food"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|center"
                     android:text="@string/s_type_food_frame" />
 
                 <RadioGroup
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:dividerPadding="0dp"
                     android:hapticFeedbackEnabled="false"
@@ -74,7 +167,7 @@
 
                     <RadioButton
                         android:id="@+id/radEntry_food"
-                        android:layout_width="wrap_content"
+                        android:layout_width="88dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/s_entry_food_frame" />
@@ -110,6 +203,7 @@
                     android:id="@+id/butTime_food"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="onClick"
                     android:text="@string/s_time" />
             </TableRow>
 
@@ -131,168 +225,6 @@
             android:hint="@string/s_ingredents"
             android:inputType="textPersonName" />
 
-        <Button
-            android:id="@+id/butRegister_food"
-            android:layout_width="133dp"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary1"
-            android:onClick="onClick"
-            android:text="@string/s_register_food_frame"
-            android:textColor="@android:color/background_light"
-            tools:ignore="OnClick" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingLeft="5dp"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="350dp">
-
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/textView26x"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/s_information_food_frame" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView26"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/s_name_list_food" />
-
-                    <TextView
-                        android:id="@+id/txtName_food_information"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView28"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/s_schedule_food_frame" />
-
-                    <TextView
-                        android:id="@+id/txtSchule_food_information"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView31"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/s_type_food_frame" />
-
-                    <TextView
-                        android:id="@+id/txtType_food_information"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView32"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/s_time" />
-
-                    <TextView
-                        android:id="@+id/txtTime_food_information"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView35"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/s_price_food_frame" />
-
-                    <TextView
-                        android:id="@+id/txtPrice_food_information"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView37"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/s_ingredients" />
-
-                    <TextView
-                        android:id="@+id/txtIngredents_food_information"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp" />
-                </TableRow>
-            </TableLayout>
-        </LinearLayout>
-
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingLeft="5dp"
-        tools:layout_editor_absoluteX="101dp"
-        tools:layout_editor_absoluteY="0dp">
-
-        <ImageView
-            android:id="@+id/imgFood"
-            android:layout_width="141dp"
-            android:layout_height="49dp"
-            android:src="@drawable/food" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <EditText
-                android:id="@+id/ediName_food"
-                android:layout_width="239dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/s_name_food_frame"
-                android:inputType="textPersonName" />
-        </TableRow>
-    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -71,10 +71,12 @@ public class UsuarioAtivity extends AppCompatActivity implements GoogleApiClient
         if(logueado == 1)
         {
             campoName.setText("Usuario Google");
+            modo = 0; //nuevo
 
         }else if(logueado == 2){
 
-            usuarioLogueado();
+            usuarioLogueado(); //logueo firebase
+            modo = 1; //modificar
         }
     }
 
