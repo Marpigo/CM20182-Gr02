@@ -15,10 +15,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -35,12 +37,25 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.DrinkFirebase;
+import co.edu.edua.compumovil.gr02_20182.lab4.Models.Bebida;
 import co.edu.edua.compumovil.gr02_20182.lab4.Pattern.VolleySingleton;
 
 
 public class FoodActivity extends AppCompatActivity {
+
+    static List<Bebida> recibirListDrink;
+    DrinkFirebase drinkFirebase = new  DrinkFirebase();
+    ArrayAdapter<Bebida> arrayAdapterDrink;
+    ListView listV_drink;
+    Bebida bebidaSelected;
+
+    private Uri filePath;
+    public static int modo = 0; /*0.Nuevo, 1.Modificar*/
+
 
     EditText campoName;
     CheckBox campoMorning, campoAfternoon, campoEvening;

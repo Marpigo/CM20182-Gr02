@@ -1,22 +1,20 @@
 package co.edu.edua.compumovil.gr02_20182.lab4.Models;
 
 public class Comida {
-    private int id;
+    private String id;
     private String name;
     private String schedule;
     private String type;
     private String time;
-    private int preci;
+    private String preci;
     private String ingredient;
-   private byte [] photo;
-    //private String photo;
-    private String photoUrl;
+   private String imagen;
 
     public Comida() {
+
     }
 
-
-    public Comida(int id, String name, String schedule, String type, String time, int preci, String ingredient, byte[] photo, String photoUrl) {
+    public Comida(String id, String name, String schedule, String type, String time, String preci, String ingredient, String imagen) {
         this.id = id;
         this.name = name;
         this.schedule = schedule;
@@ -24,15 +22,14 @@ public class Comida {
         this.time = time;
         this.preci = preci;
         this.ingredient = ingredient;
-        this.photo = photo;
-        this.photoUrl = photoUrl;
+        this.imagen = imagen;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -68,11 +65,11 @@ public class Comida {
         this.time = time;
     }
 
-    public int getPreci() {
+    public String getPreci() {
         return preci;
     }
 
-    public void setPreci(int preci) {
+    public void setPreci(String preci) {
         this.preci = preci;
     }
 
@@ -84,19 +81,16 @@ public class Comida {
         this.ingredient = ingredient;
     }
 
-    public byte[] getPhoto() {
-        return photo;
+    public String getImagen() {
+        return imagen;
     }
 
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
+    @Override
+    public String toString() {
+        return name + " $ " + preci;
     }
 }

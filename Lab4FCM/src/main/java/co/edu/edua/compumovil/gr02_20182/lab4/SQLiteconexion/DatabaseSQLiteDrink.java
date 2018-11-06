@@ -25,11 +25,11 @@ public class DatabaseSQLiteDrink {
             Cursor cursor = databasesqlit.database.rawQuery("SELECT * FROM bebida", null);
             while (cursor.moveToNext()){
                 bebidas=new Bebida();
-                bebidas.setId(cursor.getInt(0));
+               // bebidas.setId(cursor.getInt(0));
                 bebidas.setName(cursor.getString(1));
-                bebidas.setPrice(cursor.getInt(2));
+                //bebidas.setPrice(cursor.getInt(2));
                 bebidas.setIngredients(cursor.getString(3));
-                bebidas.setPhoto(cursor.getBlob(4));
+             //   bebidas.setPhoto(cursor.getBlob(4));
                 bebidaList.add(bebidas);
             }
         }catch (Exception e){

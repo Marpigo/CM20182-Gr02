@@ -2,30 +2,30 @@ package co.edu.edua.compumovil.gr02_20182.lab4.Models;
 
 public class Bebida {
 
-    private int id;
+    private String id;
     private String name;
-    private int price;
-    private String Ingredients;
-    private byte [] photo;
-
-    public Bebida(int id, String name, int price, String ingredients, byte[] photo) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        Ingredients = ingredients;
-        this.photo = photo;
-    }
+    private String price;
+    private String ingredients;
+    private String imagen;
 
     public Bebida() {
 
     }
 
 
-    public int getId() {
+    public Bebida(String id, String name, String price, String ingredients, String imagen) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.ingredients = ingredients;
+        this.imagen = imagen;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -37,28 +37,32 @@ public class Bebida {
         this.name = name;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
     public String getIngredients() {
-        return Ingredients;
+        return ingredients;
     }
 
     public void setIngredients(String ingredients) {
-        Ingredients = ingredients;
+        this.ingredients = ingredients;
     }
 
-    public byte[] getPhoto() {
-        return photo;
+    public String getImagen() {
+        return imagen;
     }
 
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
+    @Override
+    public String toString() {
+        return name + " $ " + price;
+    }
 }

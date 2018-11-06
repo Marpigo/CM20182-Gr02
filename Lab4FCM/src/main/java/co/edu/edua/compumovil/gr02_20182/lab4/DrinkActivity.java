@@ -1,7 +1,9 @@
 package co.edu.edua.compumovil.gr02_20182.lab4;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -12,44 +14,45 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+
+import com.bumptech.glide.Glide;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-import co.edu.edua.compumovil.gr02_20182.lab4.Pattern.VolleySingleton;
+import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.DrinkFirebase;
+import co.edu.edua.compumovil.gr02_20182.lab4.Models.Bebida;
 
 
 public class DrinkActivity extends AppCompatActivity{
+
+    static List<Bebida> recibirListDrink;
+    DrinkFirebase drinkFirebase = new  DrinkFirebase();
+    ArrayAdapter<Bebida> arrayAdapterDrink;
+    ListView listV_drink;
+    Bebida bebidaSelected;
+
+    private Uri filePath;
+    public static int modo = 0; /*0.Nuevo, 1.Modificar*/
 
     EditText campoName;
     EditText campoPrice;
     EditText campoIngredients;
     ImageView campoPhoto;
-    Button butregister;
+    TextView campoId;
 
-    TextView campoNameInfo, campoPriceInfo, campoIngredientsInfo;
 
-    ProgressDialog progreso;
-    //Van a permitir establecer la conexion con nuestro servicio web services
-
-    StringRequest stringrequest;
     Bitmap bitmaphoto;
 
 
@@ -59,114 +62,77 @@ public class DrinkActivity extends AppCompatActivity{
         setContentView(R.layout.activity_drink);
 
         init();
-
-        butregister.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                //Validar si hay conexion de internet
-                ConnectivityManager con = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo networkinfo = con.getActiveNetworkInfo();
-
-                if(networkinfo != null && networkinfo.isConnected())
-                {
-                    String campos="";
-                    campos = validateCampo(campoName.getText().toString(), campoPrice.getText().toString(), campoIngredients.getText().toString());
-
-                    if(campos.length()>0){
-                        Toast.makeText(getApplicationContext(), "Verificar Campos: " + campos, Toast.LENGTH_SHORT).show();
-                    }else
-                    {
-                        openWebServices();
-                        informationFood();
-                        //limpiar(); limpio los campos si todo sale bien en, webservice en onResponse()
-                    }
-                }else{
-                    Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_conexion), Toast.LENGTH_SHORT).show();
-                }
-         }
-        });
-        campoPhoto.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                imagenGallery();
-            }
-        });
+        iniciarFirebaseList();
         setupActionBar();
+
+        informationDrink();
     }
 
+    public void onClick(View view) {
+        String name = campoName.getText().toString();
+        String price = campoPrice.getText().toString();
+        String ingredients = campoIngredients.getText().toString();
 
-    public  void openWebServices() {
-        progreso = new ProgressDialog(this);
-        progreso.setMessage(getString(R.string.s_web_loading));
-        progreso.show();
+        final String idU = campoId.getText().toString();
 
-        String ipserver = getString(R.string.s_ip_000webhost);
-        //String server ="192.168.1.6";
-        String url = ipserver+"/REST/wsJSONRegistroB.php?";
-        //Conexion mediante el metodo POST
-        stringrequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                progreso.hide();
+        boolean requerimientos = false;
 
-                if (response.trim().equalsIgnoreCase("registraJson")){
-                    limpiar();
-                    progreso.hide();
-                    Toast.makeText(getApplicationContext(), getString(R.string.s_web_insert_full), Toast.LENGTH_SHORT).show();
-                }else{
-                    progreso.hide();
-                    Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_register) + " " + response +"", Toast.LENGTH_SHORT).show();
-                    Log.i( getString(R.string.s_web_not_register), response +"");
+        switch (view.getId()) {
+            case R.id.imaSaveD:
+                requerimientos = validateCampo(name, price, ingredients);
+                if (requerimientos) {
+                    if (modo == 0 ){ //Nuevo
+                        drinkFirebase.insertDrink(name, price, ingredients, filePath);
+                        Toast.makeText(getApplicationContext(), getString(R.string.s_Firebase_registro), Toast.LENGTH_SHORT).show();
+
+                        limpiar();
+                    }else if(modo == 1){ //Modificar
+                        drinkFirebase.updateDrink(idU, name, price, ingredients, filePath);
+                        Toast.makeText(getApplicationContext(), getString(R.string.s_Firebase_registro), Toast.LENGTH_SHORT).show();
+                        limpiar();
+                    }
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_register), Toast.LENGTH_SHORT).show();
-                Log.i( getString(R.string.s_web_not_register),"No conexion");
-                progreso.hide();
-            }
-        })
+                break;
+            case R.id.imaNewD:
+                limpiar();
+                modo=0;
+                break;
 
-        {//Implementar GETpara para enviar los datos
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                String name;
-                String price;
-                String ingredients;
-                byte[] photo;
-                String imagen;
+            case R.id.imaDeleteD:
 
-                name = campoName.getText().toString().toUpperCase();
-                price = campoPrice.getText().toString();
-                ingredients = campoIngredients.getText().toString().toUpperCase();
-                //photo = imageViewToByte(campoPhoto);
+                if (TextUtils.isEmpty(name))
+                {
+                    break;
+                }
 
-                imagen = convertirImgString(bitmaphoto);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(getString(R.string.s_Firebase_eliminar) + ": " + campoName.getText().toString())
+                        .setTitle(getString(R.string.s_Firebase_eliminar_continua));
 
-                //Llenamos la structura de datos getParams, para enviar webservices
-                Map<String,String> parametros=new HashMap<>();
-                parametros.put("id","");
-                parametros.put("name",name);
-                parametros.put("preci",price);
-                parametros.put("ingredient",ingredients);
+                builder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        eliminarDrink(idU);
+                        limpiar();
+                        modo =0;
+                    }
+                });
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
 
-                parametros.put("imagen",imagen);
-                return parametros;
-            }
-        };
-        //Instanciamos el patron singleton - VolleySingleton
-        stringrequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        VolleySingleton.getIntanciaVolley(this).addToRequestQueue(stringrequest);
+                });
+                builder.show();
+                break;
+
+            case R.id.imgDrik_register:
+                imagenGallery();
+                break;
+        }
     }
 
-
-    private String convertirImgString(Bitmap bitmap) {
-        ByteArrayOutputStream array = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, array);
-        byte[] imagenByte = array.toByteArray();
-        String imagenString = Base64.encodeToString(imagenByte, Base64.DEFAULT);
-        return imagenString;
+    void eliminarDrink(String id)
+    {
+        drinkFirebase.deleteDrink(id);
     }
 
 
@@ -185,34 +151,76 @@ public class DrinkActivity extends AppCompatActivity{
         campoPrice= (EditText) findViewById(R.id.ediPreci_Drink);
         campoIngredients = (EditText) findViewById(R.id.ediIngredents_Drink);
         campoPhoto= (ImageView) findViewById(R.id.imgDrik_register);
+        campoId = (TextView)findViewById(R.id.texIdD);
 
-        butregister = (Button) findViewById(R.id.butRegister_Drink);
 
-        campoNameInfo = (TextView) findViewById(R.id.txtName_drink_information);
-        campoPriceInfo = (TextView) findViewById(R.id.txtPrice_drink_information);
-        campoIngredientsInfo = (TextView) findViewById(R.id.txtIngredents_drink_information);
+        listV_drink = findViewById(R.id.lv_datosDrink);
 
+    }
+
+    void iniciarFirebaseList()
+    {
+        DrinkFirebase drinkFirebase = new  DrinkFirebase();
+        drinkFirebase.limpiarLista();
+        drinkFirebase.cargarListDrink();
+        recibirListDrink = DrinkFirebase.drinkList;
+    }
+
+    private void informationDrink() {
+        /*Informacion de la captura*/
+        arrayAdapterDrink = new ArrayAdapter<Bebida>(DrinkActivity.this, android.R.layout.simple_list_item_1, recibirListDrink);
+        listV_drink.setAdapter(arrayAdapterDrink);
+
+        listV_drink.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                modo = 1;
+                bebidaSelected = (Bebida) parent.getItemAtPosition(position);
+                campoName.setText(bebidaSelected.getName());
+                campoPrice.setText(bebidaSelected.getPrice());
+                campoIngredients.setText(bebidaSelected.getIngredients());
+                campoId.setText(bebidaSelected.getId());
+                String imag = bebidaSelected.getImagen();
+                Glide.with(DrinkActivity.this).load(imag).into(campoPhoto);
+
+            }
+        });
     }
 
     /*
-     * Validar campos: Vacios o nulo
-     * */
-    String validateCampo (String name, String price, String ingredients){
-        String campos;
-        campos = name !=null && name.trim().length()>0? "" : "\n" + campoName.getHint() + "\n";
-        campos += price !=null && price.trim().length()>0? "" :campoPrice.getHint() + "\n";
-        campos += ingredients !=null && ingredients.trim().length()>0?"" : campoIngredients.getHint() + "\n";
-        campos += bitmaphoto !=null?"":"Imagen";
-        return campos;
+    Validar campos: Vacios o nulo
+   */
+    boolean validateCampo (String name, String price, String ingredient){
+        int vericar = 0;
+
+        campoName.setError(null);
+        campoPrice.setError(null);
+        campoIngredients.setError(null);
+
+        ConnectivityManager con = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkinfo = con.getActiveNetworkInfo();
+
+        if (TextUtils.isEmpty(name))
+        {campoName.setError(getString(R.string.s_requerimiento).toString());vericar = 1;}
+
+        if (TextUtils.isEmpty(price))
+        {campoPrice.setError(getString(R.string.s_requerimiento).toString()); vericar += 1;}
+
+        if (TextUtils.isEmpty(ingredient))
+        {campoIngredients.setError(getString(R.string.s_requerimiento).toString()); vericar += 1;}
+
+        if(filePath ==null)
+        { Toast.makeText(this, "Imagen", Toast.LENGTH_SHORT).show();vericar += 1;}
+
+        if(networkinfo == null && !networkinfo.isConnected()){
+            Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_conexion), Toast.LENGTH_SHORT).show();
+            vericar += 1;
+        }
+        return vericar>0?false:true;
     }
 
 
-    private void informationFood() {
-        /*Informacion de la captura*/
-        campoNameInfo.setText(campoName.getText().toString());
-        campoPriceInfo.setText(campoPrice.getText().toString());
-        campoIngredientsInfo.setText(campoIngredients.getText().toString());
-    }
+
 
     public static byte[] imageViewToByte(ImageView image) {
         Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
@@ -233,11 +241,11 @@ public class DrinkActivity extends AppCompatActivity{
 
         if(resultCode == RESULT_OK)
         {
-            Uri path = data.getData();
+            filePath = data.getData();
             //campoPhoto.setImageURI(path);
 
             try {
-                bitmaphoto=MediaStore.Images.Media.getBitmap(this.getContentResolver(),path);
+                bitmaphoto=MediaStore.Images.Media.getBitmap(this.getContentResolver(),filePath);
                 campoPhoto.setImageBitmap(bitmaphoto);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -264,6 +272,9 @@ public class DrinkActivity extends AppCompatActivity{
     }
 
     private void limpiar() {
+        campoName.setError(null);
+        campoPrice.setError(null);
+        campoIngredients.setError(null);
 
         campoName.setText("");
         campoPrice.setText("0");

@@ -82,4 +82,6 @@
     <string name="s_Firebase_user_no_valido">Usuario no valido</string>
     <string name="s_Firebase_user_eliminar">Eliminar usuario</string>
     <string name="s_Firebase_user_eliminar_continua">Confirmar</string>
+    <string name="s_Firebase_eliminar">Eliminar Registro</string>
+    <string name="s_Firebase_eliminar_continua">Confirmar</string>
 </resources>

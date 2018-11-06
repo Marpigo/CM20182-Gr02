@@ -52,9 +52,9 @@ public class AdapterDataRecycler_food extends
         public void onBindViewHolder(AdapterDataRecycler_food.ViewHolderDatos holder, int position) {
             holder.name.setText(comidaList.get(position).getName());
             holder.price.setText(comidaList.get(position).getPreci()+"");
-            byte[] data = comidaList.get(position).getPhoto();
-            Bitmap image = toBitmap(data);
-            holder.photo.setImageBitmap(image);
+            //byte[] data = comidaList.get(position).getPhoto();
+          // Bitmap image = toBitmap(data);
+           // holder.photo.setImageBitmap(image);
         }
 
         @Override

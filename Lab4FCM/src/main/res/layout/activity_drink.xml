@@ -6,38 +6,92 @@
     android:layout_height="match_parent"
     tools:context=".DrinkActivity">
 
-    <LinearLayout
+    <TableRow
+        android:id="@+id/tableRow"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="42dp"
+        android:background="@android:color/holo_red_dark"
+        android:gravity="right">
+
+        <TextView
+            android:id="@+id/texManage"
+            android:layout_width="197dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center"
+            android:text="@string/s_gestonar"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            tools:ignore="RtlCompat" />
+
+        <ImageView
+            android:id="@+id/imaNewD"
+            android:layout_width="49dp"
+            android:layout_height="43dp"
+            android:onClick="onClick"
+            android:src="@drawable/ic_add" />
+
+        <ImageView
+            android:id="@+id/imaSaveD"
+            android:layout_width="57dp"
+            android:layout_height="42dp"
+            android:onClick="onClick"
+            android:src="@drawable/ic_save" />
+
+        <ImageView
+            android:id="@+id/imaDeleteD"
+            android:layout_width="58dp"
+            android:layout_height="42dp"
+            android:onClick="onClick"
+            android:src="@drawable/ic_delete" />
+
+    </TableRow>
+
+    <TextView
+        android:id="@+id/texIdDrink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="93dp"
+        android:layout_marginTop="8dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingLeft="5dp"
-        tools:layout_editor_absoluteX="101dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toBottomOf="@+id/tableRow"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="101dp">
 
         <ImageView
             android:id="@+id/imgDrik_register"
             android:layout_width="141dp"
-            android:layout_height="49dp"
+            android:layout_height="80dp"
+            android:onClick="onClick"
             android:src="@drawable/drink2" />
+
+        <TextView
+            android:id="@+id/texIdD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <EditText
             android:id="@+id/ediName_Drink"
@@ -63,19 +117,9 @@
             android:hint="@string/s_ingredents"
             android:inputType="textPersonName" />
 
-        <Button
-            android:id="@+id/butRegister_Drink"
-            android:layout_width="133dp"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary1"
-            android:onClick="onClick"
-            android:text="@string/s_register_food_frame"
-            android:textColor="@android:color/background_light"
-            tools:ignore="OnClick" />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="5dp"
             tools:layout_editor_absoluteX="26dp"
@@ -83,12 +127,14 @@
 
             <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
+                    android:layout_width="358dp"
+                    android:layout_height="84dp"
+                    android:gravity="center"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="8dp">
 
                     <TextView
                         android:id="@+id/textView26x"
@@ -98,56 +144,21 @@
 
                 </TableRow>
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView26"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/s_name_list_food" />
-
-                    <TextView
-                        android:id="@+id/txtName_drink_information"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView35"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/s_price_food_frame" />
-
-                    <TextView
-                        android:id="@+id/txtPrice_drink_information"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView37"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/s_ingredients" />
-
-                    <TextView
-                        android:id="@+id/txtIngredents_drink_information"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp" />
-                </TableRow>
             </TableLayout>
+
         </LinearLayout>
 
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_datosDrink"
+        android:layout_width="363dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="11dp" />
+
 </android.support.constraint.ConstraintLayout>

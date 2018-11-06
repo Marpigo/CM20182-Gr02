@@ -9,9 +9,8 @@
     <string name="s_requerimiento">request</string>
     <string name="s_gestonar">Manage</string>
     <string name="s_Firebase_registro">Successful Registration</string>
-    <string name="s_Firebase_user_no_valido">Invalid user</string>
-    <string name="s_Firebase_user_eliminar">Delete user</string>
-    <string name="s_Firebase_user_eliminar_continua">confirm</string>
+    <string name="s_Firebase_eliminar">Delete register</string>
+    <string name="s_Firebase_eliminar_continua">confirm</string>
 
 
     <!-- 000WebHost -->

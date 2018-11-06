@@ -8,16 +8,17 @@
     tools:context=".UsuarioAtivity">
 
     <TableRow
+        android:id="@+id/tableRow"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:background="@android:color/holo_red_dark"
         android:gravity="right">
 
         <TextView
             android:id="@+id/texManage"
-            android:layout_width="186dp"
+            android:layout_width="197dp"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="center_vertical|center"
             android:text="@string/s_gestonar"
             android:textAlignment="textStart"
             android:textColor="@android:color/background_light"
@@ -26,24 +27,24 @@
 
         <ImageView
             android:id="@+id/imaNew"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="49dp"
+            android:layout_height="43dp"
             android:onClick="onClick"
-            android:src="@drawable/add" />
+            android:src="@drawable/ic_add" />
 
         <ImageView
             android:id="@+id/imaSave"
-            android:layout_width="62dp"
+            android:layout_width="57dp"
+            android:layout_height="42dp"
             android:onClick="onClick"
-            android:layout_height="match_parent"
-            android:src="@drawable/save" />
+            android:src="@drawable/ic_save" />
 
         <ImageView
             android:id="@+id/imaDelete"
-            android:layout_width="59dp"
+            android:layout_width="58dp"
+            android:layout_height="42dp"
             android:onClick="onClick"
-            android:layout_height="match_parent"
-            android:src="@drawable/delete" />
+            android:src="@drawable/ic_delete" />
 
     </TableRow>
 

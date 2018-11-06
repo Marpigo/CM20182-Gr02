@@ -1,7 +1,6 @@
 package co.edu.edua.compumovil.gr02_20182.lab4;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,25 +14,17 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.UserFirebase;
@@ -47,15 +38,9 @@ import co.edu.edua.compumovil.gr02_20182.lab4.Models.Usuario;
 * */
 public class UsuarioAtivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-
-    private final List<Usuario> usuarioList = new ArrayList<Usuario>();
-    ArrayAdapter<Usuario> usuarioArrayAdapter;
-
     static List<Usuario> recibirListUsuario;
     UserFirebase userFirebase = new  UserFirebase();
 
-    public static DatabaseReference mDatabase; //Referencia a la base de datos
-    StorageReference mStorageRef; // para referenciar la foto a guardar Storage
     private Uri filePath;
 
 
@@ -66,16 +51,9 @@ public class UsuarioAtivity extends AppCompatActivity implements GoogleApiClient
     Button butregistrarFirebase;
     public static int modo = 1; /*0.Nuevo, 1.Modificar*/
 
-    ProgressDialog progreso;
-    //Van a permitir establecer la conexion con nuestro servicio web services
 
-    StringRequest stringrequest;
     Bitmap bitmaphoto;
 
-    public static byte[] photo;
-
-    //Van a permitir establecer la conexion con nuestro servicio web services
-    JsonObjectRequest jsonobjectrequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,9 +76,8 @@ public class UsuarioAtivity extends AppCompatActivity implements GoogleApiClient
 
             usuarioLogueado();
         }
-
-
     }
+
 
     void usuarioLogueado(){
         recibirListUsuario = UserFirebase.usuarioList;
@@ -146,7 +123,6 @@ public class UsuarioAtivity extends AppCompatActivity implements GoogleApiClient
 
         boolean requerimientos = false;
 
-
         switch (view.getId()) {
             case R.id.imaSave:
                 requerimientos = validateCampo(campoName.getText().toString(), campoEmail.getText().toString(), campoPassword.getText().toString());
@@ -168,11 +144,9 @@ public class UsuarioAtivity extends AppCompatActivity implements GoogleApiClient
                 break;
 
             case R.id.imaDelete:
-
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(getString(R.string.s_Firebase_user_eliminar) + ": " + campoName.getText().toString())
-                        .setTitle(getString(R.string.s_Firebase_user_eliminar_continua));
+                builder.setMessage(getString(R.string.s_Firebase_eliminar) + ": " + campoName.getText().toString())
+                        .setTitle(getString(R.string.s_Firebase_eliminar_continua));
 
                 builder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

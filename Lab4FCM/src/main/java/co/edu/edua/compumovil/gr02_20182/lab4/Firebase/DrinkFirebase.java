@@ -3,7 +3,6 @@ package co.edu.edua.compumovil.gr02_20182.lab4.Firebase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
-
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,18 +20,18 @@ import java.util.List;
 import java.util.UUID;
 
 import co.edu.edua.compumovil.gr02_20182.lab4.Constants.Constantes;
-import co.edu.edua.compumovil.gr02_20182.lab4.Models.Usuario;
+import co.edu.edua.compumovil.gr02_20182.lab4.Models.Bebida;
 
 
-public class UserFirebase {
+public class DrinkFirebase {
 
     static DatabaseReference mDatabase; //Referencia a la base de datos
     static StorageReference mStorageRef; // para referenciar la foto a guardar Storage
 
-    public static List<Usuario> usuarioList = new ArrayList<>();
-    public static int logueado = 0; //1.Gollge, 2.Usuario
+    public static List<Bebida> drinkList = new ArrayList<>();
 
-    public UserFirebase() {
+
+    public DrinkFirebase() {
         inicilizarFirebase();
     }
 
@@ -44,27 +43,26 @@ public class UserFirebase {
     }
 
     public void limpiarLista() {
-        if (usuarioList != null)
+        if (drinkList != null)
         {
-            usuarioList.clear();
+            drinkList.clear();
         }
     }
 
-    public final List<Usuario> getListaUsuarios() {
+    public final List<Bebida> getListaDrink() {
 
-        return usuarioList;
+        return drinkList;
     }
 
 
 
 
 
-    public void insertUser(final String name, final String email, final String password, Uri filePath)
+    public void insertDrink(final String name, final String price, final String ingredients, final Uri filePath)
     {
-        final boolean registro = false;
+
         //Subimos la imagen un direcotorio Fotos, nombre de la foto filepath
-        final StorageReference fotoRef = mStorageRef.child("Fotos").child(Constantes.TABLA_USUARIO).child(filePath.getLastPathSegment());
-        //final StorageReference fotoRef = mStorageRef.child("Fotos").child(firebaseAuth.getCurrentUser().getUid()).child(filePath.getLastPathSegment());
+        final StorageReference fotoRef = mStorageRef.child("Fotos").child(Constantes.TABLA_BEBIDA).child(filePath.getLastPathSegment());
         fotoRef.putFile(filePath).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
             public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception { //subimos la foto al Storage con fotoRef.putFile
@@ -80,37 +78,37 @@ public class UserFirebase {
             public void onComplete(@NonNull Task<Uri> task) {
                 if(task.isSuccessful()){ //si se pudo devolver el link, gurdo el resultado en dowloadLink
                     Uri downloadLink = task.getResult();
+                    Bebida datosbebida = new Bebida();
+                    datosbebida.setId(UUID.randomUUID().toString()); //id automatico random
+                    datosbebida.setName(name);
+                    datosbebida.setPrice(price);
+                    datosbebida.setIngredients(ingredients);
+                    datosbebida.setImagen(downloadLink.toString());
 
-                    Usuario datosuser = new Usuario();
-                    datosuser.setId(UUID.randomUUID().toString()); //id automatico random
-                    datosuser.setName(name);
-                    datosuser.setEmail(email);
-                    datosuser.setPassword(password);
-                    datosuser.setImagen(downloadLink.toString());
-                    datosuser.setAutenticado(0);
-                    mDatabase.child(Constantes.TABLA_USUARIO).child(datosuser.getId()).setValue(datosuser);
-
+                    mDatabase.child(Constantes.TABLA_BEBIDA).child(datosbebida.getId()).setValue(datosbebida);
                 }
             }
         });
     }
 
 
-    public  void cargarListUsuario() {
+    public  void cargarListDrink() {
 
         //estamos dentro del nodo usuario
-        mDatabase.child(Constantes.TABLA_USUARIO).addValueEventListener(new ValueEventListener() {
+        mDatabase.child(Constantes.TABLA_BEBIDA).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) { //dataSnapshot: Nos devuelve  un solo valor de los tipos de usuarios
 
                 for(final DataSnapshot snapshot: dataSnapshot.getChildren()) //getChildren: obtiene los datos de cada nodo de dataSnapshot, lo almacena en snapshot
                 {
                     //Itero dentro de cada uno de los push o key subido de usuarios
-                    mDatabase.child(Constantes.TABLA_USUARIO).child(snapshot.getKey()).addValueEventListener(new ValueEventListener() {
+                    mDatabase.child(Constantes.TABLA_BEBIDA).child(snapshot.getKey()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Usuario user = snapshot.getValue(Usuario.class); //Obtenemos los valores que solo estan declarado en Usuario models
-                            usuarioList.add(user);
+
+                            Bebida drink = snapshot.getValue(Bebida.class); //Obtenemos los valores que solo estan declarado en Usuario models
+                            drinkList.add(drink);
+
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -128,42 +126,37 @@ public class UserFirebase {
     }
 
 
-    public void deleteUsers(String id) {
-        mDatabase.child(Constantes.TABLA_USUARIO).child(id).removeValue();
+    public void deleteDrink(String id) {
+        mDatabase.child(Constantes.TABLA_BEBIDA).child(id).removeValue();
     }
 
 
-    public void updateUser(final String id, final String name, final String email, final String password, Uri filePath)
+    public void updateDrink(final String id, final String name, final String price, final String ingredients, Uri filePath)
     {
-        final boolean registro = false;
         //Subimos la imagen un direcotorio Fotos, nombre de la foto filepath
-        final StorageReference fotoRef = mStorageRef.child("Fotos").child(Constantes.TABLA_USUARIO).child(filePath.getLastPathSegment());
-        //final StorageReference fotoRef = mStorageRef.child("Fotos").child(firebaseAuth.getCurrentUser().getUid()).child(filePath.getLastPathSegment());
+        final StorageReference fotoRef = mStorageRef.child("Fotos").child(Constantes.TABLA_BEBIDA).child(filePath.getLastPathSegment());
         fotoRef.putFile(filePath).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
             public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception { //subimos la foto al Storage con fotoRef.putFile
                 if(!task.isSuccessful()){
                     throw new Exception();
-
                 }
-
                 return fotoRef.getDownloadUrl(); //una vez que suba todo, devuelve el link de descarga
             }
         }).addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
                 if(task.isSuccessful()){ //si se pudo devolver el link, gurdo el resultado en dowloadLink
+
                     Uri downloadLink = task.getResult();
+                    Bebida datosbebida = new Bebida();
+                    datosbebida.setId(id); //id actualizar
+                    datosbebida.setName(name);
+                    datosbebida.setPrice(price);
+                    datosbebida.setIngredients(ingredients);
+                    datosbebida.setImagen(downloadLink.toString());
 
-                    Usuario datosuser = new Usuario();
-                    datosuser.setId(id); //id actualizar
-                    datosuser.setName(name);
-                    datosuser.setEmail(email);
-                    datosuser.setPassword(password);
-                    datosuser.setImagen(downloadLink.toString());
-                    datosuser.setAutenticado(1);
-                    mDatabase.child(Constantes.TABLA_USUARIO).child(id).setValue(datosuser);
-
+                    mDatabase.child(Constantes.TABLA_BEBIDA).child(id).setValue(datosbebida);
                 }
             }
         });
