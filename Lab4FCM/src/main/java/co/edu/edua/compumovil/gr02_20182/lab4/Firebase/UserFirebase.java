@@ -100,7 +100,7 @@ public class UserFirebase {
                     datosuser.setPassword(password);
                     datosuser.setImagen(downloadLink.toString());
                     datosuser.setAutenticado(0);
-                    mDatabase.child(Constantes.TABLA_USUARIO).push().setValue(datosuser);
+                    mDatabase.child(Constantes.TABLA_USUARIO).child(datosuser.getId()).setValue(datosuser);
 
                 }
             }
@@ -140,61 +140,47 @@ public class UserFirebase {
     }
 
 
-
-
-    public void deleteUsers() {
-     /*   SQLiteDatabase bd = databasesqlit.database;
-        bd.execSQL("DELETE FROM " + Constantes.TABLA_USUARIO);
-        //bd.execSQL("DELETE FROM " + Constantes.TABLA_USUARIO+ " WHERE "+ Constantes.CAMPO_ID+"='"+value+"'");
-        */
+    public void deleteUsers(String id) {
+        mDatabase.child(Constantes.TABLA_USUARIO).child(id).removeValue();
     }
 
 
-    public int updateUser(String nameFirst, String name, String email, String password, byte[] photo) {
-        int registro  =0;
-        /*
-        SQLiteDatabase bd = databasesqlit.database;
+    public void updateUser(final String id, final String name, final String email, final String password, Uri filePath)
+    {
+        final boolean registro = false;
+        //Subimos la imagen un direcotorio Fotos, nombre de la foto filepath
+        final StorageReference fotoRef = mStorageRef.child("Fotos").child(Constantes.TABLA_USUARIO).child(filePath.getLastPathSegment());
+        //final StorageReference fotoRef = mStorageRef.child("Fotos").child(firebaseAuth.getCurrentUser().getUid()).child(filePath.getLastPathSegment());
+        fotoRef.putFile(filePath).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception { //subimos la foto al Storage con fotoRef.putFile
+                if(!task.isSuccessful()){
+                    throw new Exception();
 
-        String[] parametros = {nameFirst};
-        ContentValues values = new ContentValues();
-        values.put(Constantes.CAMPO_NAME, name);
-        values.put(Constantes.CAMPO_EMAIL, email);
-        values.put(Constantes.CAMPO_PASSWORD, password);
-        values.put(Constantes.CAMPO_PHOTO, photo);
-        long idResultante = bd.update(Constantes.TABLA_USUARIO, values, Constantes.CAMPO_NAME + "=?", parametros);
-        registro = (int) idResultante;
+                }
 
-        */
-        return registro;
-    }
-
-
-
-        public List<Usuario> getUser(String user, String password) {
-            Usuario usuarios = null;
-            List<Usuario> usuarioList = new ArrayList<>();
-        /*
-
-
-
-        try{
-
-            Cursor cursor = databasesqlit.database.rawQuery("SELECT name, email, password, photo FROM usuario WHERE name ='"+ user +"' AND password='" + password +"'", null);
-            //Cursor cursor = databasesqlit.database.rawQuery("SELECT name, email, password, photo FROM usuario WHERE name = ?", new String[]{user});
-            while (cursor.moveToNext()){
-                usuarios=new Usuario();
-                usuarios.setName(cursor.getString(0));
-                usuarios.setEmail(cursor.getString(1));
-                usuarios.setPassword(cursor.getString(2));
-              //  usuarios.setPhoto(cursor.getBlob(3));
-                usuarioList.add(usuarios);
+                return fotoRef.getDownloadUrl(); //una vez que suba todo, devuelve el link de descarga
             }
-        }catch (Exception e){
-            //Toast.makeText(getApplicationContext(), "Notificacion  " + e, Toast.LENGTH_SHORT).show();
-        }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if(task.isSuccessful()){ //si se pudo devolver el link, gurdo el resultado en dowloadLink
+                    Uri downloadLink = task.getResult();
 
-        */
-            return usuarioList;
+                    Usuario datosuser = new Usuario();
+                    datosuser.setId(id); //id actualizar
+                    datosuser.setName(name);
+                    datosuser.setEmail(email);
+                    datosuser.setPassword(password);
+                    datosuser.setImagen(downloadLink.toString());
+                    datosuser.setAutenticado(1);
+                    mDatabase.child(Constantes.TABLA_USUARIO).child(id).setValue(datosuser);
+
+                }
+            }
+        });
     }
+
+
 
 }

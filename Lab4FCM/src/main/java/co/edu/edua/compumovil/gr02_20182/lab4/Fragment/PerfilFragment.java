@@ -33,10 +33,8 @@ public class PerfilFragment extends Fragment implements GoogleApiClient.OnConnec
 
     TextView name_profil, email_profil;
     ImageView photo_profil;
-    private Context contexto;
     Activity activity;
     private GoogleApiClient googleApiClient;
-
 
     static List<Usuario> recibirListUsuario;
 
@@ -63,10 +61,6 @@ public class PerfilFragment extends Fragment implements GoogleApiClient.OnConnec
             iniciarFirebaseList(); // Logueado con Firebase
             userLogueadoFirebase();
         }
-
-
-
-
 
 
         return view;

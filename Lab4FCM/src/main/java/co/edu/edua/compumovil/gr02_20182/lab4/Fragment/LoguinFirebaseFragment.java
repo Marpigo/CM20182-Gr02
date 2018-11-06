@@ -128,12 +128,14 @@ public class LoguinFirebaseFragment extends Fragment {
     {
         boolean autenticado = false;
         int i = 0;
-        for(i = 0; (i < usuarioList.size() && !autenticado); i++)
+        for(i = 0; (i < usuarioList.size()); i++)
         {
             if(usuarioList.get(i).getName().equals(name) && usuarioList.get(i).getPassword().equals(pass))
             {
                 autenticado = true;
                 usuarioList.get(i).setAutenticado(1);
+            }else{
+                usuarioList.get(i).setAutenticado(0);
             }
         }
 

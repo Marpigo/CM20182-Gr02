@@ -80,4 +80,6 @@
     <string name="s_gestonar">Gestionar</string>
     <string name="s_Firebase_registro">Registro exitoso</string>
     <string name="s_Firebase_user_no_valido">Usuario no valido</string>
+    <string name="s_Firebase_user_eliminar">Eliminar usuario</string>
+    <string name="s_Firebase_user_eliminar_continua">Confirmar</string>
 </resources>

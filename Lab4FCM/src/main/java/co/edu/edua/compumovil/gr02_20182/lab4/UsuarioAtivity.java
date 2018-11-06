@@ -1,7 +1,9 @@
 package co.edu.edua.compumovil.gr02_20182.lab4;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
@@ -17,30 +19,23 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-import co.edu.edua.compumovil.gr02_20182.lab4.Constants.Constantes;
 import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.UserFirebase;
 import co.edu.edua.compumovil.gr02_20182.lab4.Models.Usuario;
 
@@ -55,7 +50,9 @@ public class UsuarioAtivity extends AppCompatActivity implements GoogleApiClient
 
     private final List<Usuario> usuarioList = new ArrayList<Usuario>();
     ArrayAdapter<Usuario> usuarioArrayAdapter;
-    Usuario usuarioSelected;
+
+    static List<Usuario> recibirListUsuario;
+    UserFirebase userFirebase = new  UserFirebase();
 
     public static DatabaseReference mDatabase; //Referencia a la base de datos
     StorageReference mStorageRef; // para referenciar la foto a guardar Storage
@@ -64,9 +61,10 @@ public class UsuarioAtivity extends AppCompatActivity implements GoogleApiClient
 
     ImageView campoPhoto;
     EditText campoName, campoEmail, campoPassword;
+    TextView campoId;
 
     Button butregistrarFirebase;
-    public static int modo = 0; /*0.Nuevo, 1.Modificar*/
+    public static int modo = 1; /*0.Nuevo, 1.Modificar*/
 
     ProgressDialog progreso;
     //Van a permitir establecer la conexion con nuestro servicio web services
@@ -86,19 +84,40 @@ public class UsuarioAtivity extends AppCompatActivity implements GoogleApiClient
 
 
         init();
-        inicilizarFirebase();
         setupActionBar();
 
-        //cargarFirebase();
 
-        if (modo == 1)
+        int logueado;
+        logueado = UserFirebase.logueado; //1.Gollge, 2.Usuario
+
+        if(logueado == 1)
         {
-           // userQuery();
+            campoName.setText("Usuario Google");
+
+        }else if(logueado == 2){
+
+            usuarioLogueado();
         }
+
 
     }
 
-
+    void usuarioLogueado(){
+        recibirListUsuario = UserFirebase.usuarioList;
+        boolean autenticado = false;
+        int i = 0;
+        for(i = 0; (i < recibirListUsuario.size() && !autenticado); i++) {
+            if (recibirListUsuario.get(i).getAutenticado() == 1) {
+                autenticado = true;
+                campoName.setText(recibirListUsuario.get(i).getName());
+                campoEmail.setText(recibirListUsuario.get(i).getEmail());
+                campoPassword.setText(recibirListUsuario.get(i).getPassword());
+                campoId.setText(recibirListUsuario.get(i).getId());
+                String imag = recibirListUsuario.get(i).getImagen();
+                Glide.with(this).load(imag).into(campoPhoto);
+            }
+        }
+    }
 
     private void setupActionBar() {
         android.support.v7.app.ActionBar actionBar= getSupportActionBar();
@@ -109,19 +128,13 @@ public class UsuarioAtivity extends AppCompatActivity implements GoogleApiClient
     }
 
 
-    void inicilizarFirebase()
-    {
-        mDatabase = FirebaseDatabase.getInstance().getReference(); //Inicia la referencia con la base de datos en el nodo principal 'mRootReference'
-       // mDatabase.setPersistenceEnable(true);
-        mStorageRef = FirebaseStorage.getInstance().getReference();
-    }
-
     public  void init()
     {
         campoName = (EditText) findViewById(R.id.ediNameUserR);
         campoEmail = (EditText) findViewById(R.id.ediEmailUserR);
         campoPassword = (EditText) findViewById(R.id.ediPasswordUserR);
         campoPhoto = (ImageView) findViewById(R.id.imgPhotoUserR);
+        campoId = (TextView) findViewById(R.id.texId);
     }
 
 
@@ -129,9 +142,9 @@ public class UsuarioAtivity extends AppCompatActivity implements GoogleApiClient
         final String name = campoName.getText().toString();
         final String email = campoEmail.getText().toString();
         final String password = campoPassword.getText().toString();
-        boolean requerimientos = false;
+        final String idU = campoId.getText().toString();
 
-        UserFirebase userFirebase = new  UserFirebase();
+        boolean requerimientos = false;
 
 
         switch (view.getId()) {
@@ -140,28 +153,53 @@ public class UsuarioAtivity extends AppCompatActivity implements GoogleApiClient
                 if (requerimientos) {
                     if (modo == 0 ){ //Nuevo
                         userFirebase.insertUser(name, email, password, filePath);
+                        Toast.makeText(getApplicationContext(), getString(R.string.s_Firebase_registro), Toast.LENGTH_SHORT).show();
                         limpiar();
                     }else if(modo == 1){ //Modificar
-                        userFirebase.insertUser(name, email, password, filePath);
+                        userFirebase.updateUser(idU, name, email, password, filePath);
+                        Toast.makeText(getApplicationContext(), getString(R.string.s_Firebase_registro), Toast.LENGTH_SHORT).show();
                         limpiar();
-                        modo =0;
                     }
                 }
                 break;
             case R.id.imaNew:
                 limpiar();
+                modo=0;
                 break;
 
             case R.id.imaDelete:
 
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(getString(R.string.s_Firebase_user_eliminar) + ": " + campoName.getText().toString())
+                        .setTitle(getString(R.string.s_Firebase_user_eliminar_continua));
+
+                builder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        eliminarUser(idU);
+                        limpiar();
+                        modo =0;
+                    }
+                });
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+
+                });
+                builder.show();
                 break;
+
             case R.id.imgPhotoUserR:
                 imagenGallery();
                 break;
+        }
     }
 
+    void eliminarUser(String id)
+    {
+        userFirebase.deleteUsers(id);
     }
-
 
     /*
       Validar campos: Vacios o nulo
@@ -221,6 +259,7 @@ public class UsuarioAtivity extends AppCompatActivity implements GoogleApiClient
         campoName.setText("");
         campoEmail.setText("");
         campoPassword.setText("");
+        campoId.setText("");
         campoPhoto.setImageResource(R.drawable.ic_person_red_24dp);
 
     }
@@ -228,11 +267,6 @@ public class UsuarioAtivity extends AppCompatActivity implements GoogleApiClient
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-    }
-
-    public List<Usuario> getListUsuario()
-    {
-        return usuarioList;
     }
 
 
