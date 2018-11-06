@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import co.edu.edua.compumovil.gr02_20182.lab4.Adapter.AdapterDataRecycler_food;
+import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.FoodFirebase;
 import co.edu.edua.compumovil.gr02_20182.lab4.Models.Comida;
 import co.edu.edua.compumovil.gr02_20182.lab4.R;
 import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLite;
@@ -53,14 +54,11 @@ public class FragmentListFoodRecycler extends Fragment {
 
     public void openRecyclerFood(View vista)
     {
-        // Define final variables since they have to be accessed from inner class
-        DatabaseSQLiteFood databasesqlitefood = new DatabaseSQLiteFood();
-        final DatabaseSQLite databaseSqlite = DatabaseSQLite.getInstance(getContext());
-        databaseSqlite.open();
-        comidaList = databasesqlitefood.getListComida(); //recibir lista
+
+        comidaList = FoodFirebase.foodList; //recibir lista
         recyclerC= (RecyclerView) vista.findViewById(R.id.recyclerFood);
         recyclerC.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapterfood = new AdapterDataRecycler_food(comidaList);
+        adapterfood = new AdapterDataRecycler_food(comidaList, getContext());
         recyclerC.setAdapter(adapterfood);
         //metodo onclik de seleccion de las comida
         adapterfood.setOnClickListener(new View.OnClickListener() {

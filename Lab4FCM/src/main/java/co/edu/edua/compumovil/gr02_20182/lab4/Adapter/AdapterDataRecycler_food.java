@@ -1,5 +1,6 @@
 package co.edu.edua.compumovil.gr02_20182.lab4.Adapter;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,8 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +26,18 @@ public class AdapterDataRecycler_food extends
 
         List<Comida> comidaList;
         List<Comida> comidaListfull;
+        Context contesto;
 
         private View.OnClickListener listener;
 
 
 
-    public AdapterDataRecycler_food(List<Comida> comidaList) {
+    public AdapterDataRecycler_food(List<Comida> comidaList, Context context) {
 
         this.comidaList = comidaList;
         this.comidaListfull = new ArrayList<>(comidaList);
+        this.contesto = context;
+
         }
 
 
@@ -52,9 +58,9 @@ public class AdapterDataRecycler_food extends
         public void onBindViewHolder(AdapterDataRecycler_food.ViewHolderDatos holder, int position) {
             holder.name.setText(comidaList.get(position).getName());
             holder.price.setText(comidaList.get(position).getPreci()+"");
-            //byte[] data = comidaList.get(position).getPhoto();
-          // Bitmap image = toBitmap(data);
-           // holder.photo.setImageBitmap(image);
+            String imag = comidaList.get(position).getImagen();
+            Glide.with(contesto).load(imag).into(holder.photo);
+
         }
 
         @Override
