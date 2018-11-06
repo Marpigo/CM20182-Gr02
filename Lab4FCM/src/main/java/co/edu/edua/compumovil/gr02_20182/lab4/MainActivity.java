@@ -1,5 +1,6 @@
 package co.edu.edua.compumovil.gr02_20182.lab4;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,12 +17,14 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleApiClient googleApiClient;
+    public static Context contesto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        contesto = this;
 
 
 

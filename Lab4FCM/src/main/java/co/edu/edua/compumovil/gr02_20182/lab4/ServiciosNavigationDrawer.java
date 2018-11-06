@@ -31,19 +31,32 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.List;
+
+import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.DrinkFirebase;
+import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.FoodFirebase;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.AcercaDeFragment;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.ConfigurationFragment;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.FragmentListDrinkRecycler;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.FragmentListFoodRecycler;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.PerfilFragment;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.ServicesBlankFragment;
+import co.edu.edua.compumovil.gr02_20182.lab4.Models.Bebida;
+import co.edu.edua.compumovil.gr02_20182.lab4.Models.Comida;
 
 public class ServiciosNavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         FragmentListDrinkRecycler.OnFragmentInteractionListener,
-        FragmentListFoodRecycler.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedListener  {
+        FragmentListFoodRecycler.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedListener {
+
+
+    static List<Bebida> recibirListDrink;
+    static List<Comida> recibirListFood;
+
 
 
     private GoogleApiClient googleApiClient;
@@ -98,8 +111,28 @@ public class ServiciosNavigationDrawer extends AppCompatActivity
 
 
         autenticadoUser();
-
+        iniciarFirebaseListDrink();
+        iniciarFirebaseListFood();
     }
+
+    void iniciarFirebaseListDrink()
+    {
+        DrinkFirebase drinkFirebase = new  DrinkFirebase();
+        drinkFirebase.limpiarLista();
+        drinkFirebase.cargarListDrink();
+        recibirListDrink = DrinkFirebase.drinkList;
+    }
+
+    void iniciarFirebaseListFood()
+    {
+        FoodFirebase foodFirebase = new FoodFirebase();
+        foodFirebase.limpiarLista();
+        foodFirebase.cargarListFood();
+        recibirListFood = FoodFirebase.foodList;
+    }
+
+
+
 
     public void autenticadoUser()
     {

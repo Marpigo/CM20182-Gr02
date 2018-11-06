@@ -1,5 +1,7 @@
 package co.edu.edua.compumovil.gr02_20182.lab4.Adapter;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
@@ -11,11 +13,15 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import co.edu.edua.compumovil.gr02_20182.lab4.MainActivity;
 import co.edu.edua.compumovil.gr02_20182.lab4.Models.Bebida;
 import co.edu.edua.compumovil.gr02_20182.lab4.R;
+import co.edu.edua.compumovil.gr02_20182.lab4.ServiciosNavigationDrawer;
 
 
 public class AdapterDataRecycler_drink extends RecyclerView.Adapter<AdapterDataRecycler_drink.ViewHolderDatos>
@@ -26,11 +32,13 @@ public class AdapterDataRecycler_drink extends RecyclerView.Adapter<AdapterDataR
     List<Bebida> bebidaList;
     List<Bebida> bebidaListfull;
     private View.OnClickListener listener;
+    Context contesto;
 
-    public AdapterDataRecycler_drink(List<Bebida> bebidaList) {
+    public AdapterDataRecycler_drink(List<Bebida> bebidaList, Context context) {
 
         this.bebidaList = bebidaList;
         this.bebidaListfull = new ArrayList<>(bebidaList);
+         this.contesto = context;
 
     }
 
@@ -38,6 +46,7 @@ public class AdapterDataRecycler_drink extends RecyclerView.Adapter<AdapterDataR
     @Override
     public AdapterDataRecycler_drink.ViewHolderDatos onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_drink_list,null,false);
+
 
 
         /*evento click en las comida*/
@@ -52,9 +61,9 @@ public class AdapterDataRecycler_drink extends RecyclerView.Adapter<AdapterDataR
         holder.name.setText(bebidaList.get(position).getName());
         holder.price.setText(bebidaList.get(position).getPrice()+"");
 
-      //  byte[] data = bebidaList.get(position).getPhoto();
-       // Bitmap image = toBitmap(data);
-       // holder.photo.setImageBitmap(image);
+        String imag = bebidaList.get(position).getImagen();
+        Glide.with(contesto).load(imag).into(holder.photo);
+
     }
 
 

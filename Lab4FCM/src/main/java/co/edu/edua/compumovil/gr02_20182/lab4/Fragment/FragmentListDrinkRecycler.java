@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import co.edu.edua.compumovil.gr02_20182.lab4.Adapter.AdapterDataRecycler_drink;
+import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.DrinkFirebase;
 import co.edu.edua.compumovil.gr02_20182.lab4.Models.Bebida;
 import co.edu.edua.compumovil.gr02_20182.lab4.R;
 import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLite;
@@ -48,16 +49,13 @@ public class FragmentListDrinkRecycler extends Fragment {
 
     public void generarDatosRecycler(View vista)
     {
-        final DatabaseSQLiteDrink databasesqlitedrink = new DatabaseSQLiteDrink();
-        final DatabaseSQLite databaseSqlite = DatabaseSQLite.getInstance(getContext());
-        databaseSqlite.open();
         recycler= (RecyclerView) vista.findViewById(R.id.recyclerDrink);
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         //recycler.setLayoutManager(new GridLayoutManager(this, 2)); ver en dos columna la informacion
-        bebidaList = databasesqlitedrink.getListBebida(); //recibir lista
+        bebidaList = DrinkFirebase.drinkList; //recibir lista
 
         //  Toast.makeText(getContext(), "SIZE bebida : " + databasesqlitedrink.getListBebida().size(), Toast.LENGTH_SHORT).show();
-        adapterdrink = new AdapterDataRecycler_drink(bebidaList);//llenar el adaptador con la lista
+        adapterdrink = new AdapterDataRecycler_drink(bebidaList, getContext());//llenar el adaptador con la lista
         recycler.setAdapter(adapterdrink);
 
         adapterdrink.setOnClickListener(new View.OnClickListener() {
