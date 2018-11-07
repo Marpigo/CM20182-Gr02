@@ -18,8 +18,7 @@ import co.edu.edua.compumovil.gr02_20182.lab4.Adapter.AdapterDataRecycler_drink;
 import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.DrinkFirebase;
 import co.edu.edua.compumovil.gr02_20182.lab4.Models.Bebida;
 import co.edu.edua.compumovil.gr02_20182.lab4.R;
-import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLite;
-import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLiteDrink;
+
 
 
 public class FragmentListDrinkRecycler extends Fragment {

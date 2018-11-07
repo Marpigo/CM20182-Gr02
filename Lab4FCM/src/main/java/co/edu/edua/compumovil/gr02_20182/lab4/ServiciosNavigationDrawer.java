@@ -17,7 +17,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.SearchView;
@@ -31,14 +30,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.List;
 
 import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.DrinkFirebase;
 import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.FoodFirebase;
+import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.MiFirebaseInstanceIdService;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.AcercaDeFragment;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.ConfigurationFragment;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.FragmentListDrinkRecycler;
@@ -70,11 +68,15 @@ public class ServiciosNavigationDrawer extends AppCompatActivity
     MenuItem searchItem;
     public static int buscarrecycler =0; //1. busca drink, 2. Buscar
 
+    //MiFirebaseInstanceIdService miFirebaseInstanceIdService = new MiFirebaseInstanceIdService(); ////////////////////////////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.servicios_navigation_drawer);
+
+      //  miFirebaseInstanceIdService.registerTokenServidor(); ////////////////////////////////borrame
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -229,10 +231,19 @@ public class ServiciosNavigationDrawer extends AppCompatActivity
             progreso.setMessage(getString(R.string.s_web_loading));
             progreso.show();
 
-            syncronizar = true;
-            syncronizarDataLocal();
-            syncronizar = false;
+            //Validar si hay conexion de internet
+            ConnectivityManager con = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkinfo = con.getActiveNetworkInfo();
+            if (networkinfo != null && networkinfo.isConnected()) {
+                iniciarFirebaseListDrink();
+                iniciarFirebaseListFood();
+
+            } else {
+                Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_conexion), Toast.LENGTH_SHORT).show();
+            }
+
             progreso.hide();
+
         } else if (id == R.id.nav_configuration) {
             openFragmentConfiguration();
         } else if (id == R.id.nav_Sing_off) {
@@ -263,21 +274,6 @@ public class ServiciosNavigationDrawer extends AppCompatActivity
         }
     }
 
-    private void syncronizarDataLocal(){
-
-        //Validar si hay conexion de internet
-        ConnectivityManager con = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkinfo = con.getActiveNetworkInfo();
-        if (networkinfo != null && networkinfo.isConnected()) {
-            if(syncronizar)
-            {
-
-                Toast.makeText(getApplicationContext(), "Update bd Local", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            Toast.makeText(getApplicationContext(), getString(R.string.s_web_not_conexion), Toast.LENGTH_SHORT).show();
-        }
-    }
 
     private void openActividadFood() {
         Intent miIntent = new Intent(ServiciosNavigationDrawer.this, FoodActivity.class);

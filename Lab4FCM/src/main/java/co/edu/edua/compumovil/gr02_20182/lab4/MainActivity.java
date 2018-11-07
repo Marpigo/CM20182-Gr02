@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -13,16 +15,21 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.MiFirebaseInstanceIdService;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
+    private static final String TAG = "Notificación";
     private GoogleApiClient googleApiClient;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -36,9 +43,27 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         userAutenticadoEstado();
 
+        notificaciones();
 
 
     }
+
+    void notificaciones ()
+    {
+        String infoTextView ="";
+        //infoTextView = (TextView) findViewById(R.id.infoTextView);
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                String value = getIntent().getExtras().getString(key);
+                //infoTextView.append("\n" + key + ": " + value);
+                infoTextView +=  "\n" + key + ": " + value;
+            }
+        }
+        Toast.makeText(getApplicationContext(), infoTextView, Toast.LENGTH_SHORT).show();
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "Token: " + token);
+    }
+
 
     void userAutenticadoEstado()
     {

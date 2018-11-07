@@ -1,5 +1,6 @@
 package co.edu.edua.compumovil.gr02_20182.lab4.Fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
@@ -8,22 +9,28 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.List;
 
 import co.edu.edua.compumovil.gr02_20182.lab4.Adapter.AdapterDataRecycler_food;
 import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.FoodFirebase;
+import co.edu.edua.compumovil.gr02_20182.lab4.LoguinTabbed;
 import co.edu.edua.compumovil.gr02_20182.lab4.Models.Comida;
 import co.edu.edua.compumovil.gr02_20182.lab4.R;
-import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLite;
-import co.edu.edua.compumovil.gr02_20182.lab4.SQLiteconexion.DatabaseSQLiteFood;
+
+import static com.android.volley.VolleyLog.TAG;
 
 
 public class FragmentListFoodRecycler extends Fragment {
-
 
 
     private FragmentListDrinkRecycler.OnFragmentInteractionListener mListener;
@@ -31,8 +38,8 @@ public class FragmentListFoodRecycler extends Fragment {
     /*Variables recycler Comida*/
     public static List<Comida> comidaList;
     RecyclerView recyclerC;
-     public String nameC, hourC, typeC, timeC, preciC, ingredientC;
-    public byte [] photodetallC;
+    public String nameC, hourC, typeC, timeC, preciC, ingredientC;
+    public byte[] photodetallC;
 
     public static AdapterDataRecycler_food adapterfood;
 
@@ -40,7 +47,7 @@ public class FragmentListFoodRecycler extends Fragment {
         // Required empty public constructor
     }
 
-    @Override
+     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -48,6 +55,7 @@ public class FragmentListFoodRecycler extends Fragment {
         view = inflater.inflate(R.layout.fragment_list_food_recycler, container, false);
 
         openRecyclerFood(view);
+
 
         return  view;
     }

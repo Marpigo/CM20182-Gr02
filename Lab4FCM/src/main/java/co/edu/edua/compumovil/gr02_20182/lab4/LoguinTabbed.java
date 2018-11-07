@@ -9,17 +9,24 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.LoguinFirebaseFragment;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.LoguinGoogleFragment;
 
 public class LoguinTabbed extends AppCompatActivity {
 
+    private static final String TAG = "Notifica";
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -34,6 +41,8 @@ public class LoguinTabbed extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +65,8 @@ public class LoguinTabbed extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
 
-
     }
+
 
 
     @Override

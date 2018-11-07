@@ -1,6 +1,6 @@
 package co.edu.edua.compumovil.gr02_20182.lab4.Adapter;
 
-import android.app.Activity;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,10 +18,8 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.edu.edua.compumovil.gr02_20182.lab4.MainActivity;
 import co.edu.edua.compumovil.gr02_20182.lab4.Models.Bebida;
 import co.edu.edua.compumovil.gr02_20182.lab4.R;
-import co.edu.edua.compumovil.gr02_20182.lab4.ServiciosNavigationDrawer;
 
 
 public class AdapterDataRecycler_drink extends RecyclerView.Adapter<AdapterDataRecycler_drink.ViewHolderDatos>

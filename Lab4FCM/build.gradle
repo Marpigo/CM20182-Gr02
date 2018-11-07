@@ -52,6 +52,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:16.0.0' //autenticacion google
     implementation 'com.github.bumptech.glide:glide:3.7.0' //para ver foto de url con glide
 
+    implementation 'com.squareup.okhttp3:okhttp:3.2.0' //
+
 }
 
 apply plugin: 'com.google.gms.google-services'
