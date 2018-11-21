@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
                 openLoguin();
             }
         }, 3000);
-
     }
 
 
@@ -26,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
         Intent miIntent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(miIntent);
         finish();
-
     }
 
 }

@@ -1,5 +1,6 @@
 package co.edu.udea.compumovil.gr02_20182.lab3.SQLiteconexion;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,12 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.udea.compumovil.gr02_20182.lab3.Constants.Constantes;
+import co.edu.udea.compumovil.gr02_20182.lab3.LoginActivity;
 import co.edu.udea.compumovil.gr02_20182.lab3.Models.Usuario;
 
 public class DatabaseSQLiteUser {
 
     private static DatabaseSQLite databasesqlit;
 
+    Activity activity;
 
     public List<Usuario> getListUsuario() {
         Usuario usuarios = null;
@@ -88,10 +91,16 @@ public class DatabaseSQLiteUser {
         Usuario usuarios = null;
         List<Usuario> usuarioList = new ArrayList<>();
 
+        int i = 0;
+            for (i = 0; i< usuarioList.size(); i++){
+
+                Toast.makeText(LoginActivity.activity, "Usuario: "  + usuarioList.get(i).getName(), Toast.LENGTH_SHORT).show();
+
+            }
+
         try{
 
             Cursor cursor = databasesqlit.database.rawQuery("SELECT name, email, password, photo FROM usuario WHERE name ='"+ user +"' AND password='" + password +"'", null);
-            //Cursor cursor = databasesqlit.database.rawQuery("SELECT name, email, password, photo FROM usuario WHERE name = ?", new String[]{user});
             while (cursor.moveToNext()){
                 usuarios=new Usuario();
                 usuarios.setName(cursor.getString(0));

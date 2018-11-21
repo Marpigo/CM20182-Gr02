@@ -36,7 +36,6 @@ import java.util.List;
 
 import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.DrinkFirebase;
 import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.FoodFirebase;
-import co.edu.edua.compumovil.gr02_20182.lab4.Firebase.MiFirebaseInstanceIdService;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.AcercaDeFragment;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.ConfigurationFragment;
 import co.edu.edua.compumovil.gr02_20182.lab4.Fragment.FragmentListDrinkRecycler;
@@ -208,8 +207,8 @@ public class ServiciosNavigationDrawer extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.action_close_navigation) {
             finish();
-
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -286,7 +285,6 @@ public class ServiciosNavigationDrawer extends AppCompatActivity
     private void openFragmentServices() {
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.fragmentContainers, new ServicesBlankFragment()).commit();
-
     }
     private void openFragmentConfiguration() {
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();

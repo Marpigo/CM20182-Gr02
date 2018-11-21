@@ -1,6 +1,7 @@
 package co.edu.udea.compumovil.gr02_20182.lab3;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -55,7 +56,7 @@ public class LoginActivity extends AppCompatActivity{
     ArrayList<Usuario> userList;
     ProgressDialog progreso;
 
-
+    public static  Activity activity;
 
 
     @Override
@@ -64,6 +65,8 @@ public class LoginActivity extends AppCompatActivity{
         setContentView(R.layout.activity_login);
 
         butenter_services = (Button) findViewById(R.id.butLoguin);
+
+        activity= this;
 
         //campo a buscar
         campoName = (EditText) findViewById(R.id.ediName_loguin);
@@ -134,14 +137,18 @@ public class LoginActivity extends AppCompatActivity{
         final DatabaseSQLite databasesqlit = DatabaseSQLite.getInstance(this);
         databasesqlit.open();
 
+
         String name;
         String password;
         int consulta = 0;
+        int i =0;
 
         name = campoName.getText().toString();
         password = campoPassword.getText().toString();
 
+        Toast.makeText(this, "Usuario: "  + name + " - " +password, Toast.LENGTH_SHORT).show();
         userList = databasesqliteduser.getUser(name, password);
+        Toast.makeText(this, "Tamaño lista: "  + userList.size(), Toast.LENGTH_SHORT).show();
 
         uservalido = userList.size()>0?true:false;
 
